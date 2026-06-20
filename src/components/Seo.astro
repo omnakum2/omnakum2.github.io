@@ -1,0 +1,21 @@
+---
+import { SEO } from 'astro-seo';
+import { resolveSeo } from '../lib/seo';
+import type { SeoConfig } from '../types/seo';
+
+interface Props {
+  seo: SeoConfig;
+}
+const { seo } = Astro.props;
+const resolved = resolveSeo(seo);
+---
+
+<SEO
+  title={resolved.title}
+  description={resolved.description}
+  canonical={resolved.canonical}
+  openGraph={resolved.openGraph}
+  twitter={resolved.twitter}
+  noindex={resolved.noindex}
+  nofollow={resolved.nofollow}
+/>

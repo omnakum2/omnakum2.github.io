@@ -1,0 +1,42 @@
+---
+import SectionHeader from '../components/SectionHeader.astro';
+import Card from '../components/Card.astro';
+import { services } from '../data/services';
+---
+
+<section id="services" class="section-warm-0 relative overflow-hidden py-24 sm:py-32">
+  <div
+    class="bg-line-grid pointer-events-none absolute inset-0"
+    style="--grid-line: rgba(30,28,27,0.06); --grid-size: 80px;"
+  ></div>
+
+  <div class="relative mx-auto max-w-6xl px-6">
+    <SectionHeader
+      eyebrow="Services"
+      title="How I can help"
+      intro="Four ways I work with founders and teams — pick the one that fits the moment you're in."
+      tone="light"
+      accent="steel-blue"
+    />
+
+    <ul
+      class="grid grid-cols-1 gap-5 lg:grid-cols-2"
+      data-reveal-stagger
+    >
+      {services.map((s) => (
+        <li data-reveal class="h-full">
+          <Card
+            variant="feature"
+            accent="steel-blue"
+            tone="light"
+            title={s.title}
+            description={s.description}
+            icon={s.icon}
+            tags={s.tags}
+            tagsLabel="What's Included"
+          />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

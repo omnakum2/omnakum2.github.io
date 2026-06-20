@@ -1,0 +1,23 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Pill {
+  label: string;
+  icon?: string;
+}
+interface Props {
+  pills: Pill[];
+}
+const { pills } = Astro.props;
+---
+
+<ul class="flex flex-wrap gap-2">
+  {
+    pills.map((pill) => (
+      <li class="inline-flex items-center gap-1.5 rounded-full border border-surface-2 bg-surface-1 px-3 py-1 text-sm text-ink-2">
+        {pill.icon && <Icon name={pill.icon} class="size-4 text-brand-primary" />}
+        {pill.label}
+      </li>
+    ))
+  }
+</ul>

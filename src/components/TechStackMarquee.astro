@@ -1,0 +1,143 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { TechLogo } from '../data/techStack';
+
+interface Props {
+  logos: TechLogo[];
+  /** Animation duration. Lower = faster. */
+  durationSeconds?: number;
+  /** Scroll direction. */
+  direction?: 'left' | 'right';
+}
+
+const { logos, durationSeconds = 45, direction = 'left' } = Astro.props;
+
+// Duplicate logos so the looped scroll has seamless content on both ends.
+const belt = [...logos, ...logos];
+---
+
+<div
+  class:list={['marquee group', direction === 'right' && 'is-reverse']}
+  style={`--duration:${durationSeconds}s;`}
+  aria-label="Tech stack"
+>
+  <ul class="marquee-track">
+    {belt.map((logo, i) => (
+      <li
+        class="belt-item"
+        style={`--brand:${logo.color};`}
+        aria-hidden={i >= logos.length}
+      >
+        <Icon name={logo.icon} class="belt-icon" />
+        <span class="belt-label type-link-20">{logo.name}</span>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .marquee {
+    position: relative;
+    overflow: hidden;
+    /* Soft fade on both edges so items don't pop in/out */
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 1.25rem;
+    padding: 1.5rem 0;
+    animation: marquee-scroll var(--duration) linear infinite;
+    will-change: transform;
+  }
+
+  .is-reverse .marquee-track {
+    animation-direction: reverse;
+  }
+
+  /* Pause the whole row when hovering anywhere in the strip,
+     so you can mouse to a specific tile without it sliding away. */
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee-scroll {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+  }
+
+  /* Tile */
+  .belt-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 1.5rem;
+    border: 1px solid rgba(252, 251, 244, 0.10);
+    border-radius: 9999px;
+    background: rgba(252, 251, 244, 0.03);
+    backdrop-filter: blur(2px);
+    white-space: nowrap;
+    transition:
+      transform 0.35s ease,
+      background-color 0.35s ease,
+      border-color 0.35s ease;
+  }
+
+  .belt-item:hover {
+    transform: translateY(-3px);
+    background: rgba(252, 251, 244, 0.07);
+    border-color: rgba(252, 251, 244, 0.25);
+  }
+
+  /* Icon — grayscale + dimmed default, snaps to brand color on tile hover. */
+  .belt-item :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--brand);
+    filter: grayscale(1);
+    opacity: 0.65;
+    transition:
+      filter 0.35s ease,
+      opacity 0.35s ease,
+      transform 0.35s ease;
+  }
+
+  .belt-item:hover :global(svg) {
+    filter: grayscale(0);
+    opacity: 1;
+    transform: scale(1.12);
+  }
+
+  .belt-label {
+    color: rgba(252, 251, 244, 0.7);
+    transition: color 0.35s ease;
+  }
+
+  .belt-item:hover .belt-label {
+    color: rgba(252, 251, 244, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+    .belt-item,
+    .belt-item :global(svg),
+    .belt-label {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+</style>

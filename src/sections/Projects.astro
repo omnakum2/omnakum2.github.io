@@ -1,0 +1,89 @@
+---
+import SectionHeader from '../components/SectionHeader.astro';
+import Card from '../components/Card.astro';
+import { projects } from '../data/projects';
+
+// Showcase the three Card variants in one section:
+//  - lead   → feature variant, full width, "Highlights" bullet list
+//  - middle → feature variant, 2-col grid, same shape but smaller column
+//  - more   → linear variant, dense list under a small divider
+const [lead, ...rest] = projects;
+const middle = rest.slice(0, 2);
+const more = rest.slice(2);
+---
+
+<section id="projects" class="section-warm-2 relative py-24 sm:py-32">
+  <div class="relative mx-auto max-w-6xl px-6">
+    <SectionHeader
+      eyebrow="Work"
+      title="Selected projects"
+      intro="A few things I've built recently — products that shipped, scaled, and solved real problems for the people using them."
+      tone="light"
+      accent="steel-blue"
+    />
+
+    <div class="mt-4 flex flex-col gap-6" data-reveal-stagger>
+      {/* === Lead project — full width, feature variant === */}
+      <div data-reveal>
+        <Card
+          variant="feature"
+          accent="steel-blue"
+          tone="light"
+          title={lead.title}
+          description={lead.description}
+          icon={lead.icon}
+          tags={lead.highlights}
+          tagsLabel="Highlights"
+          href={lead.href}
+        />
+      </div>
+
+      {/* === Middle row — 2 feature cards side by side === */}
+      <ul class="grid grid-cols-1 gap-5 lg:grid-cols-2 list-none m-0 p-0">
+        {middle.map((p) => (
+          <li data-reveal class="h-full">
+            <Card
+              variant="feature"
+              accent="steel-blue"
+              tone="light"
+              title={p.title}
+              description={p.description}
+              icon={p.icon}
+              tags={p.highlights}
+              tagsLabel="Highlights"
+              href={p.href}
+            />
+          </li>
+        ))}
+      </ul>
+
+      {/* === More projects — small divider + linear list === */}
+      {more.length > 0 && (
+        <div class="mt-6" data-reveal>
+          <div class="flex items-center gap-3 mb-5 text-dark-gray-1/55">
+            <span class="h-px flex-1 bg-dark-gray-1/15"></span>
+            <span class="type-caption uppercase tracking-[0.22em]">More projects</span>
+            <span class="h-px flex-1 bg-dark-gray-1/15"></span>
+          </div>
+
+          <ul class="flex flex-col gap-3 list-none m-0 p-0" data-reveal-stagger>
+            {more.map((p) => (
+              <li data-reveal>
+                <Card
+                  variant="linear"
+                  accent="steel-blue"
+                  tone="light"
+                  title={p.title}
+                  description={p.description}
+                  icon={p.icon}
+                  tags={p.tech}
+                  href={p.href}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  label: string;
+  icon?: string;
+  variant?: 'neutral' | 'tinted' | 'outline';
+  as?: 'span' | 'li';
+}
+
+const { label, icon, variant = 'neutral', as = 'span' } = Astro.props;
+const Tag = as;
+
+const styles: Record<string, string> = {
+  neutral: 'bg-floral-white-1 border border-gainsboro text-dark-gray-1',
+  tinted:  'bg-sky-blue/20 border border-sky-blue/40 text-dark-slate-gray',
+  outline: 'bg-transparent border border-dark-gray-1/15 text-dark-gray-1',
+};
+---
+
+<Tag class={`type-caption-12 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-colors ${styles[variant]}`}>
+  {icon && <Icon name={icon} class="size-3.5 opacity-70" />}
+  {label}
+</Tag>

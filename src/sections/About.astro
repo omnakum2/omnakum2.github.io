@@ -1,0 +1,102 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionHeader from '../components/SectionHeader.astro';
+
+const ABOUT_MASCOT_SRC = '/mascots/about_mascot.webp';
+
+const quickFacts = [
+  { value: '4', label: 'Internships shipped' },
+  { value: '20+', label: 'Projects launched' },
+  { value: '6', label: 'Hackathons won' },
+];
+
+const interests = [
+  { label: 'Startups', icon: 'lucide:rocket' },
+  { label: 'Hackathons', icon: 'lucide:zap' },
+  { label: 'Internships', icon: 'lucide:briefcase' },
+  { label: 'Travel', icon: 'lucide:plane' },
+  { label: 'Open Source', icon: 'lucide:git-branch' },
+];
+---
+
+<section id="about" class="section-warm-2 relative py-24 sm:py-32">
+  <div class="relative mx-auto max-w-6xl px-6">
+    <SectionHeader
+      eyebrow="About me"
+      title="The person behind the work"
+      intro="Designer-coder hybrid building products that ship — driven by curiosity, hackathons, and the joy of seeing real users use what I make."
+      accent="hot-pink"
+    />
+
+    <div class="mt-4 grid items-start gap-14 lg:grid-cols-12">
+      <!-- Mascot column -->
+      <div class="lg:col-span-5 flex justify-center lg:justify-start" data-reveal="scale">
+        <div class="relative">
+          <img
+            src={ABOUT_MASCOT_SRC}
+            alt="Mascot"
+            width="400"
+            height="400"
+            loading="lazy"
+            decoding="async"
+            class="relative w-64 sm:w-72 lg:w-80 h-auto select-none"
+          />
+        </div>
+      </div>
+
+      <!-- Content column -->
+      <div class="lg:col-span-7 space-y-7" data-reveal-stagger>
+        <div data-reveal class="type-body-17 space-y-5 text-dark-gray-1/85">
+          <p>
+            College kept me curious — half of it spent in classrooms, the other
+            half scattered across startups, hackathon halls, and late-night
+            Figma files. Somewhere along the way, building products stopped
+            feeling like coursework and started feeling like a craft.
+          </p>
+          <p>
+            I move between code and design without picking a side. I care about
+            what users feel when they open a screen, and equally about how the
+            same screen ships, scales, and stays maintainable months later.
+          </p>
+          <p>
+            Outside work I'm reading short books, traveling on a whim, and
+            usually surrounded by a small circle of people who push me to think
+            sharper. That's the version of me you'd meet over coffee.
+          </p>
+        </div>
+
+        <!-- Interest pills -->
+        <ul data-reveal class="flex flex-wrap gap-2">
+          {interests.map((i) => (
+            <li class="type-caption-12 inline-flex items-center gap-1.5 rounded-full border border-dark-gray-1/15 bg-floral-white px-3 py-1.5 text-dark-gray-1/80 transition hover:border-steel-blue hover:bg-sky-blue/15 hover:text-dark-slate-gray">
+              <Icon name={i.icon} class="size-3.5" />
+              {i.label}
+            </li>
+          ))}
+        </ul>
+
+        <!-- Quick fact strip -->
+        <dl data-reveal class="grid grid-cols-3 gap-3 rounded-3xl border border-dark-gray-1/10 bg-floral-white p-5">
+          {quickFacts.map((f) => (
+            <div class="text-center">
+              <dt class="type-h2-36 text-steel-blue">{f.value}</dt>
+              <dd class="type-caption mt-1 text-dark-gray-1/65">{f.label}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <!-- CTA -->
+        <div data-reveal>
+          <a
+            href="#contact"
+            class="type-link-20 group inline-flex items-center gap-2 rounded-full bg-dark-gray-1 px-6 py-3.5 text-floral-white transition-transform hover:-translate-y-0.5"
+          >
+            <Icon name="lucide:message-circle" class="size-5" />
+            Let's Talk
+            <Icon name="lucide:arrow-right" class="size-4 transition-transform group-hover:translate-x-1" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

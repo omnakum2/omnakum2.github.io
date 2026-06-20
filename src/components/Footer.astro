@@ -1,0 +1,15 @@
+---
+import { SITE } from '../consts';
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-dark-gray-1/10 bg-floral-white">
+  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 sm:flex-row">
+    <p class="type-caption text-dark-gray-1/70">© {year} {SITE.name}. All rights reserved.</p>
+    <ul class="flex gap-6">
+      <li><a href={SITE.social.github} target="_blank" rel="noopener noreferrer" class="type-caption text-dark-gray-1/70 transition hover:text-steel-blue">GitHub</a></li>
+      <li><a href={SITE.social.linkedin} target="_blank" rel="noopener noreferrer" class="type-caption text-dark-gray-1/70 transition hover:text-steel-blue">LinkedIn</a></li>
+      <li><a href={SITE.social.x} target="_blank" rel="noopener noreferrer" class="type-caption text-dark-gray-1/70 transition hover:text-steel-blue">X</a></li>
+    </ul>
+  </div>
+</footer>

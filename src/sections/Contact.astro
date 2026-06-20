@@ -1,0 +1,133 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionHeader from '../components/SectionHeader.astro';
+import { SITE } from '../consts';
+
+const WHATSAPP_URL = 'https://wa.me/0000000000';
+const CALENDAR_URL = 'https://cal.com/demo';
+
+const methods = [
+  {
+    label: 'Email',
+    detail: SITE.email,
+    icon: 'lucide:mail',
+    href: `mailto:${SITE.email}`,
+    note: 'Reply within 24h',
+  },
+  {
+    label: 'LinkedIn',
+    detail: 'Connect with me',
+    icon: 'lucide:linkedin',
+    href: SITE.social.linkedin,
+    note: 'Professional chat',
+  },
+  {
+    label: 'WhatsApp',
+    detail: 'Quick message',
+    icon: 'lucide:message-circle',
+    href: WHATSAPP_URL,
+    note: 'Fastest reply',
+  },
+  {
+    label: 'Schedule call',
+    detail: 'Book a 30-min slot',
+    icon: 'lucide:calendar',
+    href: CALENDAR_URL,
+    note: 'Free intro chat',
+  },
+];
+
+const socials = [
+  { label: 'GitHub',   icon: 'lucide:github',   href: SITE.social.github },
+  { label: 'LinkedIn', icon: 'lucide:linkedin', href: SITE.social.linkedin },
+  { label: 'X',        icon: 'lucide:twitter',  href: SITE.social.x },
+];
+---
+
+<section id="contact" class="section-warm-0 relative overflow-hidden py-24 sm:py-32">
+  <div
+    class="bg-line-grid pointer-events-none absolute inset-0"
+    style="--grid-line: rgba(30,28,27,0.06); --grid-size: 80px;"
+  ></div>
+
+  <div class="relative mx-auto max-w-6xl px-6">
+    <SectionHeader
+      eyebrow="Contact"
+      title="Let's build something together"
+      intro="Pick whichever channel works for you — email, LinkedIn, WhatsApp, or grab a quiet 30 minutes on my calendar."
+      tone="light"
+      accent="steel-blue"
+    />
+
+    {/* Contact method tiles */}
+    <ul
+      class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 list-none m-0 p-0"
+      data-reveal-stagger
+    >
+      {methods.map((m) => (
+        <li data-reveal class="h-full">
+          <a
+            href={m.href}
+            target={m.href.startsWith('mailto') ? '_self' : '_blank'}
+            rel="noopener noreferrer"
+            class="group flex flex-col gap-3 h-full rounded-2xl border border-dark-gray-1/10 bg-floral-white-1 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--color-steel-blue)] hover:shadow-xl hover:shadow-dark-slate-gray/15"
+          >
+            <div class="flex items-center gap-3">
+              <span class="inline-flex w-10 h-10 items-center justify-center rounded-xl bg-steel-blue/12 transition-transform duration-300 group-hover:scale-110">
+                <Icon name={m.icon} class="size-5 text-steel-blue" />
+              </span>
+              <span class="type-caption-12 uppercase tracking-[0.18em] text-dark-gray-1/60">
+                {m.label}
+              </span>
+            </div>
+
+            <p class="type-link-20 text-dark-gray-1">{m.detail}</p>
+
+            <div class="mt-auto flex items-center justify-between pt-1">
+              <span class="type-caption text-dark-gray-1/55">{m.note}</span>
+              <Icon
+                name="lucide:arrow-up-right"
+                class="size-4 text-steel-blue opacity-60 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1"
+              />
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    {/* Social divider + icons */}
+    <div class="mt-14" data-reveal>
+      <div class="flex items-center gap-3 mb-6 text-dark-gray-1/45">
+        <span class="h-px flex-1 bg-dark-gray-1/15"></span>
+        <span class="type-caption uppercase tracking-[0.22em]">or follow along</span>
+        <span class="h-px flex-1 bg-dark-gray-1/15"></span>
+      </div>
+
+      <div class="flex items-center justify-center gap-3">
+        {socials.map((s) => (
+          <a
+            href={s.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={s.label}
+            class="inline-flex size-11 items-center justify-center rounded-full border border-dark-gray-1/15 bg-floral-white-1 text-dark-gray-1/75 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-steel-blue)] hover:bg-steel-blue/10 hover:text-steel-blue"
+          >
+            <Icon name={s.icon} class="size-5" />
+          </a>
+        ))}
+      </div>
+    </div>
+
+    {/* Signoff */}
+    <p
+      data-reveal
+      class="type-h2-36 mt-14 text-center text-dark-gray-1/85"
+    >
+      Made with care
+      <span aria-hidden="true" class="text-steel-blue">.</span>
+      <span class="block type-large-body mt-2 text-dark-gray-1/55">
+        ツ Thanks for scrolling all the way down.
+      </span>
+    </p>
+  </div>
+</section>

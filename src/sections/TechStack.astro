@@ -1,0 +1,44 @@
+---
+import SectionHeader from '../components/SectionHeader.astro';
+import TechStackMarquee from '../components/TechStackMarquee.astro';
+import { techStack } from '../data/techStack';
+
+// Split into two belts so each row has its own personality and the page feels
+// alive without becoming chaotic. Slightly different speeds keep the eye moving.
+const half = Math.ceil(techStack.length / 2);
+const topRow = techStack.slice(0, half);
+const bottomRow = techStack.slice(half);
+---
+
+<section id="skills" class="section-dark relative overflow-hidden py-24 sm:py-32">
+  <!-- Whisper of structure on dark — barely there -->
+  <div
+    class="bg-line-grid pointer-events-none absolute inset-0 opacity-60"
+    style="--grid-line: rgba(252,251,244,0.035); --grid-size: 80px;"
+  ></div>
+
+  <div class="relative mx-auto max-w-6xl px-6">
+    <SectionHeader
+      eyebrow="Skills"
+      title="The stack I reach for"
+      intro="Tools and tech I keep close — code, design, and the bits in between. Hover any tile to see it come alive in its brand color."
+      tone="dark"
+      accent="sky-blue"
+    />
+  </div>
+
+  <!-- Marquees break the max-width so they bleed edge-to-edge -->
+  <div class="relative mt-2 space-y-2" data-reveal>
+    <TechStackMarquee logos={topRow} direction="left" durationSeconds={48} />
+    <TechStackMarquee logos={bottomRow} direction="right" durationSeconds={55} />
+  </div>
+
+  <!-- Small inline marker under the belts -->
+  <div class="relative mx-auto mt-10 max-w-6xl px-6">
+    <div data-reveal class="flex items-center gap-3 text-floral-white/45">
+      <span class="h-px flex-1 bg-floral-white/15"></span>
+      <span class="type-caption uppercase tracking-[0.22em]">always learning</span>
+      <span class="h-px flex-1 bg-floral-white/15"></span>
+    </div>
+  </div>
+</section>

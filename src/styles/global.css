@@ -1,0 +1,406 @@
+@import 'tailwindcss';
+
+@theme {
+  /* === Colors (source of truth: code-styles-2026-06-16) === */
+  --color-white: #ffffff;
+  --color-white-smoke: #f0f0f0;
+  --color-lavender: #e5e7eb;
+  --color-floral-white: #fcfbf4;
+  --color-floral-white-1: #fffcf6;
+  --color-gainsboro: #e1dacd;
+  --color-sky-blue: #7cceda;
+  --color-hot-pink: #ff4fa3;
+  --color-royal-blue: #0068e5;
+  --color-blue: #0000ee;
+  --color-steel-blue: #327f86;
+  --color-dark-slate-gray: #14545e;
+  --color-dark-gray: #1a1a18;
+  --color-dark-gray-1: #1e1c1b;
+  --color-black: #000000;
+  --color-black-1: #141413;
+
+  /* === Typography primitives === */
+  --font-crimson-pro: 'Crimson Pro', serif;
+  --font-plus-jakarta-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
+  --font-arial: Arial, sans-serif;
+
+  --text-12: 12px;
+  --text-13: 13px;
+  --text-14: 14px;
+  --text-15: 15px;
+  --text-16: 16px;
+  --text-17: 17px;
+  --text-18: 18px;
+  --text-19: 19px;
+  --text-20: 20px;
+  --text-21: 21px;
+  --text-24: 24px;
+  --text-32: 32px;
+  --text-36: 36px;
+  --text-48: 48px;
+  --text-56: 56px;
+  --text-80: 80px;
+
+  /* Semantic leading / tracking */
+  --leading-h1: 1.00;
+  --leading-h2: 1.10;
+  --leading-h2-56: normal;
+  --leading-h2-56-400: 1.00;
+  --leading-large-title: 1.10;
+  --leading-h2-48: normal;
+  --leading-h2-48-400: normal;
+  --leading-h2-36: 1.10;
+  --tracking-h2-36: -0.5px;
+  --leading-link: normal;
+  --tracking-link: -1px;
+  --leading-heading: 1.20;
+  --leading-heading-24: normal;
+  --leading-h3: normal;
+  --leading-heading-24-300: normal;
+  --leading-link-21: normal;
+  --leading-link-20: normal;
+  --leading-link-20-500: normal;
+  --leading-body: 1.60;
+  --leading-large-body: normal;
+  --tracking-large-body: -0.384px;
+  --leading-body-18: 1.50;
+  --leading-body-17: 1.76;
+  --tracking-body-17: -0.352px;
+  --leading-body-17-400: 1.66;
+  --leading-link-16: normal;
+  --leading-body-16: normal;
+  --leading-body-16-400: 1.60;
+  --tracking-body-16-400: -0.2px;
+  --leading-link-16-400: normal;
+  --leading-body-15: 1.52;
+  --tracking-body-15: -0.304px;
+  --leading-small-body: normal;
+  --tracking-small-body: -0.288px;
+  --leading-body-14: normal;
+  --leading-body-14-400: normal;
+  --leading-caption: normal;
+  --leading-button: normal;
+  --leading-caption-12: normal;
+  --leading-caption-12-500: normal;
+}
+
+/* === Base === */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-floral-white);
+  color: var(--color-dark-gray-1);
+  font-family: var(--font-plus-jakarta-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-sky-blue);
+  color: var(--color-black-1);
+}
+
+a {
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-steel-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-floral-white-1);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gainsboro);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-steel-blue);
+}
+
+/* === Section rhythm (alternating warm off-whites) === */
+.section-warm-0 { background: var(--color-floral-white); }
+.section-warm-1 { background: var(--color-floral-white-1); }
+.section-warm-2 { background: var(--color-white); }
+.section-dark   { background: var(--color-dark-gray-1); color: var(--color-floral-white); }
+
+/* === Line-grid backdrop (CSS only, no image) ===
+   Two thin linear gradients form a crisp grid.
+   --grid-line: line color, --grid-size: cell size, --grid-thickness: line width. */
+.bg-line-grid {
+  --grid-line: var(--color-gainsboro);
+  --grid-size: 64px;
+  --grid-thickness: 1px;
+  background-image:
+    linear-gradient(to right, var(--grid-line) var(--grid-thickness), transparent var(--grid-thickness)),
+    linear-gradient(to bottom, var(--grid-line) var(--grid-thickness), transparent var(--grid-thickness));
+  background-size: var(--grid-size) var(--grid-size);
+  background-position: -1px -1px;
+}
+
+.bg-line-grid-fine {
+  --grid-line: var(--color-gainsboro);
+  --grid-size: 32px;
+  --grid-thickness: 1px;
+  background-image:
+    linear-gradient(to right, var(--grid-line) var(--grid-thickness), transparent var(--grid-thickness)),
+    linear-gradient(to bottom, var(--grid-line) var(--grid-thickness), transparent var(--grid-thickness));
+  background-size: var(--grid-size) var(--grid-size);
+  background-position: -1px -1px;
+}
+
+/* === Scroll reveal === */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+[data-reveal="fade"] { transform: none; }
+[data-reveal="scale"] { transform: scale(0.96); }
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger children — apply data-reveal-stagger on a parent, data-reveal on each child */
+[data-reveal-stagger] > [data-reveal]:nth-child(1) { --reveal-delay: 0ms; }
+[data-reveal-stagger] > [data-reveal]:nth-child(2) { --reveal-delay: 80ms; }
+[data-reveal-stagger] > [data-reveal]:nth-child(3) { --reveal-delay: 160ms; }
+[data-reveal-stagger] > [data-reveal]:nth-child(4) { --reveal-delay: 240ms; }
+[data-reveal-stagger] > [data-reveal]:nth-child(5) { --reveal-delay: 320ms; }
+[data-reveal-stagger] > [data-reveal]:nth-child(6) { --reveal-delay: 400ms; }
+[data-reveal-stagger] > [data-reveal]:nth-child(n+7) { --reveal-delay: 480ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* === Typography components (38 type-* classes, deduped) === */
+@layer components {
+  .type-h1 {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-80);
+    font-weight: 400;
+    line-height: var(--leading-h1);
+  }
+  .type-h2 {
+    font-family: var(--font-plus-jakarta-sans);
+    font-size: var(--text-56);
+    font-weight: 600;
+    line-height: var(--leading-h2);
+  }
+  .type-h2-56 {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-56);
+    font-weight: 400;
+    line-height: var(--leading-h2-56);
+  }
+  .type-h2-56-400 {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-56);
+    font-weight: 400;
+    line-height: var(--leading-h2-56-400);
+  }
+  .type-large-title {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-56);
+    font-weight: 400;
+    line-height: var(--leading-large-title);
+  }
+  .type-h2-48 {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-48);
+    font-weight: 400;
+    line-height: var(--leading-h2-48);
+  }
+  .type-h2-48-400 {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-48);
+    font-weight: 400;
+    line-height: var(--leading-h2-48-400);
+  }
+  .type-h2-36 {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-36);
+    font-weight: 400;
+    line-height: var(--leading-h2-36);
+    letter-spacing: var(--tracking-h2-36);
+  }
+  .type-link {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-32);
+    font-weight: 700;
+    line-height: var(--leading-link);
+    letter-spacing: var(--tracking-link);
+  }
+  .type-heading {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-24);
+    font-weight: 700;
+    line-height: var(--leading-heading);
+  }
+  .type-heading-24 {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-24);
+    font-weight: 700;
+    line-height: var(--leading-heading-24);
+  }
+  .type-h3 {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-24);
+    font-weight: 400;
+    line-height: var(--leading-h3);
+  }
+  .type-heading-24-300 {
+    font-family: var(--font-plus-jakarta-sans);
+    font-size: var(--text-24);
+    font-weight: 300;
+    line-height: var(--leading-heading-24-300);
+  }
+  .type-link-21 {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-21);
+    font-weight: 400;
+    line-height: var(--leading-link-21);
+  }
+  .type-link-20 {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-20);
+    font-weight: 500;
+    line-height: var(--leading-link-20);
+  }
+  .type-link-20-500 {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-20);
+    font-weight: 500;
+    line-height: var(--leading-link-20-500);
+  }
+  .type-body {
+    font-family: var(--font-plus-jakarta-sans);
+    font-size: var(--text-20);
+    font-weight: 500;
+    line-height: var(--leading-body);
+  }
+  .type-large-body {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-19);
+    font-weight: 400;
+    line-height: var(--leading-large-body);
+    letter-spacing: var(--tracking-large-body);
+  }
+  .type-body-18 {
+    font-family: var(--font-plus-jakarta-sans);
+    font-size: var(--text-18);
+    font-weight: 500;
+    line-height: var(--leading-body-18);
+  }
+  .type-body-17 {
+    font-family: var(--font-plus-jakarta-sans);
+    font-size: var(--text-17);
+    font-weight: 400;
+    line-height: var(--leading-body-17);
+    letter-spacing: var(--tracking-body-17);
+  }
+  .type-body-17-400 {
+    font-family: var(--font-plus-jakarta-sans);
+    font-size: var(--text-17);
+    font-weight: 400;
+    line-height: var(--leading-body-17-400);
+  }
+  .type-link-16 {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-16);
+    font-weight: 500;
+    line-height: var(--leading-link-16);
+  }
+  .type-body-16 {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-16);
+    font-weight: 400;
+    line-height: var(--leading-body-16);
+  }
+  .type-body-16-400 {
+    font-family: var(--font-plus-jakarta-sans);
+    font-size: var(--text-16);
+    font-weight: 400;
+    line-height: var(--leading-body-16-400);
+    letter-spacing: var(--tracking-body-16-400);
+  }
+  .type-link-16-400 {
+    font-family: var(--font-crimson-pro);
+    font-size: var(--text-16);
+    font-weight: 400;
+    line-height: var(--leading-link-16-400);
+  }
+  .type-body-15 {
+    font-family: var(--font-plus-jakarta-sans);
+    font-size: var(--text-15);
+    font-weight: 400;
+    line-height: var(--leading-body-15);
+    letter-spacing: var(--tracking-body-15);
+  }
+  .type-small-body {
+    font-family: var(--font-plus-jakarta-sans);
+    font-size: var(--text-14);
+    font-weight: 400;
+    line-height: var(--leading-small-body);
+    letter-spacing: var(--tracking-small-body);
+  }
+  .type-body-14 {
+    font-family: var(--font-outfit);
+    font-size: var(--text-14);
+    font-weight: 400;
+    line-height: var(--leading-body-14);
+  }
+  .type-body-14-400 {
+    font-family: var(--font-plus-jakarta-sans);
+    font-size: var(--text-14);
+    font-weight: 400;
+    line-height: var(--leading-body-14-400);
+  }
+  .type-caption {
+    font-family: var(--font-plus-jakarta-sans);
+    font-size: var(--text-13);
+    font-weight: 400;
+    line-height: var(--leading-caption);
+  }
+  .type-button {
+    font-family: var(--font-arial);
+    font-size: var(--text-13);
+    font-weight: 400;
+    line-height: var(--leading-button);
+  }
+  .type-caption-12 {
+    font-family: var(--font-plus-jakarta-sans);
+    font-size: var(--text-12);
+    font-weight: 600;
+    line-height: var(--leading-caption-12);
+  }
+  .type-caption-12-500 {
+    font-family: var(--font-plus-jakarta-sans);
+    font-size: var(--text-12);
+    font-weight: 500;
+    line-height: var(--leading-caption-12-500);
+  }
+}

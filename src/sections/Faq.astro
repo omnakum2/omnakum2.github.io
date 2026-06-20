@@ -1,0 +1,67 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionHeader from '../components/SectionHeader.astro';
+import { faqs } from '../data/faqs';
+
+const FAQ_MASCOT_SRC = '/mascots/faq_mascot.webp';
+---
+
+<section id="faq" class="section-dark relative overflow-hidden py-24 sm:py-32">
+  {/* Whisper of structure on dark */}
+  <div
+    class="bg-line-grid pointer-events-none absolute inset-0 opacity-60"
+    style="--grid-line: rgba(252,251,244,0.035); --grid-size: 80px;"
+  ></div>
+
+  <div class="relative mx-auto max-w-6xl px-6">
+    <SectionHeader
+      eyebrow="FAQs"
+      title="Let me answer that for you"
+      intro="The questions that usually come up — pre-answered. Tap any to expand."
+      tone="dark"
+      accent="sky-blue"
+    />
+
+    <div class="mt-4 grid items-start gap-12 lg:grid-cols-12">
+      {/* Mascot column */}
+      <aside class="lg:col-span-4 flex justify-center lg:justify-start lg:sticky lg:top-24" data-reveal="scale">
+        <div class="relative">
+          <img
+            src={FAQ_MASCOT_SRC}
+            alt="Mascot pointing at the questions"
+            width="360"
+            height="360"
+            loading="lazy"
+            decoding="async"
+            class="relative w-56 sm:w-64 lg:w-72 h-auto select-none"
+          />
+        </div>
+      </aside>
+
+      {/* Accordion column */}
+      <ul class="lg:col-span-8 flex flex-col gap-3 list-none m-0 p-0" data-reveal-stagger>
+        {faqs.map((faq) => (
+          <li data-reveal>
+            <details class="group/faq rounded-2xl border border-floral-white/10 bg-floral-white/[0.04] transition-colors duration-300 hover:border-[color:var(--color-sky-blue)] open:border-[color:var(--color-sky-blue)] open:bg-floral-white/[0.07]">
+              <summary class="flex cursor-pointer items-center justify-between gap-4 p-5 sm:p-6 list-none [&::-webkit-details-marker]:hidden">
+                <span class="type-link-20 text-floral-white">{faq.question}</span>
+                <span class="inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-floral-white/15 bg-floral-white/[0.06] text-floral-white/80 transition-transform duration-300 group-open/faq:rotate-45 group-open/faq:bg-sky-blue/30 group-open/faq:text-floral-white">
+                  <Icon name="lucide:plus" class="size-4" />
+                </span>
+              </summary>
+
+              {/* Smooth height transition via grid-rows trick */}
+              <div class="grid grid-rows-[0fr] group-open/faq:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
+                <div class="overflow-hidden">
+                  <p class="type-body-17 px-5 sm:px-6 pb-5 sm:pb-6 -mt-1 text-floral-white/75">
+                    {faq.answer}
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
