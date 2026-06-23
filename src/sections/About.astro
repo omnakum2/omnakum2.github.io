@@ -1,99 +1,159 @@
 ---
-import { Icon } from 'astro-icon/components';
-import SectionHeader from '../components/SectionHeader.astro';
+import { Icon } from "astro-icon/components";
 
-const ABOUT_MASCOT_SRC = '/mascots/about_mascot.webp';
+const ABOUT_MASCOT_SRC = "/mascots/about_mascot.webp";
 
 const quickFacts = [
-  { value: '4', label: 'Internships shipped' },
-  { value: '20+', label: 'Projects launched' },
-  { value: '6', label: 'Hackathons won' },
+  { value: "04", label: "Internships shipped" },
+  { value: "20+", label: "Projects launched" },
+  { value: "06", label: "Hackathons won" },
 ];
 
 const interests = [
-  { label: 'Startups', icon: 'lucide:rocket' },
-  { label: 'Hackathons', icon: 'lucide:zap' },
-  { label: 'Internships', icon: 'lucide:briefcase' },
-  { label: 'Travel', icon: 'lucide:plane' },
-  { label: 'Open Source', icon: 'lucide:git-branch' },
+  "Startups",
+  "Hackathons",
+  "Internships",
+  "Travel",
+  "Open Source",
 ];
 ---
 
-<section id="about" class="section-warm-2 relative py-24 sm:py-32">
-  <div class="relative mx-auto max-w-6xl px-6">
-    <SectionHeader
-      eyebrow="About me"
-      title="The person behind the work"
-      intro="Designer-coder hybrid building products that ship — driven by curiosity, hackathons, and the joy of seeing real users use what I make."
-      accent="hot-pink"
-    />
+<section
+  id="about"
+  class="surface-cream relative overflow-hidden py-28 sm:py-36"
+>
+  <div class="relative mx-auto max-w-7xl px-6">
+    <!-- Editorial header rail -->
+    <div
+      class="grid items-end gap-8 border-b border-[#2f3e46]/15 pb-10 lg:grid-cols-12"
+    >
+      <div class="lg:col-span-3" data-reveal>
+        <p class="eyebrow-rule text-[#52796f]">Chapter 01</p>
+        <p
+          class="type-caption-12 mt-2 uppercase tracking-[0.22em] text-[#2f3e46]/55"
+        >
+          About
+        </p>
+      </div>
+      <h2
+        data-reveal
+        class="display-serif lg:col-span-9 text-[clamp(40px,6vw,88px)] text-[#2f3e46]"
+      >
+        A designer-coder who never picked
+        <span class="italic font-light" style="color:#52796f;">a side.</span>
+      </h2>
+    </div>
 
-    <div class="mt-4 grid items-start gap-14 lg:grid-cols-12">
-      <!-- Mascot column -->
-      <div class="lg:col-span-5 flex justify-center lg:justify-start" data-reveal="scale">
-        <div class="relative">
-          <img
-            src={ABOUT_MASCOT_SRC}
-            alt="Mascot"
-            width="400"
-            height="400"
-            loading="lazy"
-            decoding="async"
-            class="relative w-64 sm:w-72 lg:w-80 h-auto select-none"
-          />
-        </div>
+    <!-- Magazine layout: image left tall, story right, pull-quote band -->
+    <div class="mt-16 grid gap-12 lg:grid-cols-12">
+      <!-- Image column -->
+      <div class="lg:col-span-5 lg:row-span-2" data-reveal="scale">
+        <figure class="sticky top-28">
+          <div class="relative aspect-[4/5] overflow-hidden bg-[#84a98c]">
+            <div
+              class="pointer-events-none absolute inset-0"
+              style="background-image: radial-gradient(rgba(47,62,70,0.10) 1px, transparent 1px); background-size: 16px 16px;"
+            >
+            </div>
+            <div class="absolute inset-0 flex items-end justify-center">
+              <img
+                src={ABOUT_MASCOT_SRC}
+                alt="Mascot"
+                width="400"
+                height="500"
+                loading="lazy"
+                decoding="async"
+                class="h-[90%] w-auto select-none"
+              />
+            </div>
+            <span
+              class="absolute left-4 top-4 type-caption-12 tag-num bg-[#2f3e46] px-2.5 py-1 text-[#cad2c5]"
+              >PORTRAIT</span
+            >
+          </div>
+          <figcaption
+            class="mt-3 flex items-baseline justify-between text-[#2f3e46]/55"
+          >
+            <span class="type-caption-12 uppercase tracking-[0.2em]"
+              >Fig. 02 — In the wild</span
+            >
+            <span class="type-caption-12 tag-num">02 / 07</span>
+          </figcaption>
+        </figure>
       </div>
 
-      <!-- Content column -->
-      <div class="lg:col-span-7 space-y-7" data-reveal-stagger>
-        <div data-reveal class="type-body-17 space-y-5 text-dark-gray-1/85">
-          <p>
-            College kept me curious — half of it spent in classrooms, the other
-            half scattered across startups, hackathon halls, and late-night
-            Figma files. Somewhere along the way, building products stopped
-            feeling like coursework and started feeling like a craft.
-          </p>
-          <p>
-            I move between code and design without picking a side. I care about
-            what users feel when they open a screen, and equally about how the
-            same screen ships, scales, and stays maintainable months later.
-          </p>
-          <p>
-            Outside work I'm reading short books, traveling on a whim, and
-            usually surrounded by a small circle of people who push me to think
-            sharper. That's the version of me you'd meet over coffee.
-          </p>
-        </div>
+      <!-- Story column -->
+      <div class="lg:col-span-7 space-y-10" data-reveal-stagger>
+        <p
+          data-reveal
+          class="type-large-body text-[#2f3e46]/85 first-letter:float-left first-letter:mr-3 first-letter:font-[var(--font-crimson-pro)] first-letter:text-[88px] first-letter:font-bold first-letter:leading-[0.85] first-letter:text-[#52796f]"
+        >
+          College kept me curious — half of it spent in classrooms, the other
+          half scattered across startups, hackathon halls, and late-night Figma
+          files. Somewhere along the way, building products stopped feeling like
+          coursework and started feeling like a craft.
+        </p>
 
-        <!-- Interest pills -->
-        <ul data-reveal class="flex flex-wrap gap-2">
-          {interests.map((i) => (
-            <li class="type-caption-12 inline-flex items-center gap-1.5 rounded-full border border-dark-gray-1/15 bg-floral-white px-3 py-1.5 text-dark-gray-1/80 transition hover:border-steel-blue hover:bg-sky-blue/15 hover:text-dark-slate-gray">
-              <Icon name={i.icon} class="size-3.5" />
-              {i.label}
-            </li>
-          ))}
-        </ul>
+        <!-- Pull quote -->
+        <blockquote data-reveal class="border-l-4 border-[#52796f] pl-6 py-2">
+          <p class="display-serif text-[clamp(24px,3vw,40px)] text-[#2f3e46]">
+            "I move between code and design without picking a side —
+            <span class="italic font-light" style="color:#52796f;"
+              >user feel and ship quality, both."</span
+            >
+          </p>
+        </blockquote>
 
-        <!-- Quick fact strip -->
-        <dl data-reveal class="grid grid-cols-3 gap-3 rounded-3xl border border-dark-gray-1/10 bg-floral-white p-5">
-          {quickFacts.map((f) => (
-            <div class="text-center">
-              <dt class="type-h2-36 text-steel-blue">{f.value}</dt>
-              <dd class="type-caption mt-1 text-dark-gray-1/65">{f.label}</dd>
-            </div>
-          ))}
+        <p data-reveal class="type-body-17 text-[#2f3e46]/75">
+          I care about what users feel when they open a screen, and equally
+          about how the same screen ships, scales, and stays maintainable months
+          later. Outside work I'm reading short books, traveling on a whim, and
+          usually surrounded by a small circle of people who push me to think
+          sharper.
+        </p>
+
+        <!-- Quick facts — editorial number block, no card -->
+        <dl
+          data-reveal
+          class="grid grid-cols-3 divide-x divide-[#2f3e46]/15 border-y border-[#2f3e46]/15 py-8"
+        >
+          {
+            quickFacts.map((f) => (
+              <div class="px-4 first:pl-0 last:pr-0">
+                <dt class="display-serif text-[clamp(36px,5vw,64px)] text-[#52796f]">
+                  {f.value}
+                </dt>
+                <dd class="type-caption-12 mt-2 uppercase tracking-[0.2em] text-[#2f3e46]/65">
+                  {f.label}
+                </dd>
+              </div>
+            ))
+          }
         </dl>
 
-        <!-- CTA -->
-        <div data-reveal>
+        <!-- Interest tags + CTA inline -->
+        <div
+          data-reveal
+          class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+        >
+          <ul class="flex flex-wrap gap-x-5 gap-y-2">
+            {
+              interests.map((i) => (
+                <li class="type-caption-12 uppercase tracking-[0.2em] text-[#2f3e46]/70">
+                  — {i}
+                </li>
+              ))
+            }
+          </ul>
           <a
             href="#contact"
-            class="type-link-20 group inline-flex items-center gap-2 rounded-full bg-dark-gray-1 px-6 py-3.5 text-floral-white transition-transform hover:-translate-y-0.5"
+            class="group inline-flex items-center gap-3 self-start border-b-2 border-[#2f3e46] pb-1 text-[#2f3e46] transition hover:border-[#52796f] hover:text-[#52796f] sm:self-end"
           >
-            <Icon name="lucide:message-circle" class="size-5" />
-            Let's Talk
-            <Icon name="lucide:arrow-right" class="size-4 transition-transform group-hover:translate-x-1" />
+            <span class="type-link-16">Let's talk</span>
+            <Icon
+              name="tabler:arrow-up-right"
+              class="size-4 transition-transform group-hover:translate-x-1"
+            />
           </a>
         </div>
       </div>

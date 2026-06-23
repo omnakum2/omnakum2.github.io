@@ -1,44 +1,59 @@
 ---
-import SectionHeader from '../components/SectionHeader.astro';
 import TechStackMarquee from '../components/TechStackMarquee.astro';
 import { techStack } from '../data/techStack';
 
-// Split into two belts so each row has its own personality and the page feels
-// alive without becoming chaotic. Slightly different speeds keep the eye moving.
 const half = Math.ceil(techStack.length / 2);
 const topRow = techStack.slice(0, half);
 const bottomRow = techStack.slice(half);
+
+const clusters = [
+  { kicker: '01', title: 'Design', body: 'Systems, motion, prototyping. Figma to handoff in one move.' },
+  { kicker: '02', title: 'Engineering', body: 'TypeScript, React, Astro, Node — typed end-to-end.' },
+  { kicker: '03', title: 'Infrastructure', body: 'Edge, CDN, observability. Ship-and-sleep posture.' },
+];
 ---
 
-<section id="skills" class="section-dark relative overflow-hidden py-24 sm:py-32">
-  <!-- Whisper of structure on dark — barely there -->
-  <div
-    class="bg-line-grid pointer-events-none absolute inset-0 opacity-60"
-    style="--grid-line: rgba(252,251,244,0.035); --grid-size: 80px;"
-  ></div>
+<section id="skills" class="surface-mid relative overflow-hidden py-28 sm:py-36">
+  <div class="relative mx-auto max-w-7xl px-6">
+    <!-- Big editorial heading + capability grid (no badges) -->
+    <div class="grid items-end gap-8 lg:grid-cols-12">
+      <div class="lg:col-span-7" data-reveal-stagger>
+        <p data-reveal class="eyebrow-rule text-[#142024]/70">Chapter 02 · Capabilities</p>
+        <h2 data-reveal class="display-serif mt-5 text-[clamp(40px,6vw,88px)] text-[#142024]">
+          A studio practice in
+          <span class="italic font-light">three movements.</span>
+        </h2>
+      </div>
+      <p data-reveal class="lg:col-span-5 type-body-17 text-[#142024]/75">
+        I run an integrated practice — design, build, ship — so the work stays cohesive from first sketch to production deploy.
+      </p>
+    </div>
 
-  <div class="relative mx-auto max-w-6xl px-6">
-    <SectionHeader
-      eyebrow="Skills"
-      title="The stack I reach for"
-      intro="Tools and tech I keep close — code, design, and the bits in between. Hover any tile to see it come alive in its brand color."
-      tone="dark"
-      accent="sky-blue"
-    />
+    <!-- Capability clusters -->
+    <ul class="mt-16 grid gap-px border border-[#142024]/15 bg-[#142024]/15 sm:grid-cols-3" data-reveal-stagger>
+      {clusters.map((c) => (
+        <li data-reveal class="group relative bg-[#84a98c] p-8 transition hover:bg-[#cad2c5]">
+          <div class="flex items-start justify-between">
+            <span class="type-caption-12 tag-num text-[#142024]/55">{c.kicker} /</span>
+            <span class="size-2 rounded-full bg-[#2f3e46] transition group-hover:scale-150"></span>
+          </div>
+          <h3 class="display-serif mt-12 text-[clamp(28px,3vw,44px)] text-[#142024]">{c.title}</h3>
+          <p class="type-body-15 mt-4 text-[#142024]/75">{c.body}</p>
+        </li>
+      ))}
+    </ul>
   </div>
 
-  <!-- Marquees break the max-width so they bleed edge-to-edge -->
-  <div class="relative mt-2 space-y-2" data-reveal>
+  <!-- Marquees — strip header -->
+  <div class="relative mx-auto mt-20 max-w-7xl px-6">
+    <div data-reveal class="flex items-baseline justify-between border-t border-[#142024]/20 pt-5">
+      <p class="type-caption-12 uppercase tracking-[0.22em] text-[#142024]/65">The toolbox</p>
+      <p class="type-caption-12 tag-num text-[#142024]/55">{techStack.length} TOOLS</p>
+    </div>
+  </div>
+
+  <div class="relative mt-6 space-y-3" data-reveal>
     <TechStackMarquee logos={topRow} direction="left" durationSeconds={48} />
     <TechStackMarquee logos={bottomRow} direction="right" durationSeconds={55} />
-  </div>
-
-  <!-- Small inline marker under the belts -->
-  <div class="relative mx-auto mt-10 max-w-6xl px-6">
-    <div data-reveal class="flex items-center gap-3 text-floral-white/45">
-      <span class="h-px flex-1 bg-floral-white/15"></span>
-      <span class="type-caption uppercase tracking-[0.22em]">always learning</span>
-      <span class="h-px flex-1 bg-floral-white/15"></span>
-    </div>
   </div>
 </section>

@@ -1,70 +1,103 @@
 ---
-import { Icon } from 'astro-icon/components';
-import { SITE } from '../consts';
+import { Icon } from "astro-icon/components";
+import { SITE } from "../consts";
 
 const links = [
-  { href: '#about', label: 'About' },
-  { href: '#projects', label: 'Work' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#faq', label: 'FAQs' },
-  { href: '#contact', label: 'Contact' },
+  { href: "#about", label: "About" },
+  { href: "#skills", label: "Capabilities" },
+  { href: "#services", label: "Services" },
+  { href: "#projects", label: "Works" },
+  { href: "#faq", label: "FAQ" },
 ];
 ---
 
-<header class="sticky top-0 z-40 border-b border-dark-gray-1/10 bg-floral-white/80 backdrop-blur-lg">
-  <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-    <a href="/" class="type-link-20 flex items-center gap-2 text-dark-gray-1">
-      <span class="inline-flex size-8 items-center justify-center rounded-full bg-dark-gray-1 text-floral-white type-caption-12">
+<header class="sticky top-0 z-40">
+  <div
+    class="absolute inset-0 -z-10 border-b border-[#2f3e46]/12 bg-[#f1f4ee]/85 backdrop-blur-xl"
+  >
+  </div>
+
+  <div
+    class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4"
+  >
+    <a href="/" class="group flex items-center gap-3 text-[#2f3e46]">
+      <span
+        class="relative inline-flex size-9 items-center justify-center bg-[#2f3e46] text-[#cad2c5] type-caption-12 tag-num"
+      >
         {SITE.name.charAt(0)}
       </span>
-      {SITE.name}
+      <div class="flex flex-col leading-tight">
+        <span class="type-link-16 text-[#2f3e46]">{SITE.name}</span>
+        <span class="type-caption-12 uppercase tracking-[0.2em] text-[#52796f]"
+          >Studio · MMXXVI</span
+        >
+      </div>
     </a>
 
     <nav class="hidden md:block">
-      <ul class="flex items-center gap-7">
-        {links.map((l) => (
+      <ul class="flex items-center gap-1">
+        {
+          links.map((l, i) => (
+            <li class="flex items-center gap-1">
+              {i > 0 && <span class="text-[#2f3e46]/25">·</span>}
+              <a
+                href={l.href}
+                class="type-caption-12 uppercase tracking-[0.18em] px-3 py-2 text-[#2f3e46]/70 transition hover:text-[#2f3e46]"
+              >
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <a
+      href="#contact"
+      class="hidden md:inline-flex items-center gap-2 border border-[#2f3e46] bg-[#2f3e46] px-5 py-2.5 text-[#cad2c5] transition hover:bg-[#52796f] hover:border-[#52796f]"
+    >
+      <span class="type-caption-12 uppercase tracking-[0.18em]">Let's Talk</span
+      >
+      <Icon name="tabler:arrow-up-right" class="size-3.5" />
+    </a>
+
+    <button
+      id="mobile-menu-toggle"
+      class="md:hidden p-2 text-[#2f3e46]"
+      aria-label="Toggle menu"
+    >
+      <Icon name="tabler:menu-2" class="size-6" />
+    </button>
+  </div>
+
+  <nav
+    id="mobile-menu"
+    class="hidden md:hidden border-t border-[#2f3e46]/12 bg-[#f1f4ee]/95 backdrop-blur-xl"
+  >
+    <ul class="flex flex-col gap-1 px-6 py-4">
+      {
+        links.map((l) => (
           <li>
             <a
               href={l.href}
-              class="type-body-15 relative py-1 text-dark-gray-1/70 transition hover:text-dark-gray-1 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-steel-blue after:transition-all hover:after:w-full"
+              class="type-link-16 block px-3 py-3 text-[#2f3e46] transition hover:bg-[#cad2c5]"
             >
               {l.label}
             </a>
           </li>
-        ))}
-      </ul>
-    </nav>
-
-    <button
-      id="mobile-menu-toggle"
-      class="md:hidden p-2 text-dark-gray-1/70 transition hover:text-dark-gray-1"
-      aria-label="Toggle menu"
-    >
-      <Icon name="lucide:menu" class="size-6" />
-    </button>
-  </div>
-
-  <nav id="mobile-menu" class="hidden md:hidden border-t border-dark-gray-1/10 bg-floral-white">
-    <ul class="flex flex-col gap-1 px-6 py-4">
-      {links.map((l) => (
-        <li>
-          <a
-            href={l.href}
-            class="type-body-15 block rounded-lg px-3 py-2.5 text-dark-gray-1/80 transition hover:bg-floral-white-1 hover:text-dark-gray-1"
-          >
-            {l.label}
-          </a>
-        </li>
-      ))}
+        ))
+      }
     </ul>
   </nav>
 </header>
 
 <script>
-  const toggle = document.getElementById('mobile-menu-toggle');
-  const menu = document.getElementById('mobile-menu');
-  toggle?.addEventListener('click', () => menu?.classList.toggle('hidden'));
-  menu?.querySelectorAll('a').forEach((a) =>
-    a.addEventListener('click', () => menu?.classList.add('hidden'))
-  );
+  const toggle = document.getElementById("mobile-menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  toggle?.addEventListener("click", () => menu?.classList.toggle("hidden"));
+  menu
+    ?.querySelectorAll("a")
+    .forEach((a) =>
+      a.addEventListener("click", () => menu?.classList.add("hidden")),
+    );
 </script>

@@ -2,7 +2,7 @@ export interface Project {
   title: string;
   /** Single-line summary. */
   description: string;
-  /** Lucide icon id, e.g. 'lucide:cloud'. */
+  /** simple-icons icon id, e.g. 'simple-icons:cloud'. */
   icon: string;
   /**
    * Outcome bullets — render as the checkmark list in the `feature` Card variant.
@@ -21,7 +21,7 @@ export const projects: Project[] = [
   {
     title: 'CloudSync Dashboard',
     description: 'Real-time cloud infrastructure monitoring for ops teams.',
-    icon: 'lucide:cloud',
+    icon: 'simple-icons:astro',
     highlights: [
       '40% faster incident response',
       '5k+ engineers onboarded',
@@ -34,7 +34,7 @@ export const projects: Project[] = [
   {
     title: 'FinTrack API',
     description: 'RESTful API for personal finance with automated categorisation.',
-    icon: 'lucide:bar-chart-3',
+    icon: 'tabler:code',
     highlights: [
       '50k+ active users',
       '12 payment providers integrated',
@@ -47,7 +47,7 @@ export const projects: Project[] = [
   {
     title: 'ShopEase Mobile',
     description: 'Offline-first e-commerce PWA with one-tap checkout.',
-    icon: 'lucide:shopping-cart',
+    icon: 'tabler:shopping-cart',
     highlights: [
       '3× faster checkout flow',
       '1M+ orders processed',
@@ -60,7 +60,7 @@ export const projects: Project[] = [
   {
     title: 'TaskFlow',
     description: 'Kanban project management with realtime team sync.',
-    icon: 'lucide:layout-dashboard',
+    icon: 'tabler:dashboard',
     highlights: [
       '10k+ teams active',
       'Drag-and-drop UX',
@@ -71,7 +71,7 @@ export const projects: Project[] = [
   {
     title: 'DevBlog Engine',
     description: 'Astro + MDX blog engine optimised for SEO and Core Web Vitals.',
-    icon: 'lucide:pen-tool',
+    icon: 'tabler:pen',
     highlights: [
       '1M+ monthly views',
       'Perfect Lighthouse scores',
@@ -82,7 +82,7 @@ export const projects: Project[] = [
   {
     title: 'CLI Toolkit',
     description: 'Developer productivity CLI for scaffolding and codegen.',
-    icon: 'lucide:terminal',
+    icon: 'simple-icons:terminal',
     highlights: [
       '500+ daily developers',
       '200k npm installs',

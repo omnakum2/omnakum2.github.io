@@ -7,9 +7,7 @@ export const SITE = {
   bio: 'A passionate Full-Stack Developer with over 5 years of experience in building performant web applications and scalable systems. Skilled in turning complex requirements into clean, user-centric products that drive business impact.',
   social: {
     github: 'https://github.com/',
-    linkedin: 'https://www.linkedin.com/in/',
-    x: 'https://x.com/',
-    dribbble: 'https://dribbble.com/',
+    linkedin: 'https://www.linkedin.com/in/'
   },
 } as const;
 

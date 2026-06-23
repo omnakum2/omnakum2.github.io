@@ -18,5 +18,7 @@ export function resolveSeo(config: SeoConfig) {
     twitter: {
       card: 'summary_large_image' as const,
     },
+    noindex: false,
+    nofollow: false,
   };
 }

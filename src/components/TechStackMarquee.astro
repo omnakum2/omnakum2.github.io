@@ -80,16 +80,15 @@ const belt = [...logos, ...logos];
     to   { transform: translate3d(-50%, 0, 0); }
   }
 
-  /* Tile */
+  /* Tile — editorial, on sage mid surface */
   .belt-item {
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.9rem 1.5rem;
-    border: 1px solid rgba(252, 251, 244, 0.10);
-    border-radius: 9999px;
-    background: rgba(252, 251, 244, 0.03);
-    backdrop-filter: blur(2px);
+    padding: 0.85rem 1.4rem;
+    border: 1px solid rgba(20,32,36,0.18);
+    border-radius: 0;
+    background: rgba(241,244,238,0.35);
     white-space: nowrap;
     transition:
       transform 0.35s ease,
@@ -99,36 +98,33 @@ const belt = [...logos, ...logos];
 
   .belt-item:hover {
     transform: translateY(-3px);
-    background: rgba(252, 251, 244, 0.07);
-    border-color: rgba(252, 251, 244, 0.25);
+    background: #2f3e46;
+    border-color: #2f3e46;
   }
 
-  /* Icon — grayscale + dimmed default, snaps to brand color on tile hover. */
   .belt-item :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
-    color: var(--brand);
+    color: #142024;
     filter: grayscale(1);
-    opacity: 0.65;
-    transition:
-      filter 0.35s ease,
-      opacity 0.35s ease,
-      transform 0.35s ease;
+    opacity: 0.85;
+    transition: filter 0.35s ease, opacity 0.35s ease, transform 0.35s ease, color 0.35s ease;
   }
 
   .belt-item:hover :global(svg) {
+    color: var(--brand);
     filter: grayscale(0);
     opacity: 1;
     transform: scale(1.12);
   }
 
   .belt-label {
-    color: rgba(252, 251, 244, 0.7);
+    color: #142024;
     transition: color 0.35s ease;
   }
 
   .belt-item:hover .belt-label {
-    color: rgba(252, 251, 244, 1);
+    color: #f1f4ee;
   }
 
   @media (prefers-reduced-motion: reduce) {

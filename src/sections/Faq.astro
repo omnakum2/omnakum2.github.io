@@ -1,66 +1,99 @@
 ---
-import { Icon } from 'astro-icon/components';
-import SectionHeader from '../components/SectionHeader.astro';
-import { faqs } from '../data/faqs';
+import { Icon } from "astro-icon/components";
+import { faqs } from "../data/faqs";
 
-const FAQ_MASCOT_SRC = '/mascots/faq_mascot.webp';
+const FAQ_MASCOT_SRC = "/mascots/faq_mascot.webp";
 ---
 
-<section id="faq" class="section-dark relative overflow-hidden py-24 sm:py-32">
-  {/* Whisper of structure on dark */}
-  <div
-    class="bg-line-grid pointer-events-none absolute inset-0 opacity-60"
-    style="--grid-line: rgba(252,251,244,0.035); --grid-size: 80px;"
-  ></div>
+<section id="faq" class="surface-mid relative overflow-hidden py-28 sm:py-36">
+  <div class="relative mx-auto max-w-7xl px-6">
+    <!-- Editorial header — left-aligned with rule -->
+    <div
+      class="grid items-end gap-8 border-b border-[#142024]/20 pb-10 lg:grid-cols-12"
+    >
+      <div class="lg:col-span-8" data-reveal-stagger>
+        <p data-reveal class="eyebrow-rule text-[#142024]/70">
+          Chapter 05 · Frequently Asked
+        </p>
+        <h2
+          data-reveal
+          class="display-serif mt-5 text-[clamp(40px,6vw,88px)] text-[#142024]"
+        >
+          Questions, answered
+          <span class="italic font-light" style="color:#2f3e46;"
+            >in plain words.</span
+          >
+        </h2>
+      </div>
+      <div class="lg:col-span-4 flex items-end justify-end" data-reveal>
+        <img
+          src={FAQ_MASCOT_SRC}
+          alt="Mascot pointing at the questions"
+          width="180"
+          height="180"
+          loading="lazy"
+          decoding="async"
+          class="h-32 w-auto select-none lg:h-44"
+        />
+      </div>
+    </div>
 
-  <div class="relative mx-auto max-w-6xl px-6">
-    <SectionHeader
-      eyebrow="FAQs"
-      title="Let me answer that for you"
-      intro="The questions that usually come up — pre-answered. Tap any to expand."
-      tone="dark"
-      accent="sky-blue"
-    />
-
-    <div class="mt-4 grid items-start gap-12 lg:grid-cols-12">
-      {/* Mascot column */}
-      <aside class="lg:col-span-4 flex justify-center lg:justify-start lg:sticky lg:top-24" data-reveal="scale">
-        <div class="relative">
-          <img
-            src={FAQ_MASCOT_SRC}
-            alt="Mascot pointing at the questions"
-            width="360"
-            height="360"
-            loading="lazy"
-            decoding="async"
-            class="relative w-56 sm:w-64 lg:w-72 h-auto select-none"
-          />
-        </div>
+    <!-- 12-col grid — left index column + accordion -->
+    <div class="mt-12 grid gap-10 lg:grid-cols-12">
+      <aside
+        class="lg:col-span-3 lg:sticky lg:top-28 lg:self-start space-y-6"
+        data-reveal
+      >
+        <p
+          class="type-caption-12 uppercase tracking-[0.22em] text-[#142024]/60"
+        >
+          In this section
+        </p>
+        <ol class="space-y-2 list-none m-0 p-0">
+          {
+            faqs.map((faq, idx) => (
+              <li class="flex items-baseline gap-3">
+                <span class="type-caption-12 tag-num text-[#2f3e46]">
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+                <span class="type-body-15 text-[#142024]/70">
+                  {faq.question.split("?")[0]}?
+                </span>
+              </li>
+            ))
+          }
+        </ol>
       </aside>
 
-      {/* Accordion column */}
-      <ul class="lg:col-span-8 flex flex-col gap-3 list-none m-0 p-0" data-reveal-stagger>
-        {faqs.map((faq) => (
-          <li data-reveal>
-            <details class="group/faq rounded-2xl border border-floral-white/10 bg-floral-white/[0.04] transition-colors duration-300 hover:border-[color:var(--color-sky-blue)] open:border-[color:var(--color-sky-blue)] open:bg-floral-white/[0.07]">
-              <summary class="flex cursor-pointer items-center justify-between gap-4 p-5 sm:p-6 list-none [&::-webkit-details-marker]:hidden">
-                <span class="type-link-20 text-floral-white">{faq.question}</span>
-                <span class="inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-floral-white/15 bg-floral-white/[0.06] text-floral-white/80 transition-transform duration-300 group-open/faq:rotate-45 group-open/faq:bg-sky-blue/30 group-open/faq:text-floral-white">
-                  <Icon name="lucide:plus" class="size-4" />
-                </span>
-              </summary>
-
-              {/* Smooth height transition via grid-rows trick */}
-              <div class="grid grid-rows-[0fr] group-open/faq:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
-                <div class="overflow-hidden">
-                  <p class="type-body-17 px-5 sm:px-6 pb-5 sm:pb-6 -mt-1 text-floral-white/75">
-                    {faq.answer}
-                  </p>
+      <ul class="lg:col-span-9 list-none m-0 p-0" data-reveal-stagger>
+        {
+          faqs.map((faq, idx) => (
+            <li data-reveal>
+              <details class="group/faq border-b border-[#142024]/20 py-2 transition open:border-[#2f3e46]">
+                <summary class="flex cursor-pointer items-baseline gap-6 py-6 list-none [&::-webkit-details-marker]:hidden">
+                  <span class="type-caption-12 tag-num text-[#2f3e46] w-10 shrink-0">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <span class="display-serif flex-1 text-[clamp(22px,2.4vw,32px)] text-[#142024]">
+                    {faq.question}
+                  </span>
+                  <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-[#142024]/30 text-[#142024]/80 transition-all duration-300 group-open/faq:rotate-45 group-open/faq:border-[#2f3e46] group-open/faq:bg-[#2f3e46] group-open/faq:text-[#cad2c5]">
+                    <Icon name="tabler:plus" class="size-4" />
+                  </span>
+                </summary>
+                <div class="grid grid-rows-[0fr] group-open/faq:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
+                  <div class="overflow-hidden">
+                    <div class="pb-8 pl-[64px] pr-12">
+                      <p class="type-body-17 m-0 text-[#142024]/80 max-w-2xl">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </details>
-          </li>
-        ))}
+              </details>
+            </li>
+          ))
+        }
       </ul>
     </div>
   </div>

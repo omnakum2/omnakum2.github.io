@@ -1,89 +1,212 @@
 ---
-import SectionHeader from '../components/SectionHeader.astro';
-import Card from '../components/Card.astro';
-import { projects } from '../data/projects';
+import { Icon } from "astro-icon/components";
+import { projects } from "../data/projects";
 
-// Showcase the three Card variants in one section:
-//  - lead   → feature variant, full width, "Highlights" bullet list
-//  - middle → feature variant, 2-col grid, same shape but smaller column
-//  - more   → linear variant, dense list under a small divider
 const [lead, ...rest] = projects;
 const middle = rest.slice(0, 2);
 const more = rest.slice(2);
+
+const accentFor = (i: number) => ["#52796f", "#354f52", "#84a98c"][i % 3];
 ---
 
-<section id="projects" class="section-warm-2 relative py-24 sm:py-32">
-  <div class="relative mx-auto max-w-6xl px-6">
-    <SectionHeader
-      eyebrow="Work"
-      title="Selected projects"
-      intro="A few things I've built recently — products that shipped, scaled, and solved real problems for the people using them."
-      tone="light"
-      accent="steel-blue"
-    />
-
-    <div class="mt-4 flex flex-col gap-6" data-reveal-stagger>
-      {/* === Lead project — full width, feature variant === */}
-      <div data-reveal>
-        <Card
-          variant="feature"
-          accent="steel-blue"
-          tone="light"
-          title={lead.title}
-          description={lead.description}
-          icon={lead.icon}
-          tags={lead.highlights}
-          tagsLabel="Highlights"
-          href={lead.href}
-        />
+<section
+  id="projects"
+  class="surface-cream relative overflow-hidden py-28 sm:py-36"
+>
+  <div class="relative mx-auto max-w-7xl px-6">
+    <!-- Header row -->
+    <div
+      class="grid items-end gap-8 border-b border-[#2f3e46]/15 pb-10 lg:grid-cols-12"
+    >
+      <div class="lg:col-span-7" data-reveal-stagger>
+        <p data-reveal class="eyebrow-rule text-[#52796f]">
+          Chapter 04 · Selected works
+        </p>
+        <h2
+          data-reveal
+          class="display-serif mt-5 text-[clamp(40px,6vw,88px)] text-[#2f3e46]"
+        >
+          Case studies, not
+          <span class="italic font-light" style="color:#52796f;"
+            >screenshots.</span
+          >
+        </h2>
       </div>
+      <p data-reveal class="lg:col-span-5 type-body-17 text-[#2f3e46]/75">
+        Each entry below is a product that shipped, scaled, and solved a real
+        problem. Click through for the story.
+      </p>
+    </div>
 
-      {/* === Middle row — 2 feature cards side by side === */}
-      <ul class="grid grid-cols-1 gap-5 lg:grid-cols-2 list-none m-0 p-0">
-        {middle.map((p) => (
-          <li data-reveal class="h-full">
-            <Card
-              variant="feature"
-              accent="steel-blue"
-              tone="light"
-              title={p.title}
-              description={p.description}
-              icon={p.icon}
-              tags={p.highlights}
-              tagsLabel="Highlights"
-              href={p.href}
-            />
-          </li>
-        ))}
-      </ul>
-
-      {/* === More projects — small divider + linear list === */}
-      {more.length > 0 && (
-        <div class="mt-6" data-reveal>
-          <div class="flex items-center gap-3 mb-5 text-dark-gray-1/55">
-            <span class="h-px flex-1 bg-dark-gray-1/15"></span>
-            <span class="type-caption uppercase tracking-[0.22em]">More projects</span>
-            <span class="h-px flex-1 bg-dark-gray-1/15"></span>
+    <!-- Featured case — full-width editorial spread -->
+    <article data-reveal class="mt-14 grid gap-8 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <div class="relative aspect-[16/10] overflow-hidden bg-[#2f3e46]">
+          <div
+            class="absolute inset-0"
+            style="background-image: linear-gradient(135deg, rgba(82,121,111,0.4), transparent 60%), radial-gradient(rgba(202,210,197,0.10) 1px, transparent 1px); background-size: cover, 20px 20px;"
+          >
           </div>
+          <div
+            class="absolute inset-0 flex flex-col justify-between p-8 sm:p-10"
+          >
+            <div class="flex items-start justify-between">
+              <span
+                class="inline-flex size-14 items-center justify-center border border-[#cad2c5]/40 text-[#cad2c5]"
+              >
+                <Icon name={lead.icon} class="size-6" />
+              </span>
+              <span class="type-caption-12 tag-num text-[#cad2c5]/70"
+                >CASE 001 / FEATURED</span
+              >
+            </div>
+            <div>
+              <p
+                class="type-caption-12 uppercase tracking-[0.2em] text-[#84a98c]"
+              >
+                {lead.tech.join(" · ")}
+              </p>
+              <h3
+                class="display-serif mt-3 text-[clamp(32px,4vw,56px)] text-[#f1f4ee]"
+              >
+                {lead.title}
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-5 flex flex-col justify-between">
+        <div>
+          <p class="type-large-body text-[#2f3e46]/85">{lead.description}</p>
+          <ul
+            class="mt-8 space-y-3 list-none m-0 p-0 border-t border-[#2f3e46]/15 pt-6"
+          >
+            {
+              lead.highlights.map((h) => (
+                <li class="type-body-15 flex items-baseline gap-3 text-[#2f3e46]/85">
+                  <span class="type-caption-12 tag-num text-[#52796f] w-8 shrink-0">
+                    →
+                  </span>
+                  {h}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <a
+          href={lead.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group mt-8 inline-flex items-center justify-between border border-[#2f3e46] px-5 py-4 text-[#2f3e46] transition hover:bg-[#2f3e46] hover:text-[#cad2c5]"
+        >
+          <span class="type-link-16">Read the case study</span>
+          <Icon
+            name="tabler:arrow-up-right"
+            class="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+          />
+        </a>
+      </div>
+    </article>
 
-          <ul class="flex flex-col gap-3 list-none m-0 p-0" data-reveal-stagger>
-            {more.map((p) => (
-              <li data-reveal>
-                <Card
-                  variant="linear"
-                  accent="steel-blue"
-                  tone="light"
-                  title={p.title}
-                  description={p.description}
-                  icon={p.icon}
-                  tags={p.tech}
-                  href={p.href}
+    <!-- Mid pair — alternating column widths -->
+    <ul
+      class="mt-12 grid gap-8 lg:grid-cols-12 list-none m-0 p-0"
+      data-reveal-stagger
+    >
+      {
+        middle.map((p, i) => (
+          <li data-reveal class={i === 0 ? "lg:col-span-7" : "lg:col-span-5"}>
+            <a
+              href={p.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group block"
+            >
+              <div
+                class="relative aspect-[5/3] overflow-hidden"
+                style={`background:${accentFor(i + 1)};`}
+              >
+                <div
+                  class="absolute inset-0 opacity-50"
+                  style="background-image: linear-gradient(rgba(241,244,238,0.10) 1px, transparent 1px); background-size: 24px 24px;"
                 />
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <Icon
+                    name={p.icon}
+                    class="size-16 text-[#f1f4ee]/80 transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                <span class="absolute left-4 top-4 type-caption-12 tag-num bg-[#2f3e46] px-2.5 py-1 text-[#cad2c5]">
+                  CASE 00{i + 2}
+                </span>
+              </div>
+              <div class="mt-5 flex items-start justify-between gap-6">
+                <div>
+                  <h3 class="display-serif text-[clamp(22px,2.4vw,32px)] text-[#2f3e46]">
+                    {p.title}
+                  </h3>
+                  <p class="type-body-15 mt-2 text-[#2f3e46]/70">
+                    {p.description}
+                  </p>
+                </div>
+                <Icon
+                  name="tabler:arrow-up-right"
+                  class="size-5 shrink-0 text-[#52796f] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+                />
+              </div>
+              <ul class="mt-3 flex flex-wrap gap-x-4 gap-y-1 list-none m-0 p-0">
+                {p.tech.map((t) => (
+                  <li class="type-caption-12 uppercase tracking-[0.18em] text-[#2f3e46]/55">
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- Archive list -->
+    {
+      more.length > 0 && (
+        <div class="mt-20" data-reveal>
+          <div class="mb-6 flex items-baseline justify-between border-b border-[#2f3e46]/15 pb-3">
+            <p class="type-caption-12 uppercase tracking-[0.22em] text-[#2f3e46]/60">
+              Archive
+            </p>
+            <p class="type-caption-12 tag-num text-[#2f3e46]/45">
+              {String(more.length).padStart(2, "0")} ENTRIES
+            </p>
+          </div>
+          <ul class="list-none m-0 p-0" data-reveal-stagger>
+            {more.map((p, i) => (
+              <li data-reveal>
+                <a
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group grid grid-cols-[auto_1fr_auto_auto] items-center gap-6 border-b border-[#2f3e46]/10 py-5 transition hover:bg-[#2f3e46]/[0.03]"
+                >
+                  <span class="type-caption-12 tag-num text-[#52796f] w-10">
+                    0{i + 4}
+                  </span>
+                  <span class="display-serif text-[clamp(20px,2vw,28px)] text-[#2f3e46]">
+                    {p.title}
+                  </span>
+                  <span class="hidden type-caption-12 uppercase tracking-[0.18em] text-[#2f3e46]/55 md:inline">
+                    {p.tech.join(" · ")}
+                  </span>
+                  <Icon
+                    name="tabler:arrow-up-right"
+                    class="size-4 text-[#2f3e46]/40 transition group-hover:text-[#52796f] group-hover:translate-x-1 group-hover:-translate-y-1"
+                  />
+                </a>
               </li>
             ))}
           </ul>
         </div>
-      )}
-    </div>
+      )
+    }
   </div>
 </section>

@@ -1,21 +1,21 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 
 type AccentColor =
-  | 'steel-blue'
-  | 'hot-pink'
-  | 'sky-blue'
-  | 'royal-blue'
-  | 'dark-slate-gray';
+  | "steel-blue"
+  | "hot-pink"
+  | "sky-blue"
+  | "royal-blue"
+  | "dark-slate-gray";
 
-type Variant = 'compact' | 'feature' | 'linear';
+type Variant = "compact" | "feature" | "linear";
 
 interface Props {
   /** Layout variant — each renders a structurally different DOM. */
   variant?: Variant;
   title: string;
   description?: string;
-  /** Lucide icon id, e.g. 'lucide:layout'. */
+  /** simple-icons icon id, e.g. 'luc:layout'. */
   icon?: string;
   /**
    * Items rendered as keyword chips in compact/linear, and as a checkmark
@@ -29,187 +29,238 @@ interface Props {
   /** Single accent color token driving border-hover / icon / checkmarks / arrow. */
   accent?: AccentColor;
   /** Background tone the card sits on. */
-  tone?: 'light' | 'dark';
+  tone?: "light" | "dark";
 }
 
 const {
-  variant = 'compact',
+  variant = "compact",
   title,
   description,
   icon,
   tags = [],
   tagsLabel = "What's Included",
   href,
-  accent = 'steel-blue',
-  tone = 'light',
+  accent = "steel-blue",
+  tone = "light",
 } = Astro.props;
 
-const Tag = href ? 'a' : 'article';
-const isDark = tone === 'dark';
+const Tag = href ? "a" : "article";
+const isDark = tone === "dark";
 
-const titleColor = isDark ? 'var(--color-floral-white)' : 'var(--color-dark-gray-1)';
-const descColor  = isDark
-  ? 'rgba(252, 251, 244, 0.75)'
-  : 'color-mix(in oklab, var(--color-dark-gray-1) 65%, transparent)';
+const titleColor = isDark
+  ? "var(--color-floral-white)"
+  : "var(--color-dark-gray-1)";
+const descColor = isDark
+  ? "rgba(241,244,238, 0.75)"
+  : "color-mix(in oklab, var(--color-dark-gray-1) 65%, transparent)";
 const listItemColor = isDark
-  ? 'rgba(252, 251, 244, 0.85)'
-  : 'color-mix(in oklab, var(--color-dark-gray-1) 78%, transparent)';
+  ? "rgba(241,244,238, 0.85)"
+  : "color-mix(in oklab, var(--color-dark-gray-1) 78%, transparent)";
 const chipBg = isDark
-  ? 'rgba(252, 251, 244, 0.08)'
-  : 'color-mix(in oklab, var(--color-dark-gray-1) 6%, transparent)';
+  ? "rgba(241,244,238, 0.08)"
+  : "color-mix(in oklab, var(--color-dark-gray-1) 6%, transparent)";
 const chipColor = isDark
-  ? 'rgba(252, 251, 244, 0.85)'
-  : 'color-mix(in oklab, var(--color-dark-gray-1) 80%, transparent)';
+  ? "rgba(241,244,238, 0.85)"
+  : "color-mix(in oklab, var(--color-dark-gray-1) 80%, transparent)";
 ---
 
 <Tag
   href={href}
   class:list={[
-    // Base frame
-    'group relative rounded-2xl border transition-all duration-300',
-    // Hover: lift + accent-coloured border (works via inline --accent var)
-    'hover:-translate-y-1 hover:border-[color:var(--accent)]',
-    // Tone-specific bg + hover shadow / tint
+    "group relative rounded-2xl border transition-all duration-300 overflow-hidden",
+    "hover:-translate-y-1 hover:border-[color:var(--accent)]",
     isDark
-      ? 'bg-floral-white/[0.04] border-floral-white/10 hover:bg-floral-white/[0.08]'
-      : 'bg-floral-white-1 border-dark-gray-1/10 hover:shadow-xl hover:shadow-dark-slate-gray/15',
-    // Variant layout
-    variant === 'compact' && 'flex flex-col gap-3 p-5',
-    variant === 'feature' && 'flex flex-col gap-5 p-7 sm:p-8',
-    variant === 'linear'  && 'flex flex-row items-center gap-5 p-4',
+      ? "bg-floral-white-1/60 border-white/[0.08] backdrop-blur-md"
+      : "bg-floral-white-1 border-dark-gray-1/10 hover:shadow-xl hover:shadow-dark-slate-gray/15",
+    variant === "compact" && "flex flex-col gap-3 p-5",
+    variant === "feature" && "flex flex-col gap-5 p-7 sm:p-8",
+    variant === "linear" && "flex flex-row items-center gap-5 p-4",
   ]}
-  style={`--accent: var(--color-${accent});`}
+  style={`--accent: var(--color-${accent}); ${isDark ? "box-shadow: 0 20px 40px -25px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);" : ""}`}
 >
-  {/* ============== COMPACT ============== */}
-  {variant === 'compact' && icon && (
-    <div
-      class="inline-flex w-10 h-10 items-center justify-center rounded-xl"
-      style="background: color-mix(in oklab, var(--accent) 12%, transparent);"
-    >
-      <Icon name={icon} class="size-5" style="color: var(--accent);" />
-    </div>
-  )}
-  {variant === 'compact' && (
-    <h3 class="type-link-20 m-0" style={`color: ${titleColor};`}>{title}</h3>
-  )}
-  {variant === 'compact' && description && (
-    <p
-      class="type-body-15 m-0 line-clamp-1"
-      style={`color: ${descColor};`}
-    >{description}</p>
-  )}
-  {variant === 'compact' && tags.length > 0 && (
-    <ul class="flex flex-wrap gap-1.5 mt-auto pt-1 list-none m-0 p-0">
-      {tags.slice(0, 3).map((t) => (
-        <li
-          class="type-caption-12 px-2.5 py-1 rounded-full whitespace-nowrap"
-          style={`background: ${chipBg}; color: ${chipColor};`}
-        >{t}</li>
-      ))}
-    </ul>
-  )}
-  {variant === 'compact' && href && (
-    <span
-      class="absolute top-4 right-4 inline-flex opacity-55 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1"
-      style="color: var(--accent);"
-      aria-hidden="true"
-    >
-      <Icon name="lucide:arrow-up-right" class="size-4" />
-    </span>
-  )}
+  {/* Hover accent glow on dark tone */}
+  {
+    isDark && (
+      <span
+        class="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style="background: radial-gradient(circle at 50% 0%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 70%);"
+        aria-hidden="true"
+      />
+    )
+  }
 
-  {/* ============== FEATURE ============== */}
-  {variant === 'feature' && (
-    <header class="flex items-center gap-4">
-      {icon && (
-        <div
-          class="inline-flex w-14 h-14 items-center justify-center rounded-2xl shrink-0 transition-transform duration-300 group-hover:scale-105"
-          style="background: color-mix(in oklab, var(--accent) 16%, transparent);"
-        >
-          <Icon name={icon} class="size-6" style="color: var(--accent);" />
-        </div>
-      )}
-      <h3 class="type-h2-36 m-0 flex-1" style={`color: ${titleColor};`}>{title}</h3>
-    </header>
-  )}
-  {variant === 'feature' && description && (
-    <p class="type-body-17 m-0 leading-snug" style={`color: ${descColor};`}>{description}</p>
-  )}
-  {variant === 'feature' && tags.length > 0 && (
-    <div>
-      <p class="type-link-16 m-0 mb-3" style={`color: ${titleColor};`}>{tagsLabel}</p>
-      <ul class="list-none m-0 p-0 grid gap-2.5">
-        {tags.map((t) => (
+  {/* ============== COMPACT ============== */}
+  {
+    variant === "compact" && icon && (
+      <div
+        class="inline-flex w-10 h-10 items-center justify-center rounded-xl"
+        style="background: color-mix(in oklab, var(--accent) 12%, transparent);"
+      >
+        <Icon name={icon} class="size-5" style="color: var(--accent);" />
+      </div>
+    )
+  }
+  {
+    variant === "compact" && (
+      <h3 class="type-link-20 m-0" style={`color: ${titleColor};`}>
+        {title}
+      </h3>
+    )
+  }
+  {
+    variant === "compact" && description && (
+      <p class="type-body-15 m-0 line-clamp-1" style={`color: ${descColor};`}>
+        {description}
+      </p>
+    )
+  }
+  {
+    variant === "compact" && tags.length > 0 && (
+      <ul class="flex flex-wrap gap-1.5 mt-auto pt-1 list-none m-0 p-0">
+        {tags.slice(0, 3).map((t) => (
           <li
-            class="type-body-15 flex items-start gap-2"
-            style={`color: ${listItemColor};`}
+            class="type-caption-12 px-2.5 py-1 rounded-full whitespace-nowrap"
+            style={`background: ${chipBg}; color: ${chipColor};`}
           >
-            <Icon
-              name="lucide:check"
-              class="size-4 shrink-0 mt-1"
-              style="color: var(--accent);"
-              aria-hidden="true"
-            />
-            <span>{t}</span>
+            {t}
           </li>
         ))}
       </ul>
-    </div>
-  )}
-  {variant === 'feature' && href && (
-    <span
-      class="absolute top-6 right-6 inline-flex opacity-60 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1"
-      style="color: var(--accent);"
-      aria-hidden="true"
-    >
-      <Icon name="lucide:arrow-up-right" class="size-5" />
-    </span>
-  )}
+    )
+  }
+  {
+    variant === "compact" && href && (
+      <span
+        class="absolute top-4 right-4 inline-flex opacity-55 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1"
+        style="color: var(--accent);"
+        aria-hidden="true"
+      >
+        <Icon name="tabler:arrow-up-right" class="size-4" />
+      </span>
+    )
+  }
+
+  {/* ============== FEATURE ============== */}
+  {
+    variant === "feature" && (
+      <header class="flex items-center gap-4">
+        {icon && (
+          <div
+            class="inline-flex w-14 h-14 items-center justify-center rounded-2xl shrink-0 transition-transform duration-300 group-hover:scale-105"
+            style="background: color-mix(in oklab, var(--accent) 16%, transparent);"
+          >
+            <Icon name={icon} class="size-6" style="color: var(--accent);" />
+          </div>
+        )}
+        <h3 class="type-h2-36 m-0 flex-1" style={`color: ${titleColor};`}>
+          {title}
+        </h3>
+      </header>
+    )
+  }
+  {
+    variant === "feature" && description && (
+      <p class="type-body-17 m-0 leading-snug" style={`color: ${descColor};`}>
+        {description}
+      </p>
+    )
+  }
+  {
+    variant === "feature" && tags.length > 0 && (
+      <div>
+        <p class="type-link-16 m-0 mb-3" style={`color: ${titleColor};`}>
+          {tagsLabel}
+        </p>
+        <ul class="list-none m-0 p-0 grid gap-2.5">
+          {tags.map((t) => (
+            <li
+              class="type-body-15 flex items-start gap-2"
+              style={`color: ${listItemColor};`}
+            >
+              <Icon
+                name="simple-icons:check"
+                class="size-4 shrink-0 mt-1"
+                style="color: var(--accent);"
+                aria-hidden="true"
+              />
+              <span>{t}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+  {
+    variant === "feature" && href && (
+      <span
+        class="absolute top-6 right-6 inline-flex opacity-60 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1"
+        style="color: var(--accent);"
+        aria-hidden="true"
+      >
+        <Icon name="tabler:arrow-up-right" class="size-5" />
+      </span>
+    )
+  }
 
   {/* ============== LINEAR ============== */}
-  {variant === 'linear' && icon && (
-    <div
-      class="inline-flex w-11 h-11 items-center justify-center rounded-xl shrink-0"
-      style="background: color-mix(in oklab, var(--accent) 12%, transparent);"
-    >
-      <Icon name={icon} class="size-5" style="color: var(--accent);" />
-    </div>
-  )}
-  {variant === 'linear' && (
-    <div class="flex flex-col gap-0.5 min-w-0 flex-1">
-      <h3 class="type-link-20 m-0" style={`color: ${titleColor};`}>{title}</h3>
-      {description && (
-        <p
-          class="type-body-15 m-0 line-clamp-1"
-          style={`color: ${descColor};`}
-        >{description}</p>
-      )}
-    </div>
-  )}
-  {variant === 'linear' && tags.length > 0 && (
-    <ul class="hidden md:flex shrink-0 gap-1.5 list-none m-0 p-0">
-      {tags.slice(0, 3).map((t) => (
-        <li
-          class="type-caption-12 px-2.5 py-1 rounded-full whitespace-nowrap"
-          style={`background: ${chipBg}; color: ${chipColor};`}
-        >{t}</li>
-      ))}
-    </ul>
-  )}
-  {variant === 'linear' && href && (
-    <span
-      class="inline-flex shrink-0 opacity-60 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1"
-      style="color: var(--accent);"
-      aria-hidden="true"
-    >
-      <Icon name="lucide:arrow-right" class="size-5" />
-    </span>
-  )}
+  {
+    variant === "linear" && icon && (
+      <div
+        class="inline-flex w-11 h-11 items-center justify-center rounded-xl shrink-0"
+        style="background: color-mix(in oklab, var(--accent) 12%, transparent);"
+      >
+        <Icon name={icon} class="size-5" style="color: var(--accent);" />
+      </div>
+    )
+  }
+  {
+    variant === "linear" && (
+      <div class="flex flex-col gap-0.5 min-w-0 flex-1">
+        <h3 class="type-link-20 m-0" style={`color: ${titleColor};`}>
+          {title}
+        </h3>
+        {description && (
+          <p
+            class="type-body-15 m-0 line-clamp-1"
+            style={`color: ${descColor};`}
+          >
+            {description}
+          </p>
+        )}
+      </div>
+    )
+  }
+  {
+    variant === "linear" && tags.length > 0 && (
+      <ul class="hidden md:flex shrink-0 gap-1.5 list-none m-0 p-0">
+        {tags.slice(0, 3).map((t) => (
+          <li
+            class="type-caption-12 px-2.5 py-1 rounded-full whitespace-nowrap"
+            style={`background: ${chipBg}; color: ${chipColor};`}
+          >
+            {t}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    variant === "linear" && href && (
+      <span
+        class="inline-flex shrink-0 opacity-60 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1"
+        style="color: var(--accent);"
+        aria-hidden="true"
+      >
+        <Icon name="tabler:arrow-up-right" class="size-5" />
+      </span>
+    )
+  }
 </Tag>
 
 <style>
   @media (prefers-reduced-motion: reduce) {
-    .group, .group * {
+    .group,
+    .group * {
       transition: none !important;
       transform: none !important;
     }
