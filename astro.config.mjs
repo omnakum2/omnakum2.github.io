@@ -11,11 +11,17 @@ export default defineConfig({
     enabled: false,
   },
 
+  trailingSlash: 'always',
+
   vite: {
     plugins: [tailwindcss()],
   },
 
+  // TODO: replace 'https://example.com' with actual domain after deployment
   site: 'https://example.com',
 
-  integrations: [sitemap(), icon()],
+  integrations: [
+    sitemap({ filter: (page) => !page.includes('/404') }),
+    icon()
+  ],
 });

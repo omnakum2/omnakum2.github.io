@@ -1,21 +1,52 @@
 ---
 import { SEO } from 'astro-seo';
-import { resolveSeo } from '../lib/seo';
+import { buildSeo } from '../lib/seo';
 import type { SeoConfig } from '../types/seo';
+import SchemaOrg from './SchemaOrg.astro';
+import { buildFaqLd } from '../lib/schema';
+import { SITE } from '../consts';
 
 interface Props {
   seo: SeoConfig;
 }
 const { seo } = Astro.props;
-const resolved = resolveSeo(seo);
+const resolved = buildSeo(seo);
+
+const pageScoped = [
+  ...(resolved.jsonLd?.faq?.length ? [buildFaqLd(resolved.jsonLd.faq)] : []),
+  // TODO: implement buildBreadcrumbLd() when blog is added
+];
 ---
 
 <SEO
-  title={resolved.title}
+  title={resolved.fullTitle}
   description={resolved.description}
   canonical={resolved.canonical}
-  openGraph={resolved.openGraph}
-  twitter={resolved.twitter}
-  noindex={resolved.noindex}
-  nofollow={resolved.nofollow}
+  openGraph={{
+    basic: {
+      title: resolved.ogTitle,
+      type: 'website',
+      image: resolved.ogImage,
+      url: resolved.canonical,
+    },
+    optional: {
+      description: resolved.ogDescription,
+    }
+  }}
+  twitter={{
+    card: 'summary_large_image',
+    title: resolved.ogTitle,
+    description: resolved.ogDescription,
+    image: resolved.ogImage,
+  }}
+  extend={{
+    meta: [
+      { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+      { property: "og:site_name", content: SITE.name },
+      { property: "og:locale", content: "en_US" },
+      ...(resolved.keywords ? [{ name: "keywords", content: resolved.keywords }] : [])
+    ]
+  }}
 />
+
+{pageScoped.length > 0 && <SchemaOrg schemas={pageScoped} />}

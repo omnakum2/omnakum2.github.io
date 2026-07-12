@@ -1,43 +1,35 @@
 @import 'tailwindcss';
 
 @theme {
-  /* === Palette 1 — Sage Editorial ===
-     #cad2c5  #84a98c  #52796f  #354f52  #2f3e46
-     Token names preserved; values rescoped per-surface below so the
-     same Tailwind utility recolors automatically depending on which
-     section it lives inside.
+  /* === Sage Editorial Palette ===
+     Verbose names — each token describes the actual color,
+     so `text-sage-green` or `bg-charcoal-ink` is self-documenting.
+     Change a value here → every section & component updates.
    */
-  --color-white: #ffffff;
-  --color-white-smoke: #eef1ec;
-  --color-lavender: #84a98c;
 
-  /* Default (page) — light cream surface */
-  --color-floral-white:   #eef1ec;
-  --color-floral-white-1: #ffffff;
+  /* ── Darks ── */
+  --color-charcoal-ink:   #2f3e46;   /* primary dark text on light surfaces      */
+  --color-near-black:     #142024;   /* deepest foreground, used on mid surfaces  */
+  --color-deep-charcoal:  #0a1416;   /* deepest possible background              */
 
-  /* Borders / dividers */
-  --color-gainsboro: rgba(47,62,70,0.12);
+  /* ── Lights ── */
+  --color-cream-white:    #f1f4ee;   /* light text on dark surfaces              */
+  --color-soft-cream:     #eef1ec;   /* page / body background                  */
+  --color-warm-cream:     #f1f4ee;   /* cream section background                */
+  --color-pure-white:     #ffffff;   /* cards, elevated surfaces                */
 
-  /* Accents — sage family */
-  --color-sky-blue:        #cad2c5;
-  --color-hot-pink:        #84a98c;
-  --color-royal-blue:      #354f52;
-  --color-blue:            #2f3e46;
-  --color-steel-blue:      #52796f;
-  --color-dark-slate-gray: #2f3e46;
+  /* ── Sage family ── */
+  --color-pale-sage:      #cad2c5;   /* muted text on dark, light accent fills  */
+  --color-sage-green:     #84a98c;   /* primary accent — links, tags, highlights */
+  --color-forest-teal:    #52796f;   /* secondary accent — quotes, stats, focus */
 
-  /* Foreground (dark ink) */
-  --color-dark-gray:   #2f3e46;
-  --color-dark-gray-1: #2f3e46;
-
-  --color-black:   #0a1416;
-  --color-black-1: #142024;
+  /* ── Teals ── */
+  --color-dark-teal:      #354f52;   /* dark surface background                 */
+  --color-slate-teal:     #3f5d61;   /* hover variant for dark cards            */
 
   /* === Typography === */
   --font-crimson-pro: 'Sora', system-ui, sans-serif;
   --font-plus-jakarta-sans: 'Manrope', system-ui, sans-serif;
-  --font-outfit: 'Sora', system-ui, sans-serif;
-  --font-arial: 'Manrope', system-ui, sans-serif;
 
   --text-12: 12px; --text-13: 13px; --text-14: 14px; --text-15: 15px;
   --text-16: 16px; --text-17: 17px; --text-18: 18px; --text-19: 19px;
@@ -63,33 +55,33 @@
 }
 
 /* === Base === */
-html { scroll-behavior: smooth; background: #eef1ec; }
+html { scroll-behavior: smooth; background: var(--color-soft-cream); }
 
 body {
-  background: #eef1ec;
-  color: #2f3e46;
+  background: var(--color-soft-cream);
+  color: var(--color-charcoal-ink);
   font-family: var(--font-plus-jakarta-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: -0.005em;
 }
 
-::selection { background: #84a98c; color: #f7f9f5; }
+::selection { background: var(--color-sage-green); color: var(--color-cream-white); }
 
 a { transition: color 0.25s ease, opacity 0.25s ease; }
 
 :focus-visible {
-  outline: 2px solid #52796f;
+  outline: 2px solid var(--color-forest-teal);
   outline-offset: 3px;
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: #eef1ec; }
+::-webkit-scrollbar-track { background: var(--color-soft-cream); }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #52796f, #2f3e46);
+  background: linear-gradient(180deg, var(--color-forest-teal), var(--color-charcoal-ink));
   border-radius: 10px;
-  border: 2px solid #eef1ec;
+  border: 2px solid var(--color-soft-cream);
 }
 
 /* === Surface system — scoped palette variables per section ===
@@ -97,49 +89,24 @@ a { transition: color 0.25s ease, opacity 0.25s ease; }
    .surface-deep / .surface-dark on a section wrapper. Every Tailwind
    utility that reads --color-* below automatically recolors. */
 .surface-cream {
-  --color-floral-white:   #f1f4ee;
-  --color-floral-white-1: #ffffff;
-  --color-dark-gray-1:    #2f3e46;
-  --color-dark-gray:      #2f3e46;
-  --color-gainsboro:      rgba(47,62,70,0.10);
-  background-color: #f1f4ee;
-  color: #2f3e46;
+  background-color: var(--color-warm-cream);
+  color: var(--color-charcoal-ink);
 }
 .surface-light {
-  --color-floral-white:   #cad2c5;
-  --color-floral-white-1: #ffffff;
-  --color-dark-gray-1:    #2f3e46;
-  --color-dark-gray:      #2f3e46;
-  --color-gainsboro:      rgba(47,62,70,0.12);
-  background-color: #cad2c5;
-  color: #2f3e46;
+  background-color: var(--color-pale-sage);
+  color: var(--color-charcoal-ink);
 }
 .surface-mid {
-  --color-floral-white:   #84a98c;
-  --color-floral-white-1: #6f9579;
-  --color-dark-gray-1:    #142024;
-  --color-dark-gray:      #142024;
-  --color-gainsboro:      rgba(20,32,36,0.18);
-  background-color: #84a98c;
-  color: #142024;
+  background-color: var(--color-sage-green);
+  color: var(--color-near-black);
 }
 .surface-dark {
-  --color-floral-white:   #f1f4ee;
-  --color-floral-white-1: #3f5d61;
-  --color-dark-gray-1:    #f1f4ee;
-  --color-dark-gray:      #cad2c5;
-  --color-gainsboro:      rgba(202,210,197,0.14);
-  background-color: #354f52;
-  color: #f1f4ee;
+  background-color: var(--color-dark-teal);
+  color: var(--color-cream-white);
 }
 .surface-deep {
-  --color-floral-white:   #f1f4ee;
-  --color-floral-white-1: #3a4a52;
-  --color-dark-gray-1:    #f1f4ee;
-  --color-dark-gray:      #cad2c5;
-  --color-gainsboro:      rgba(202,210,197,0.12);
-  background-color: #2f3e46;
-  color: #f1f4ee;
+  background-color: var(--color-charcoal-ink);
+  color: var(--color-cream-white);
 }
 
 /* Soft section seams */
@@ -156,17 +123,11 @@ a { transition: color 0.25s ease, opacity 0.25s ease; }
 .surface-cream + .surface-dark,
 .surface-dark + .surface-cream,
 .surface-dark + .surface-deep,
-.surface-deep + .surface-dark { border-top: 1px solid rgba(47,62,70,0.06); }
-
-/* Legacy aliases — keep old class names working but route through surfaces. */
-.section-warm-0 { background: transparent; }
-.section-warm-1 { background: transparent; }
-.section-warm-2 { background: transparent; }
-.section-dark   { background: transparent; }
+.surface-deep + .surface-dark { border-top: 1px solid color-mix(in srgb, var(--color-charcoal-ink) 6%, transparent); }
 
 /* Editorial line-grid backdrop, subtle */
 .bg-line-grid {
-  --grid-line: rgba(47,62,70,0.06);
+  --grid-line: color-mix(in srgb, var(--color-charcoal-ink) 6%, transparent);
   --grid-size: 96px;
   --grid-thickness: 1px;
   background-image:
@@ -177,47 +138,31 @@ a { transition: color 0.25s ease, opacity 0.25s ease; }
   -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 80%);
 }
 .surface-dark .bg-line-grid,
-.surface-deep .bg-line-grid { --grid-line: rgba(202,210,197,0.06); }
-.surface-mid .bg-line-grid  { --grid-line: rgba(20,32,36,0.10); }
+.surface-deep .bg-line-grid { --grid-line: color-mix(in srgb, var(--color-pale-sage) 6%, transparent); }
+.surface-mid .bg-line-grid  { --grid-line: color-mix(in srgb, var(--color-near-black) 10%, transparent); }
 
-.bg-line-grid-fine {
-  --grid-line: rgba(47,62,70,0.05);
-  --grid-size: 32px;
-  --grid-thickness: 1px;
+/* === Decorative texture utilities === */
+.texture-grid {
   background-image:
-    linear-gradient(to right, var(--grid-line) var(--grid-thickness), transparent var(--grid-thickness)),
-    linear-gradient(to bottom, var(--grid-line) var(--grid-thickness), transparent var(--grid-thickness));
-  background-size: var(--grid-size) var(--grid-size);
+    linear-gradient(color-mix(in srgb, var(--color-pale-sage) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-pale-sage) 8%, transparent) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
-/* === Surfaces & utilities === */
-@utility glass-surface {
-  background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.25));
-  backdrop-filter: blur(14px) saturate(140%);
-  border: 1px solid rgba(47,62,70,0.08);
-  box-shadow: 0 30px 60px -30px rgba(47,62,70,0.25);
-}
-.surface-dark .glass-surface,
-.surface-deep .glass-surface,
-.surface-mid  .glass-surface {
-  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-  border: 1px solid rgba(255,255,255,0.10);
+.texture-dots {
+  background-image: radial-gradient(color-mix(in srgb, var(--color-charcoal-ink) 10%, transparent) 1px, transparent 1px);
+  background-size: 16px 16px;
 }
 
-@utility glow-orb {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(70px);
-  opacity: 0.5;
-  pointer-events: none;
-  z-index: 0;
+.texture-dots-light {
+  background-image: radial-gradient(color-mix(in srgb, var(--color-pale-sage) 10%, transparent) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
-/* Per spec — kill glow on the bright surfaces; keep restrained on dark. */
-.surface-light .glow-orb,
-.surface-cream .glow-orb,
-.surface-mid   .glow-orb { display: none; }
-.surface-dark  .glow-orb,
-.surface-deep  .glow-orb { opacity: 0.35; }
+
+.texture-lines-light {
+  background-image: linear-gradient(color-mix(in srgb, var(--color-cream-white) 10%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
 
 /* === Editorial type helpers === */
 .eyebrow-rule {
@@ -236,8 +181,6 @@ a { transition: color 0.25s ease, opacity 0.25s ease; }
   letter-spacing: -0.035em;
   line-height: 0.92;
 }
-
-.measure { max-width: 62ch; }
 
 /* Marquee badge for project numbering */
 .tag-num {
@@ -278,37 +221,42 @@ a { transition: color 0.25s ease, opacity 0.25s ease; }
 
 /* === Typography components === */
 @layer components {
-  .type-h1 { font-family: var(--font-crimson-pro); font-size: var(--text-80); font-weight: 700; line-height: var(--leading-h1); letter-spacing: -0.035em; }
-  .type-h2 { font-family: var(--font-crimson-pro); font-size: var(--text-56); font-weight: 700; line-height: var(--leading-h2); letter-spacing: -0.03em; }
-  .type-h2-56 { font-family: var(--font-crimson-pro); font-size: var(--text-56); font-weight: 700; line-height: var(--leading-h2-56); letter-spacing: -0.03em; }
-  .type-h2-56-400 { font-family: var(--font-crimson-pro); font-size: var(--text-56); font-weight: 500; line-height: var(--leading-h2-56-400); }
-  .type-large-title { font-family: var(--font-crimson-pro); font-size: var(--text-56); font-weight: 700; line-height: var(--leading-large-title); letter-spacing: -0.03em; }
-  .type-h2-48 { font-family: var(--font-crimson-pro); font-size: var(--text-48); font-weight: 700; line-height: var(--leading-h2-48); letter-spacing: -0.03em; }
-  .type-h2-48-400 { font-family: var(--font-crimson-pro); font-size: var(--text-48); font-weight: 500; line-height: var(--leading-h2-48-400); }
-  .type-h2-36 { font-family: var(--font-crimson-pro); font-size: var(--text-36); font-weight: 600; line-height: var(--leading-h2-36); letter-spacing: var(--tracking-h2-36); }
-  .type-link { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-32); font-weight: 600; line-height: var(--leading-link); letter-spacing: var(--tracking-link); }
-  .type-heading { font-family: var(--font-crimson-pro); font-size: var(--text-24); font-weight: 600; line-height: var(--leading-heading); }
-  .type-heading-24 { font-family: var(--font-crimson-pro); font-size: var(--text-24); font-weight: 600; line-height: var(--leading-heading-24); }
-  .type-h3 { font-family: var(--font-crimson-pro); font-size: var(--text-24); font-weight: 600; line-height: var(--leading-h3); }
-  .type-heading-24-300 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-24); font-weight: 300; line-height: var(--leading-heading-24-300); }
-  .type-link-21 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-21); font-weight: 600; line-height: var(--leading-link-21); }
   .type-link-20 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-20); font-weight: 600; line-height: var(--leading-link-20); }
-  .type-link-20-500 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-20); font-weight: 500; line-height: var(--leading-link-20-500); }
   .type-body { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-20); font-weight: 400; line-height: var(--leading-body); }
   .type-large-body { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-19); font-weight: 400; line-height: var(--leading-large-body); letter-spacing: var(--tracking-large-body); }
-  .type-body-18 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-18); font-weight: 400; line-height: var(--leading-body-18); }
   .type-body-17 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-17); font-weight: 400; line-height: var(--leading-body-17); letter-spacing: var(--tracking-body-17); }
-  .type-body-17-400 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-17); font-weight: 400; line-height: var(--leading-body-17-400); }
   .type-link-16 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-16); font-weight: 600; line-height: var(--leading-link-16); }
-  .type-body-16 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-16); font-weight: 400; line-height: var(--leading-body-16); }
-  .type-body-16-400 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-16); font-weight: 400; line-height: var(--leading-body-16-400); letter-spacing: var(--tracking-body-16-400); }
-  .type-link-16-400 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-16); font-weight: 500; line-height: var(--leading-link-16-400); }
   .type-body-15 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-15); font-weight: 400; line-height: var(--leading-body-15); letter-spacing: var(--tracking-body-15); }
   .type-small-body { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-14); font-weight: 400; line-height: var(--leading-small-body); letter-spacing: var(--tracking-small-body); }
-  .type-body-14 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-14); font-weight: 400; line-height: var(--leading-body-14); }
-  .type-body-14-400 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-14); font-weight: 400; line-height: var(--leading-body-14-400); }
   .type-caption { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-13); font-weight: 500; line-height: var(--leading-caption); }
   .type-button { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-13); font-weight: 600; line-height: var(--leading-button); }
   .type-caption-12 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-12); font-weight: 600; line-height: var(--leading-caption-12); }
-  .type-caption-12-500 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-12); font-weight: 500; line-height: var(--leading-caption-12-500); }
 }
+
+/* === Hero Redesign Utilities === */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.floating-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-charcoal-ink) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-pale-sage) 20%, transparent);
+  backdrop-filter: blur(8px);
+  color: var(--color-cream-white);
+  font-family: var(--font-plus-jakarta-sans);
+  font-size: var(--text-13);
+  font-weight: 500;
+  animation: float 6s ease-in-out infinite;
+  white-space: nowrap;
+}
+
+.floating-pill-delay-1 { animation-delay: -2s; }
+.floating-pill-delay-2 { animation-delay: -4s; }
+.floating-pill-delay-3 { animation-delay: -5.5s; }

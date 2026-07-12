@@ -12,6 +12,10 @@ export interface SeoConfig {
   title: string;
   description: string;
   canonical: string;
+  ogImage?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  keywords?: string;
   jsonLd?: {
     faq?: FaqItem[];
     breadcrumbs?: BreadcrumbItem[];

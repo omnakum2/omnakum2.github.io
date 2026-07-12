@@ -86,9 +86,9 @@ const belt = [...logos, ...logos];
     align-items: center;
     gap: 0.75rem;
     padding: 0.85rem 1.4rem;
-    border: 1px solid rgba(20,32,36,0.18);
+    border: 1px solid color-mix(in srgb, var(--color-near-black) 18%, transparent);
     border-radius: 0;
-    background: rgba(241,244,238,0.35);
+    background: color-mix(in srgb, var(--color-cream-white) 35%, transparent);
     white-space: nowrap;
     transition:
       transform 0.35s ease,
@@ -98,14 +98,14 @@ const belt = [...logos, ...logos];
 
   .belt-item:hover {
     transform: translateY(-3px);
-    background: #2f3e46;
-    border-color: #2f3e46;
+    background: var(--color-charcoal-ink);
+    border-color: var(--color-charcoal-ink);
   }
 
   .belt-item :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
-    color: #142024;
+    color: var(--color-near-black);
     filter: grayscale(1);
     opacity: 0.85;
     transition: filter 0.35s ease, opacity 0.35s ease, transform 0.35s ease, color 0.35s ease;
@@ -119,12 +119,12 @@ const belt = [...logos, ...logos];
   }
 
   .belt-label {
-    color: #142024;
+    color: var(--color-near-black);
     transition: color 0.35s ease;
   }
 
   .belt-item:hover .belt-label {
-    color: #f1f4ee;
+    color: var(--color-cream-white);
   }
 
   @media (prefers-reduced-motion: reduce) {

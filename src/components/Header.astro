@@ -13,22 +13,22 @@ const links = [
 
 <header class="sticky top-0 z-40">
   <div
-    class="absolute inset-0 -z-10 border-b border-[#2f3e46]/12 bg-[#f1f4ee]/85 backdrop-blur-xl"
+    class="absolute inset-0 -z-10 border-b border-charcoal-ink/12 bg-cream-white/85 backdrop-blur-xl"
   >
   </div>
 
   <div
     class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4"
   >
-    <a href="/" class="group flex items-center gap-3 text-[#2f3e46]">
+    <a href="/" class="group flex items-center gap-3 text-charcoal-ink">
       <span
-        class="relative inline-flex size-9 items-center justify-center bg-[#2f3e46] text-[#cad2c5] type-caption-12 tag-num"
+        class="relative inline-flex size-9 items-center justify-center bg-charcoal-ink text-pale-sage type-caption-12 tag-num"
       >
         {SITE.name.charAt(0)}
       </span>
       <div class="flex flex-col leading-tight">
-        <span class="type-link-16 text-[#2f3e46]">{SITE.name}</span>
-        <span class="type-caption-12 uppercase tracking-[0.2em] text-[#52796f]"
+        <span class="type-link-16 text-charcoal-ink">{SITE.name}</span>
+        <span class="type-caption-12 uppercase tracking-[0.2em] text-forest-teal"
           >Studio · MMXXVI</span
         >
       </div>
@@ -39,10 +39,10 @@ const links = [
         {
           links.map((l, i) => (
             <li class="flex items-center gap-1">
-              {i > 0 && <span class="text-[#2f3e46]/25">·</span>}
+              {i > 0 && <span class="text-charcoal-ink/25">·</span>}
               <a
                 href={l.href}
-                class="type-caption-12 uppercase tracking-[0.18em] px-3 py-2 text-[#2f3e46]/70 transition hover:text-[#2f3e46]"
+                class="type-caption-12 uppercase tracking-[0.18em] px-3 py-2 text-charcoal-ink/70 transition hover:text-charcoal-ink"
               >
                 {l.label}
               </a>
@@ -54,7 +54,7 @@ const links = [
 
     <a
       href="#contact"
-      class="hidden md:inline-flex items-center gap-2 border border-[#2f3e46] bg-[#2f3e46] px-5 py-2.5 text-[#cad2c5] transition hover:bg-[#52796f] hover:border-[#52796f]"
+      class="hidden md:inline-flex items-center gap-2 border border-charcoal-ink bg-charcoal-ink px-5 py-2.5 text-pale-sage transition hover:bg-forest-teal hover:border-forest-teal"
     >
       <span class="type-caption-12 uppercase tracking-[0.18em]">Let's Talk</span
       >
@@ -63,7 +63,7 @@ const links = [
 
     <button
       id="mobile-menu-toggle"
-      class="md:hidden p-2 text-[#2f3e46]"
+      class="md:hidden p-2 text-charcoal-ink"
       aria-label="Toggle menu"
     >
       <Icon name="tabler:menu-2" class="size-6" />
@@ -72,7 +72,7 @@ const links = [
 
   <nav
     id="mobile-menu"
-    class="hidden md:hidden border-t border-[#2f3e46]/12 bg-[#f1f4ee]/95 backdrop-blur-xl"
+    class="hidden md:hidden border-t border-charcoal-ink/12 bg-cream-white/95 backdrop-blur-xl"
   >
     <ul class="flex flex-col gap-1 px-6 py-4">
       {
@@ -80,7 +80,7 @@ const links = [
           <li>
             <a
               href={l.href}
-              class="type-link-16 block px-3 py-3 text-[#2f3e46] transition hover:bg-[#cad2c5]"
+              class="type-link-16 block px-3 py-3 text-charcoal-ink transition hover:bg-pale-sage"
             >
               {l.label}
             </a>

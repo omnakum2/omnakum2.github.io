@@ -9,82 +9,46 @@ const FAQ_MASCOT_SRC = "/mascots/faq_mascot.webp";
   <div class="relative mx-auto max-w-7xl px-6">
     <!-- Editorial header — left-aligned with rule -->
     <div
-      class="grid items-end gap-8 border-b border-[#142024]/20 pb-10 lg:grid-cols-12"
+      class="grid items-end gap-8 border-b border-near-black/20 pb-10 lg:grid-cols-12"
     >
       <div class="lg:col-span-8" data-reveal-stagger>
-        <p data-reveal class="eyebrow-rule text-[#142024]/70">
-          Chapter 05 · Frequently Asked
+        <p data-reveal class="eyebrow-rule text-near-black/70">
+          Chapter 05 · Frequently Asked Questions
         </p>
         <h2
           data-reveal
-          class="display-serif mt-5 text-[clamp(40px,6vw,88px)] text-[#142024]"
+          class="display-serif mt-5 text-[clamp(40px,6vw,88px)] text-near-black"
         >
-          Questions, answered
-          <span class="italic font-light" style="color:#2f3e46;"
+          Answered
+          <span class="italic font-light text-charcoal-ink"
             >in plain words.</span
           >
         </h2>
-      </div>
-      <div class="lg:col-span-4 flex items-end justify-end" data-reveal>
-        <img
-          src={FAQ_MASCOT_SRC}
-          alt="Mascot pointing at the questions"
-          width="180"
-          height="180"
-          loading="lazy"
-          decoding="async"
-          class="h-32 w-auto select-none lg:h-44"
-        />
       </div>
     </div>
 
     <!-- 12-col grid — left index column + accordion -->
     <div class="mt-12 grid gap-10 lg:grid-cols-12">
-      <aside
-        class="lg:col-span-3 lg:sticky lg:top-28 lg:self-start space-y-6"
-        data-reveal
-      >
-        <p
-          class="type-caption-12 uppercase tracking-[0.22em] text-[#142024]/60"
-        >
-          In this section
-        </p>
-        <ol class="space-y-2 list-none m-0 p-0">
-          {
-            faqs.map((faq, idx) => (
-              <li class="flex items-baseline gap-3">
-                <span class="type-caption-12 tag-num text-[#2f3e46]">
-                  {String(idx + 1).padStart(2, "0")}
-                </span>
-                <span class="type-body-15 text-[#142024]/70">
-                  {faq.question.split("?")[0]}?
-                </span>
-              </li>
-            ))
-          }
-        </ol>
-      </aside>
-
-      <ul class="lg:col-span-9 list-none m-0 p-0" data-reveal-stagger>
+      <ul class="lg:col-span-8 list-none" data-reveal-stagger>
         {
           faqs.map((faq, idx) => (
             <li data-reveal>
-              <details class="group/faq border-b border-[#142024]/20 py-2 transition open:border-[#2f3e46]">
+              <details class="group/faq border-b border-near-black/20 py-2 transition open:border-charcoal-ink">
                 <summary class="flex cursor-pointer items-baseline gap-6 py-6 list-none [&::-webkit-details-marker]:hidden">
-                  <span class="type-caption-12 tag-num text-[#2f3e46] w-10 shrink-0">
+                  <span class="type-caption-12 tag-num text-charcoal-ink w-10 shrink-0">
                     {String(idx + 1).padStart(2, "0")}
                   </span>
-                  <span class="display-serif flex-1 text-[clamp(22px,2.4vw,32px)] text-[#142024]">
+                  <span class="display-serif flex-1 text-[clamp(22px,2.4vw,32px)] text-near-black">
                     {faq.question}
                   </span>
-                  <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-[#142024]/30 text-[#142024]/80 transition-all duration-300 group-open/faq:rotate-45 group-open/faq:border-[#2f3e46] group-open/faq:bg-[#2f3e46] group-open/faq:text-[#cad2c5]">
+                  <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-near-black/30 text-near-black/80 transition-all duration-300 group-open/faq:rotate-45 group-open/faq:border-charcoal-ink group-open/faq:bg-charcoal-ink group-open/faq:text-pale-sage">
                     <Icon name="tabler:plus" class="size-4" />
                   </span>
                 </summary>
                 <div class="grid grid-rows-[0fr] group-open/faq:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
                   <div class="overflow-hidden">
                     <div class="pb-8 pl-[64px] pr-12">
-                      <p class="type-body-17 m-0 text-[#142024]/80 max-w-2xl">
+                      <p class="type-body-17 m-0 text-near-black/80 max-w-2xl">
                         {faq.answer}
                       </p>
                     </div>
@@ -95,6 +59,22 @@ const FAQ_MASCOT_SRC = "/mascots/faq_mascot.webp";
           ))
         }
       </ul>
+
+      <!-- FAQ Mascot -->
+      <div
+        class="lg:col-span-4 lg:sticky lg:top-28 lg:self-start space-y-6"
+        data-reveal
+      >
+        <img
+          src={FAQ_MASCOT_SRC}
+          alt="Mascot pointing at the questions"
+          width="180"
+          height="180"
+          loading="lazy"
+          decoding="async"
+          class="h-32 w-auto select-none lg:h-44"
+        />
+      </div>
     </div>
   </div>
 </section>

@@ -4,8 +4,12 @@ export function buildWebSiteLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    // TODO: update with real domain when deployed
+    '@id': `${SITE.url}/#website`,
     name: SITE.name,
     url: SITE.url,
+    inLanguage: 'en',
+    publisher: { '@id': `${SITE.url}/#person` },
   };
 }
 
@@ -21,6 +25,8 @@ export function buildPersonLd(opts: PersonOptions) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    // TODO: update with real domain when deployed
+    '@id': `${SITE.url}/#person`,
     name: SITE.name,
     url: SITE.url,
     jobTitle: opts.jobTitle,
@@ -30,5 +36,20 @@ export function buildPersonLd(opts: PersonOptions) {
     ...(opts.alumniOf && {
       alumniOf: { '@type': 'EducationalOrganization', name: opts.alumniOf },
     }),
+  };
+}
+
+export function buildFaqLd(items: { question: string; answer: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
   };
 }

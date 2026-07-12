@@ -2,8 +2,7 @@
 import { Icon } from "astro-icon/components";
 import { SITE } from "../consts";
 
-const WHATSAPP_URL = "https://wa.me/0000000000";
-const CALENDAR_URL = "https://cal.com/demo";
+const CALENDAR_URL = "https://calendar.app.google/bo1H5XMtcQPor5Le6";
 
 const methods = [
   {
@@ -21,13 +20,6 @@ const methods = [
     note: "Professional chat",
   },
   {
-    label: "WhatsApp",
-    detail: "Quick message",
-    icon: "simple-icons:whatsapp",
-    href: WHATSAPP_URL,
-    note: "Fastest reply",
-  },
-  {
     label: "Schedule call",
     detail: "Book 30 minutes",
     icon: "simple-icons:googlecalendar",
@@ -42,7 +34,7 @@ const socials = [
     label: "LinkedIn",
     icon: "simple-icons:linkedin",
     href: SITE.social.linkedin,
-  }
+  },
 ];
 ---
 
@@ -52,40 +44,35 @@ const socials = [
 >
   <span
     aria-hidden="true"
-    class="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 select-none whitespace-nowrap font-[var(--font-crimson-pro)] font-black uppercase tracking-tighter"
-    style="font-size: clamp(160px, 24vw, 360px); line-height: 0.8; color: rgba(202,210,197,0.04); letter-spacing: -0.06em;"
+    class="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 select-none whitespace-nowrap font-[var(--font-crimson-pro)] font-black uppercase tracking-tighter text-pale-sage/4"
+    style="font-size: clamp(160px, 24vw, 360px); line-height: 0.8; letter-spacing: -0.06em;"
     >hello.</span
   >
 
   <div class="relative mx-auto max-w-7xl px-6">
     <!-- Cinematic CTA block -->
-    <div
-      data-reveal-stagger
-      class="border-y border-[rgba(202,210,197,0.15)] py-16"
-    >
-      <p data-reveal class="eyebrow-rule text-[#84a98c]">
+    <div data-reveal-stagger class="border-y border-pale-sage/15 py-16">
+      <p data-reveal class="eyebrow-rule text-sage-green">
         Chapter 06 · Let's build
       </p>
       <h2
         data-reveal
-        class="display-serif mt-6 text-[clamp(56px,11vw,180px)] text-[#f1f4ee]"
+        class="display-serif mt-6 text-[clamp(56px,11vw,180px)] text-cream-white"
       >
         Have a project
-        <span class="block italic font-light" style="color:#cad2c5;"
-          >in mind?</span
-        >
+        <span class="block italic font-light text-pale-sage mt-4">in mind?</span>
       </h2>
       <div
         data-reveal
         class="mt-10 flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end"
       >
-        <p class="type-large-body max-w-xl text-[#cad2c5]/80">
-          Pick whichever channel works for you — email, LinkedIn, WhatsApp, or
-          grab a quiet 30 minutes on my calendar.
+        <p class="type-large-body max-w-xl text-pale-sage/80">
+          Pick whichever channel works for you — email, LinkedIn, or grab a
+          quiet 30 minutes on my calendar.
         </p>
         <a
           href={`mailto:${SITE.email}`}
-          class="group inline-flex items-center gap-4 bg-[#cad2c5] px-8 py-5 text-[#2f3e46] transition hover:bg-[#84a98c]"
+          class="group inline-flex items-center gap-4 bg-pale-sage px-8 py-5 text-charcoal-ink transition hover:bg-sage-green"
         >
           <span class="display-serif text-[clamp(20px,2vw,28px)]"
             >Start the conversation</span
@@ -100,7 +87,9 @@ const socials = [
 
     <!-- Contact methods — index row, no rounded cards -->
     <ul
-      class="mt-12 grid gap-px border border-[rgba(202,210,197,0.15)] bg-[rgba(202,210,197,0.15)] sm:grid-cols-2 lg:grid-cols-4 list-none m-0 p-0"
+      class="mt-12 grid gap-px border border-pale-sage/15 bg-pale-sage/15
+         sm:grid-cols-1 md:grid-cols-3
+         list-none m-0 p-0"
       data-reveal-stagger
     >
       {
@@ -110,33 +99,43 @@ const socials = [
               href={m.href}
               target={m.href.startsWith("mailto") ? "_self" : "_blank"}
               rel="noopener noreferrer"
-              class="group flex h-full flex-col justify-between bg-[#2f3e46] p-7 transition hover:bg-[#3f5d61]"
+              class="group flex h-full min-h-[300px] flex-col justify-between
+                 bg-charcoal-ink p-8 transition-all duration-300
+                 hover:bg-slate-teal"
             >
               <div class="flex items-start justify-between">
-                <span class="type-caption-12 tag-num text-[#84a98c]">
+                <span class="type-caption-12 tag-num text-sage-green">
                   0{i + 1}
                 </span>
+
                 <Icon
                   name={m.icon}
-                  class="size-5 text-[#cad2c5]/70 transition group-hover:text-[#84a98c]"
+                  class="size-5 text-pale-sage/70 transition-colors duration-300
+                     group-hover:text-sage-green"
                 />
               </div>
+
               <div class="mt-12">
-                <p class="type-caption-12 uppercase tracking-[0.18em] text-[#cad2c5]/55">
+                <p class="type-caption-12 uppercase tracking-[0.18em] text-pale-sage/55">
                   {m.label}
                 </p>
-                <p class="display-serif mt-2 text-[clamp(20px,1.8vw,26px)] text-[#f1f4ee]">
+
+                <p class="display-serif mt-2 text-[clamp(22px,2vw,30px)] text-cream-white">
                   {m.detail}
                 </p>
-                <p class="type-caption mt-3 text-[#cad2c5]/55">{m.note}</p>
+
+                <p class="type-caption mt-3 text-pale-sage/55">{m.note}</p>
               </div>
-              <div class="mt-6 flex items-center justify-between border-t border-[rgba(202,210,197,0.10)] pt-4">
-                <span class="type-caption-12 uppercase tracking-[0.18em] text-[#84a98c]">
-                  Open →
+
+              <div class="mt-8 flex items-center justify-between border-t border-pale-sage/10 pt-4">
+                <span class="type-caption-12 uppercase tracking-[0.18em] text-sage-green">
+                  Open
                 </span>
+
                 <Icon
                   name="tabler:arrow-up-right"
-                  class="size-4 text-[#84a98c] transition group-hover:translate-x-1 group-hover:-translate-y-1"
+                  class="size-4 text-sage-green transition-transform duration-300
+                     group-hover:translate-x-1 group-hover:-translate-y-1"
                 />
               </div>
             </a>
@@ -150,7 +149,7 @@ const socials = [
       class="mt-16 flex flex-col items-center gap-6 sm:flex-row sm:justify-between"
       data-reveal
     >
-      <p class="type-caption-12 uppercase tracking-[0.22em] text-[#cad2c5]/55">
+      <p class="type-caption-12 uppercase tracking-[0.22em] text-pale-sage/55">
         Or follow along
       </p>
       <div class="flex items-center gap-2">
@@ -161,7 +160,7 @@ const socials = [
               target="_blank"
               rel="noopener noreferrer"
               aria-label={s.label}
-              class="inline-flex size-11 items-center justify-center border border-[rgba(202,210,197,0.15)] text-[#cad2c5]/75 transition hover:border-[#84a98c] hover:bg-[#84a98c] hover:text-[#2f3e46]"
+              class="inline-flex size-11 items-center justify-center border border-pale-sage/15 text-pale-sage/75 transition hover:border-sage-green hover:bg-sage-green hover:text-charcoal-ink"
             >
               <Icon name={s.icon} class="size-4" />
             </a>

@@ -6,7 +6,7 @@ const [lead, ...rest] = projects;
 const middle = rest.slice(0, 2);
 const more = rest.slice(2);
 
-const accentFor = (i: number) => ["#52796f", "#354f52", "#84a98c"][i % 3];
+const accentFor = (i: number) => ["var(--color-forest-teal)", "var(--color-dark-teal)", "var(--color-sage-green)"][i % 3];
 ---
 
 <section
@@ -16,23 +16,23 @@ const accentFor = (i: number) => ["#52796f", "#354f52", "#84a98c"][i % 3];
   <div class="relative mx-auto max-w-7xl px-6">
     <!-- Header row -->
     <div
-      class="grid items-end gap-8 border-b border-[#2f3e46]/15 pb-10 lg:grid-cols-12"
+      class="grid items-end gap-8 border-b border-charcoal-ink/15 pb-10 lg:grid-cols-12"
     >
       <div class="lg:col-span-7" data-reveal-stagger>
-        <p data-reveal class="eyebrow-rule text-[#52796f]">
-          Chapter 04 · Selected works
+        <p data-reveal class="eyebrow-rule text-forest-teal">
+          Chapter 01 · Selected works
         </p>
         <h2
           data-reveal
-          class="display-serif mt-5 text-[clamp(40px,6vw,88px)] text-[#2f3e46]"
+          class="display-serif mt-5 text-[clamp(40px,6vw,88px)] text-charcoal-ink"
         >
           Case studies, not
-          <span class="italic font-light" style="color:#52796f;"
+          <span class="italic font-light text-forest-teal"
             >screenshots.</span
           >
         </h2>
       </div>
-      <p data-reveal class="lg:col-span-5 type-body-17 text-[#2f3e46]/75">
+      <p data-reveal class="lg:col-span-5 type-body-17 text-charcoal-ink/75">
         Each entry below is a product that shipped, scaled, and solved a real
         problem. Click through for the story.
       </p>
@@ -41,10 +41,10 @@ const accentFor = (i: number) => ["#52796f", "#354f52", "#84a98c"][i % 3];
     <!-- Featured case — full-width editorial spread -->
     <article data-reveal class="mt-14 grid gap-8 lg:grid-cols-12">
       <div class="lg:col-span-7">
-        <div class="relative aspect-[16/10] overflow-hidden bg-[#2f3e46]">
+        <div class="relative aspect-[16/10] overflow-hidden bg-charcoal-ink">
           <div
             class="absolute inset-0"
-            style="background-image: linear-gradient(135deg, rgba(82,121,111,0.4), transparent 60%), radial-gradient(rgba(202,210,197,0.10) 1px, transparent 1px); background-size: cover, 20px 20px;"
+            style="background-image: linear-gradient(135deg, color-mix(in srgb, var(--color-forest-teal) 40%, transparent), transparent 60%), radial-gradient(color-mix(in srgb, var(--color-pale-sage) 10%, transparent) 1px, transparent 1px); background-size: cover, 20px 20px;"
           >
           </div>
           <div
@@ -52,22 +52,22 @@ const accentFor = (i: number) => ["#52796f", "#354f52", "#84a98c"][i % 3];
           >
             <div class="flex items-start justify-between">
               <span
-                class="inline-flex size-14 items-center justify-center border border-[#cad2c5]/40 text-[#cad2c5]"
+                class="inline-flex size-14 items-center justify-center border border-pale-sage/40 text-pale-sage"
               >
                 <Icon name={lead.icon} class="size-6" />
               </span>
-              <span class="type-caption-12 tag-num text-[#cad2c5]/70"
+              <span class="type-caption-12 tag-num text-pale-sage/70"
                 >CASE 001 / FEATURED</span
               >
             </div>
             <div>
               <p
-                class="type-caption-12 uppercase tracking-[0.2em] text-[#84a98c]"
+                class="type-caption-12 uppercase tracking-[0.2em] text-sage-green"
               >
                 {lead.tech.join(" · ")}
               </p>
               <h3
-                class="display-serif mt-3 text-[clamp(32px,4vw,56px)] text-[#f1f4ee]"
+                class="display-serif mt-3 text-[clamp(32px,4vw,56px)] text-cream-white"
               >
                 {lead.title}
               </h3>
@@ -77,14 +77,14 @@ const accentFor = (i: number) => ["#52796f", "#354f52", "#84a98c"][i % 3];
       </div>
       <div class="lg:col-span-5 flex flex-col justify-between">
         <div>
-          <p class="type-large-body text-[#2f3e46]/85">{lead.description}</p>
+          <p class="type-large-body text-charcoal-ink/85">{lead.description}</p>
           <ul
-            class="mt-8 space-y-3 list-none m-0 p-0 border-t border-[#2f3e46]/15 pt-6"
+            class="mt-8 space-y-3 list-none m-0 p-0 border-t border-charcoal-ink/15 pt-6"
           >
             {
               lead.highlights.map((h) => (
-                <li class="type-body-15 flex items-baseline gap-3 text-[#2f3e46]/85">
-                  <span class="type-caption-12 tag-num text-[#52796f] w-8 shrink-0">
+                <li class="type-body-15 flex items-baseline gap-3 text-charcoal-ink/85">
+                  <span class="type-caption-12 tag-num text-forest-teal w-8 shrink-0">
                     →
                   </span>
                   {h}
@@ -97,7 +97,7 @@ const accentFor = (i: number) => ["#52796f", "#354f52", "#84a98c"][i % 3];
           href={lead.href}
           target="_blank"
           rel="noopener noreferrer"
-          class="group mt-8 inline-flex items-center justify-between border border-[#2f3e46] px-5 py-4 text-[#2f3e46] transition hover:bg-[#2f3e46] hover:text-[#cad2c5]"
+          class="group mt-8 inline-flex items-center justify-between border border-charcoal-ink px-5 py-4 text-charcoal-ink transition hover:bg-charcoal-ink hover:text-pale-sage"
         >
           <span class="type-link-16">Read the case study</span>
           <Icon
@@ -127,36 +127,35 @@ const accentFor = (i: number) => ["#52796f", "#354f52", "#84a98c"][i % 3];
                 style={`background:${accentFor(i + 1)};`}
               >
                 <div
-                  class="absolute inset-0 opacity-50"
-                  style="background-image: linear-gradient(rgba(241,244,238,0.10) 1px, transparent 1px); background-size: 24px 24px;"
+                  class="absolute inset-0 opacity-50 texture-lines-light"
                 />
                 <div class="absolute inset-0 flex items-center justify-center">
                   <Icon
                     name={p.icon}
-                    class="size-16 text-[#f1f4ee]/80 transition-transform duration-500 group-hover:scale-110"
+                    class="size-16 text-cream-white/80 transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
-                <span class="absolute left-4 top-4 type-caption-12 tag-num bg-[#2f3e46] px-2.5 py-1 text-[#cad2c5]">
+                <span class="absolute left-4 top-4 type-caption-12 tag-num bg-charcoal-ink px-2.5 py-1 text-pale-sage">
                   CASE 00{i + 2}
                 </span>
               </div>
               <div class="mt-5 flex items-start justify-between gap-6">
                 <div>
-                  <h3 class="display-serif text-[clamp(22px,2.4vw,32px)] text-[#2f3e46]">
+                  <h3 class="display-serif text-[clamp(22px,2.4vw,32px)] text-charcoal-ink">
                     {p.title}
                   </h3>
-                  <p class="type-body-15 mt-2 text-[#2f3e46]/70">
+                  <p class="type-body-15 mt-2 text-charcoal-ink/70">
                     {p.description}
                   </p>
                 </div>
                 <Icon
                   name="tabler:arrow-up-right"
-                  class="size-5 shrink-0 text-[#52796f] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+                  class="size-5 shrink-0 text-forest-teal transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
                 />
               </div>
               <ul class="mt-3 flex flex-wrap gap-x-4 gap-y-1 list-none m-0 p-0">
                 {p.tech.map((t) => (
-                  <li class="type-caption-12 uppercase tracking-[0.18em] text-[#2f3e46]/55">
+                  <li class="type-caption-12 uppercase tracking-[0.18em] text-charcoal-ink/55">
                     {t}
                   </li>
                 ))}
@@ -171,11 +170,11 @@ const accentFor = (i: number) => ["#52796f", "#354f52", "#84a98c"][i % 3];
     {
       more.length > 0 && (
         <div class="mt-20" data-reveal>
-          <div class="mb-6 flex items-baseline justify-between border-b border-[#2f3e46]/15 pb-3">
-            <p class="type-caption-12 uppercase tracking-[0.22em] text-[#2f3e46]/60">
+          <div class="mb-6 flex items-baseline justify-between border-b border-charcoal-ink/15 pb-3">
+            <p class="type-caption-12 uppercase tracking-[0.22em] text-charcoal-ink/60">
               Archive
             </p>
-            <p class="type-caption-12 tag-num text-[#2f3e46]/45">
+            <p class="type-caption-12 tag-num text-charcoal-ink/45">
               {String(more.length).padStart(2, "0")} ENTRIES
             </p>
           </div>
@@ -186,20 +185,20 @@ const accentFor = (i: number) => ["#52796f", "#354f52", "#84a98c"][i % 3];
                   href={p.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="group grid grid-cols-[auto_1fr_auto_auto] items-center gap-6 border-b border-[#2f3e46]/10 py-5 transition hover:bg-[#2f3e46]/[0.03]"
+                  class="group grid grid-cols-[auto_1fr_auto_auto] items-center gap-6 border-b border-charcoal-ink/10 py-5 transition hover:bg-charcoal-ink/[0.03]"
                 >
-                  <span class="type-caption-12 tag-num text-[#52796f] w-10">
+                  <span class="type-caption-12 tag-num text-forest-teal w-10">
                     0{i + 4}
                   </span>
-                  <span class="display-serif text-[clamp(20px,2vw,28px)] text-[#2f3e46]">
+                  <span class="display-serif text-[clamp(20px,2vw,28px)] text-charcoal-ink">
                     {p.title}
                   </span>
-                  <span class="hidden type-caption-12 uppercase tracking-[0.18em] text-[#2f3e46]/55 md:inline">
+                  <span class="hidden type-caption-12 uppercase tracking-[0.18em] text-charcoal-ink/55 md:inline">
                     {p.tech.join(" · ")}
                   </span>
                   <Icon
                     name="tabler:arrow-up-right"
-                    class="size-4 text-[#2f3e46]/40 transition group-hover:text-[#52796f] group-hover:translate-x-1 group-hover:-translate-y-1"
+                    class="size-4 text-charcoal-ink/40 transition group-hover:text-forest-teal group-hover:translate-x-1 group-hover:-translate-y-1"
                   />
                 </a>
               </li>

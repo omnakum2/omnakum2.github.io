@@ -1,14 +1,18 @@
+// TODO: update domain logic post-deployment
 export const SITE = {
-  name: 'John Doe',
+  name: 'Om Nakum',
   tagline: 'Full-Stack Developer',
-  email: 'hello@johndoe.dev',
+  email: 'omnakum2@gmail.com',
+  // TODO: replace with actual domain after deployment
   url: 'https://example.com',
-  logo: '/favicon.svg',
-  bio: 'A passionate Full-Stack Developer with over 5 years of experience in building performant web applications and scalable systems. Skilled in turning complex requirements into clean, user-centric products that drive business impact.',
+  // TODO: replace with absolute URL to .webp after deployment
+  logo: '/favicon.ico',
+  bio: 'Full-Stack Developer with 1+ years of experience building web applications and scalable systems. I enjoy creating fast, reliable, and easy-to-use products from idea to deployment.',
   social: {
-    github: 'https://github.com/',
-    linkedin: 'https://www.linkedin.com/in/'
+    github: 'https://github.com/omnakum2',
+    linkedin: 'https://www.linkedin.com/in/om-nakum-959109299'
   },
 } as const;
 
 export const DEFAULT_OG_IMAGE = '/og-image.webp';
+export const SITE_TITLE_SUFFIX = ` | ${SITE.name}`;
