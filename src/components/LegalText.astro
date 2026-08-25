@@ -1,0 +1,23 @@
+---
+// Renders a legal copy string, replacing the inline {{contact}} token with a
+// link to the home Contact section. One place owns token → link rendering.
+interface Props {
+  text: string;
+}
+const { text } = Astro.props;
+
+// Split on the token while keeping it as an array entry.
+const parts = text.split(/(\{\{contact\}\})/g);
+---
+
+{
+  parts.map((part) =>
+    part === '{{contact}}' ? (
+      <a href="/#contact" class="text-accent font-semibold hover:underline">
+        contact section
+      </a>
+    ) : (
+      <Fragment>{part}</Fragment>
+    )
+  )
+}

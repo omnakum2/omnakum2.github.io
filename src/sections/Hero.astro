@@ -1,150 +1,149 @@
 ---
-import { Icon } from "astro-icon/components";
-import { SITE } from "../consts";
+import { Icon } from 'astro-icon/components';
+import { hero } from '../data/portfolio';
+import { SITE } from '../consts';
 
-const RESUME_URL = "https://example.com/demo-resume.pdf";
-const MASCOT_SRC = "/mascots/hero_mascot.webp";
+const initials = SITE.name
+  .split(' ')
+  .map((w) => w[0])
+  .join('')
+  .slice(0, 2)
+  .toUpperCase();
 ---
 
-<section
-  id="hero"
-  class="surface-deep relative flex min-h-screen items-center overflow-hidden"
->
-  <!-- Grid backdrop reused from services -->
-  <div class="pointer-events-none absolute inset-0 bg-line-grid"></div>
-
-  <div class="relative mx-auto w-full max-w-7xl px-6 py-20 lg:py-24">
-    <div class="grid items-center gap-12 lg:grid-cols-12">
-      <!-- Text column -->
-      <div class="lg:col-span-8" data-reveal-stagger>
-        <p data-reveal class="eyebrow-rule mb-6 text-sage-green">
-          Available for freelance
-        </p>
-
-        <h1
-          data-reveal
-          class="display-serif text-[clamp(40px,5vw,84px)] leading-[0.9] text-cream-white"
+<section id="home" class="relative pt-28 pb-16 lg:min-h-screen lg:flex lg:items-center lg:pt-16 lg:pb-0">
+  <div class="mx-auto max-w-7xl px-6 sm:px-8 w-full">
+    <div class="grid items-center gap-10 lg:grid-cols-[1.05fr_.95fr] lg:gap-14">
+      <!-- ── LEFT column (LCP area) ─────────────────────────────── -->
+      <div class="animate-fade-in">
+        <!-- Availability pill -->
+        <span
+          class="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-surface px-3.5 py-1.5 font-mono text-xs text-ink-dim"
         >
-          Hey I'm
-          <span class="text-sage-green">
-            {SITE.name.split(" ")[0]}
+          <span class="relative flex size-2">
+            <span
+              class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"
+            ></span>
+            <span class="relative inline-flex size-2 rounded-full bg-accent"></span>
+          </span>
+          {hero.availability}
+        </span>
+
+        <!-- Headline: fixed lead + rotating tail -->
+        <h1 class="font-heading text-4xl md:text-6xl font-bold text-ink leading-[1.1] mt-5 mb-4">
+          {hero.headline.lead}{' '}
+          <span class="role-rotate">
+            {hero.headline.tails.map((t, i) => (
+              <span
+                class:list={["role-rotate-item", "text-accent", i === 0 && "is-first"]}
+                style={`animation-delay:${(i * (9 / hero.headline.tails.length)).toFixed(2)}s`}
+              >{t}</span>
+            ))}
           </span>
         </h1>
 
-        <div
-          data-reveal
-          class="mt-10 grid max-w-2xl gap-4 sm:grid-cols-[1fr_auto] sm:items-end"
-        >
-          <p class="type-large-body text-pale-sage/80">{SITE.bio}</p>
+        <!-- Tagline -->
+        <p class="text-lg md:text-xl text-ink-dim leading-relaxed max-w-xl mb-8">{hero.tagline}</p>
+
+        <!-- CTA -->
+        <div class="mb-10">
+          <a class="btn btn-primary" href="#projects">
+            View Portfolio
+            <Icon name="tabler:eye" class="size-5" />
+          </a>
         </div>
 
-        <div data-reveal class="mt-12 flex flex-wrap items-center gap-4">
-          <a
-            href={RESUME_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group inline-flex items-center gap-3 rounded-none border border-pale-sage bg-pale-sage px-7 py-4 text-charcoal-ink transition-all duration-300 hover:bg-sage-green hover:border-sage-green"
-          >
-            <span class="type-link-16">View Résumé</span>
-            <Icon
-              name="tabler:arrow-up-right"
-              class="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            />
-          </a>
-          <a
-            href="#projects"
-            class="group inline-flex items-center gap-2 px-5 py-4 text-cream-white transition-colors duration-300 hover:text-sage-green"
-          >
-            <span class="type-link-16">View Work</span>
-            <Icon
-              name="tabler:arrow-right"
-              class="size-4 transition-transform group-hover:translate-x-1"
-            />
-          </a>
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4 sm:flex sm:flex-wrap sm:gap-8">
+          {hero.stats.map((s, i) => (
+            <div class:list={[i !== 0 && "sm:border-l sm:border-ink/10 sm:pl-8"]}>
+              <div class="font-heading text-3xl font-bold text-ink tabular-nums" data-countup>{s.value}</div>
+              <div class="text-sm text-accent mt-1">{s.label}</div>
+            </div>
+          ))}
         </div>
       </div>
 
-      <!-- Mascot column -->
+      <!-- ── RIGHT column — action card ─────────────────────────── -->
       <div
-        class="lg:col-span-4"
-        data-reveal="scale"
-        style="--reveal-delay:200ms"
+        id="hero-card"
+        data-tilt
+        class="card relative overflow-hidden rounded-[22px] border border-ink/15 p-7"
       >
-        <figure class="relative mx-auto w-full max-w-[320px] lg:ml-auto">
-          <!-- Mascot Image without Card Frame -->
-          <img
-            src={MASCOT_SRC}
-            alt="Hero mascot"
-            width="420"
-            height="520"
-            loading="eager"
-            decoding="async"
-            class="relative z-10 h-auto w-full select-none"
-          />
+        <!-- Breathing accent halo -->
+        <div class="hero-halo" aria-hidden="true"></div>
 
-          <!-- Desktop Floating Pills -->
-          <div
-            class="pointer-events-none absolute inset-0 z-20 hidden lg:block"
-          >
-            <!-- Left Side Pills -->
-            <div
-              class="absolute -left-[25%] top-[15%] floating-pill floating-pill-delay-1"
-            >
-              <Icon name="tabler:brand-react" class="size-4 text-[#61DAFB]" /> React
-            </div>
-            <div
-              class="absolute -left-[35%] top-[45%] floating-pill floating-pill-delay-2"
-            >
-              <Icon name="tabler:server" class="size-4 text-sage-green" /> Full Stack
-            </div>
-            <div
-              class="absolute -left-[15%] top-[75%] floating-pill floating-pill-delay-3"
-            >
-              <Icon name="tabler:cloud" class="size-4 text-pale-sage" /> Cloud
-            </div>
+        <!-- Content -->
+        <div class="relative z-10">
+          <!-- Top row: avatar + name/tagline -->
+          <div class="flex items-center gap-3">
+            <span
+              class="grid size-11 place-items-center rounded-full border border-accent/40 font-heading font-bold text-accent shrink-0"
+              style="background:radial-gradient(circle at 30% 25%, var(--color-surface-2), var(--color-ground-deep))"
+            >{initials}</span>
+            <span class="flex flex-col">
+              <span class="font-heading font-semibold text-lg text-ink">{SITE.name}</span>
+              <span class="text-sm text-accent">{SITE.tagline}</span>
+            </span>
+          </div>
 
-            <!-- Right Side Pills -->
-            <div
-              class="absolute -right-[25%] top-[20%] floating-pill floating-pill-delay-2"
-            >
-              <Icon name="tabler:rocket" class="size-4 text-sage-green" /> Astro
-            </div>
-            <div
-              class="absolute -right-[15%] top-[50%] floating-pill floating-pill-delay-3"
-            >
-              <Icon name="tabler:brain" class="size-4 text-purple-400" /> AI
-            </div>
-            <div
-              class="absolute -right-[30%] top-[80%] floating-pill floating-pill-delay-1"
-            >
-              <Icon name="tabler:git-branch" class="size-4 text-pale-sage" /> Open
-              Source
-            </div>
-          </div>
-        </figure>
+          <!-- Eyebrow -->
+          <span class="block mt-4 font-mono text-xs uppercase tracking-[0.14em] text-accent-bright">{hero.card.eyebrow}</span>
 
-        <!-- Mobile Floating Pills -->
-        <div class="mt-8 flex flex-wrap justify-center gap-3 lg:hidden">
-          <div class="floating-pill floating-pill-delay-1">
-            <Icon name="tabler:brand-react" class="size-4 text-[#61DAFB]" /> React
-          </div>
-          <div class="floating-pill floating-pill-delay-2">
-            <Icon name="tabler:server" class="size-4 text-sage-green" /> Full Stack
-          </div>
-          <div class="floating-pill floating-pill-delay-3">
-            <Icon name="tabler:rocket" class="size-4 text-sage-green" /> Astro
-          </div>
-          <div class="floating-pill floating-pill-delay-2">
-            <Icon name="tabler:cloud" class="size-4 text-pale-sage" /> Cloud
-          </div>
-          <div class="floating-pill floating-pill-delay-3">
-            <Icon name="tabler:brain" class="size-4 text-purple-400" /> AI
-          </div>
-          <div class="floating-pill floating-pill-delay-1">
-            <Icon name="tabler:git-branch" class="size-4 text-pale-sage" /> Open Source
-          </div>
+          <!-- Heading -->
+          <h2 class="font-heading text-2xl font-semibold text-ink mt-2 mb-2">{hero.card.heading}</h2>
+
+          <!-- Body -->
+          <p class="text-ink-dim leading-relaxed mb-5">{hero.card.body}</p>
+
+          <!-- Contact CTA -->
+          <a class="btn btn-primary btn-full" href="#contact">
+            Contact Me
+            <Icon name="tabler:mail" class="size-5" />
+          </a>
+
+          <!-- Checklist -->
+          <ul class="mt-6 border-t border-ink/10 pt-5 grid gap-3">
+            {hero.card.points.map((point) => (
+              <li class="flex items-center gap-2.5 text-sm text-ink-dim">
+                <Icon name="tabler:circle-check" class="size-4 text-accent shrink-0" />
+                {point}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  /* Rotating tail aligns left inline after the lead (hero-scoped). */
+  .role-rotate-item { justify-self: start; }
+
+  /* Breathing accent halo — subtle, non-interactive. */
+  .hero-halo {
+    position: absolute;
+    top: -30%;
+    right: -25%;
+    width: 70%;
+    height: 70%;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-accent) 28%, transparent),
+      transparent 70%
+    );
+    filter: blur(18px);
+    animation: hero-breathe 7s ease-in-out infinite;
+  }
+  @keyframes hero-breathe {
+    0%, 100% { opacity: 0.45; transform: scale(1); }
+    50%      { opacity: 0.8;  transform: scale(1.12); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-halo { animation: none; }
+  }
+</style>

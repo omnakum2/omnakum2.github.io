@@ -16,4 +16,4 @@ Disallow: /
 User-agent: Bytespider
 Disallow: /
 
-Sitemap: https://omnakum2005.github.io/sitemap-index.xml
+Sitemap: https://omnakum2.github.io/sitemap-index.xml

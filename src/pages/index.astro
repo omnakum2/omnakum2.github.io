@@ -2,18 +2,19 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../sections/Hero.astro';
 import About from '../sections/About.astro';
-import TechStack from '../sections/TechStack.astro';
+import Skills from '../sections/Skills.astro';
 import Services from '../sections/Services.astro';
+import Tools from '../sections/Tools.astro';
 import Projects from '../sections/Projects.astro';
 import Faq from '../sections/Faq.astro';
 import Contact from '../sections/Contact.astro';
 import { SITE } from '../consts';
 import type { SeoConfig } from '../types/seo';
-import { faqs } from '../data/faqs';
+import { faqs } from '../data/portfolio';
 
 const seo: SeoConfig = {
-  title: `${SITE.name} | Portfolio`,
-  description: `${SITE.name} is a ${SITE.tagline} with 5+ years of experience building fast, accessible, and scalable web applications with TypeScript, React, Node.js, and more.`,
+  title: `${SITE.name} — ${SITE.tagline}`,
+  description: `${SITE.name} is a ${SITE.tagline} building fast, accessible, and scalable web applications with TypeScript, React, NestJS, and more.`,
   canonical: '/',
   jsonLd: {
     faq: faqs,
@@ -23,10 +24,11 @@ const seo: SeoConfig = {
 
 <BaseLayout seo={seo}>
   <Hero />
-  <Projects />
   <About />
+  <Skills />
   <Services />
-  <TechStack />
+  <Tools />
+  <Projects />
   <Faq />
   <Contact />
 </BaseLayout>

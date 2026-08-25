@@ -10,7 +10,7 @@ The reference implementation is [Astro v5 + MDX + Content Collections + Tailwind
 
 - Copy sections into a new project's `PROJECT_SPEC.md` or hand this whole file to an assistant.
 - Replace every `{{PLACEHOLDER}}` with real project values.
-- Do NOT skip §1 (single-source-of-truth constants) — every later section depends on it.
+- Do NOT skip §1 (single-source-of-truth constants) , every later section depends on it.
 - Every pattern lists **Purpose · Why · Where · How** so an assistant can decide *when* to apply it.
 
 Keyword tags used throughout: `SEO`, `SSG`, `JSON-LD`, `OG`, `TwitterCard`, `Sitemap`, `Canonical`, `Robots`, `Breadcrumbs`, `Content-Collection`, `MDX`, `Frontmatter`, `TOC`, `RelatedPosts`, `Taxonomy`, `Pagination`, `Redirects`.
@@ -19,17 +19,17 @@ Keyword tags used throughout: `SEO`, `SSG`, `JSON-LD`, `OG`, `TwitterCard`, `Sit
 
 ## 1. Single source of truth: `SITE` constants
 
-**Purpose** — one immutable object that every SEO helper, JSON-LD builder, sitemap, and page reads from. Prevents drift between the meta tag, the schema, and the sitemap.
+**Purpose** , one immutable object that every SEO helper, JSON-LD builder, sitemap, and page reads from. Prevents drift between the meta tag, the schema, and the sitemap.
 
-**Why** — SEO bugs almost always come from two places disagreeing (title suffix in one file, canonical base in another). Centralise once.
+**Why** , SEO bugs almost always come from two places disagreeing (title suffix in one file, canonical base in another). Centralise once.
 
-**Where** — `src/consts.ts` (or `src/config/site.ts`). Imported by:
+**Where** , `src/consts.ts` (or `src/config/site.ts`). Imported by:
 - Framework config (sitemap `site` field, canonical base)
 - SEO builder (title suffix, absolute URLs)
 - JSON-LD builders (`Organization`, `WebSite`, `LocalBusiness`)
 - Layout `<head>` (favicons, apple-touch, manifest)
 
-**How** — declare `as const`, freeze the shape, never mutate at runtime.
+**How** , declare `as const`, freeze the shape, never mutate at runtime.
 
 ```ts
 // src/consts.ts
@@ -68,19 +68,19 @@ export const SITE_TITLE_SUFFIX = ` | ${SITE.name}`;
 **Rules**
 - `SITE.url` MUST match the framework config `site` field (Astro: `defineConfig({ site: SITE.url })`).
 - Choose ONE canonical hostname (with or without `www`) and stay consistent everywhere.
-- All absolute URLs derive from `SITE.url` — never hardcode `https://…` again.
+- All absolute URLs derive from `SITE.url` , never hardcode `https://…` again.
 
 ---
 
 ## 2. URL & routing conventions
 
-**Purpose** — a predictable URL space that never changes shape across the site, so canonicals, sitemap, redirects, and internal links stay consistent.
+**Purpose** , a predictable URL space that never changes shape across the site, so canonicals, sitemap, redirects, and internal links stay consistent.
 
 | Rule | Value |
 |---|---|
-| Trailing slash | **Always** (`/foo/`) OR **never** (`/foo`) — pick one and enforce framework-wide. Recommended: **always**, for parity with common CMS exports. |
+| Trailing slash | **Always** (`/foo/`) OR **never** (`/foo`) , pick one and enforce framework-wide. Recommended: **always**, for parity with common CMS exports. |
 | Case | Lowercase, kebab-case, ASCII only. Reject filenames with capitals or underscores at build time. |
-| Depth | Marketing/service pages at root (`/service-name/`). Blog articles at root (`/{{slug}}/`) **or** namespaced (`/blog/{{slug}}/`) — pick one, document the choice. |
+| Depth | Marketing/service pages at root (`/service-name/`). Blog articles at root (`/{{slug}}/`) **or** namespaced (`/blog/{{slug}}/`) , pick one, document the choice. |
 | Query strings | Never used for canonical content. Filters use hash fragments (`#category=X`) so SSG works. |
 | Reserved slugs | Explicit deny-list to prevent article slugs colliding with top-level pages. |
 
@@ -95,7 +95,7 @@ export default defineConfig({
 });
 ```
 
-**Reserved-slug guard** — add a `Set<string>` in `content.config.ts` and a build-time script that fails the build on collision.
+**Reserved-slug guard** , add a `Set<string>` in `content.config.ts` and a build-time script that fails the build on collision.
 
 ```ts
 export const RESERVED_SLUGS = new Set<string>([
@@ -108,11 +108,11 @@ export const RESERVED_SLUGS = new Set<string>([
 
 ---
 
-## 3. SEO builder — resolved config from a per-page input
+## 3. SEO builder , resolved config from a per-page input
 
-**Purpose** — every page declares intent (`SeoConfig`), the builder produces a fully resolved object (`ResolvedSeo`) with derived defaults.
+**Purpose** , every page declares intent (`SeoConfig`), the builder produces a fully resolved object (`ResolvedSeo`) with derived defaults.
 
-**Why** — pages should describe *what they are*, not repeat OG/Twitter/robots plumbing. One builder guarantees uniformity.
+**Why** , pages should describe *what they are*, not repeat OG/Twitter/robots plumbing. One builder guarantees uniformity.
 
 ### 3.1 `SeoConfig` (page input) and `ResolvedSeo` (output)
 
@@ -124,7 +124,7 @@ export interface SeoConfig {
   pageType: PageType;
   title: string;
   description: string;
-  canonical: string;                 // absolute or root-relative — builder normalises
+  canonical: string;                 // absolute or root-relative , builder normalises
   keywords?: string;
   noindex?: boolean;                 // explicit override
   nofollow?: boolean;
@@ -192,19 +192,19 @@ export function buildSeo(config: SeoConfig): ResolvedSeo {
 }
 ```
 
-**Staging safety** — read a public env var (e.g. `PUBLIC_STAGING`); when `'true'` every page defaults to `noindex,nofollow`. Backstops any missing `X-Robots-Tag` header at the CDN.
+**Staging safety** , read a public env var (e.g. `PUBLIC_STAGING`); when `'true'` every page defaults to `noindex,nofollow`. Backstops any missing `X-Robots-Tag` header at the CDN.
 
 ---
 
-## 4. `<head>` emission — one component, all directives
+## 4. `<head>` emission , one component, all directives
 
-**Purpose** — a single `Seo` component renders `<title>`, `<meta>`, OG, Twitter, canonical, robots, geo, JSON-LD. Pages never touch `<head>` directly.
+**Purpose** , a single `Seo` component renders `<title>`, `<meta>`, OG, Twitter, canonical, robots, geo, JSON-LD. Pages never touch `<head>` directly.
 
-**Why** — prevents duplicated or missing directives. Grep-friendly (one place to update).
+**Why** , prevents duplicated or missing directives. Grep-friendly (one place to update).
 
-**Where** — `src/components/shared/Seo.astro`, mounted by `BaseLayout`.
+**Where** , `src/components/shared/Seo.astro`, mounted by `BaseLayout`.
 
-**How** — either use `astro-seo` (or `next-seo` equivalent), or roll your own. Contract below.
+**How** , either use `astro-seo` (or `next-seo` equivalent), or roll your own. Contract below.
 
 ### 4.1 Directive matrix produced per page
 
@@ -283,9 +283,9 @@ const pageScoped = [
 
 ## 5. Schema.org / JSON-LD
 
-**Purpose** — structured data that search engines parse for rich results (breadcrumb trails, FAQ, sitelinks search, article cards).
+**Purpose** , structured data that search engines parse for rich results (breadcrumb trails, FAQ, sitelinks search, article cards).
 
-**Rule of thumb** — emit only schemas whose *content* is actually visible on the page. Fabricated schema risks manual actions.
+**Rule of thumb** , emit only schemas whose *content* is actually visible on the page. Fabricated schema risks manual actions.
 
 ### 5.1 Sitewide schemas (emit in `BaseLayout`)
 
@@ -299,9 +299,9 @@ const pageScoped = [
 
 | Schema | When |
 |---|---|
-| `BreadcrumbList` | Any page deeper than root — always safe |
+| `BreadcrumbList` | Any page deeper than root , always safe |
 | `FAQPage` | Only when a real, visible FAQ list is on the page |
-| `BlogPosting` | Blog articles — includes `headline`, `datePublished`, `dateModified`, `author`, `publisher`, `mainEntityOfPage`, `image`, `wordCount`, `articleSection`, `keywords` |
+| `BlogPosting` | Blog articles , includes `headline`, `datePublished`, `dateModified`, `author`, `publisher`, `mainEntityOfPage`, `image`, `wordCount`, `articleSection`, `keywords` |
 | `Article` / `NewsArticle` | Use `BlogPosting` unless brand needs distinction |
 
 ### 5.3 Builder pattern
@@ -326,7 +326,7 @@ export function buildBlogPostingLd(post, canonical) { /* BlogPosting */ }
 
 **Best practices**
 - Use stable `@id` URIs (`{site}/#org`, `{site}/#website`) so entities can be cross-referenced.
-- `sameAs: Object.values(SITE.social)` — LinkedIn/X/Facebook profiles.
+- `sameAs: Object.values(SITE.social)` , LinkedIn/X/Facebook profiles.
 - Keep `aggregateRating` synced with the review data source shown on-page.
 - Use a typed schema library (e.g. `schema-dts`) so wrong field names fail at build time.
 
@@ -336,7 +336,7 @@ export function buildBlogPostingLd(post, canonical) { /* BlogPosting */ }
 
 ### 6.1 XML Sitemap
 
-**How (Astro)** — the `@astrojs/sitemap` integration walks all statically-generated routes. Filter out fetch-only or noindex pages:
+**How (Astro)** , the `@astrojs/sitemap` integration walks all statically-generated routes. Filter out fetch-only or noindex pages:
 
 ```ts
 sitemap({
@@ -361,11 +361,11 @@ Allow: /
 Sitemap: https://www.{{DOMAIN}}/sitemap-index.xml
 ```
 
-**Staging override** — either serve a different `robots.txt` per environment, OR rely on the `noindex` default from `PUBLIC_STAGING` (belt + braces).
+**Staging override** , either serve a different `robots.txt` per environment, OR rely on the `noindex` default from `PUBLIC_STAGING` (belt + braces).
 
 ### 6.3 RSS (optional but recommended for blogs)
 
-**Where** — `src/pages/rss.xml.ts`. Emit the latest N articles from the blog collection.
+**Where** , `src/pages/rss.xml.ts`. Emit the latest N articles from the blog collection.
 
 ```ts
 // src/pages/rss.xml.ts (Astro)
@@ -395,9 +395,9 @@ export async function GET(context) {
 
 ## 7. Redirects
 
-**Purpose** — preserve link equity when migrating from another CMS and when renaming article slugs.
+**Purpose** , preserve link equity when migrating from another CMS and when renaming article slugs.
 
-**How** — one authoritative table at the platform edge (Netlify `_redirects`, Cloudflare rule, Nginx map, etc.).
+**How** , one authoritative table at the platform edge (Netlify `_redirects`, Cloudflare rule, Nginx map, etc.).
 
 **Rules**
 - Always `301` for permanent moves.
@@ -426,9 +426,9 @@ for (const post of posts) {
 
 ## 8. Breadcrumbs
 
-**Purpose** — improves SERP display (breadcrumb trail rich result) AND user navigation.
+**Purpose** , improves SERP display (breadcrumb trail rich result) AND user navigation.
 
-**Rule** — emit both:
+**Rule** , emit both:
 1. Visible HTML `<nav aria-label="Breadcrumb">` with an ordered list.
 2. `BreadcrumbList` JSON-LD via `Seo` config.
 
@@ -461,9 +461,9 @@ Both must match exactly (same labels, same order, same URLs).
 
 ## 10. Pagination
 
-**Purpose** — paginated archives (blog index, category pages) that are each self-canonical + indexable.
+**Purpose** , paginated archives (blog index, category pages) that are each self-canonical + indexable.
 
-**Framework-specific (Astro)** — `paginate()` in `getStaticPaths`. Route: `/blog/[...page].astro` produces `/blog/`, `/blog/2/`, `/blog/3/`…
+**Framework-specific (Astro)** , `paginate()` in `getStaticPaths`. Route: `/blog/[...page].astro` produces `/blog/`, `/blog/2/`, `/blog/3/`…
 
 ```ts
 export async function getStaticPaths({ paginate }) {
@@ -476,16 +476,16 @@ export async function getStaticPaths({ paginate }) {
 **SEO rules**
 - Every page is self-canonical (`/blog/2/` canonicals to itself, NOT to `/blog/`).
 - Title suffix indicates page number: `Blog | Brand | Page 2 of 8`.
-- Do NOT use `rel="prev"` / `rel="next"` — Google deprecated these.
+- Do NOT use `rel="prev"` / `rel="next"` , Google deprecated these.
 - Same design on page 1 landing vs page 2+ archive is optional; content-only difference is fine.
 
 ---
 
 ## 11. Categories, tags, taxonomies (two-layer model)
 
-**Purpose** — organise content across (a) durable topic buckets (Categories), (b) intent-based reader journeys (Journeys/Personas). Kept generic here.
+**Purpose** , organise content across (a) durable topic buckets (Categories), (b) intent-based reader journeys (Journeys/Personas). Kept generic here.
 
-**File** — `src/content/taxonomy.ts` — single source of truth for slugs, display names, descriptions. Zod schemas validate frontmatter against these.
+**File** , `src/content/taxonomy.ts` , single source of truth for slugs, display names, descriptions. Zod schemas validate frontmatter against these.
 
 ```ts
 export const categories = [
@@ -510,18 +510,18 @@ export const journeyBySlug  = Object.fromEntries(journeys.map(j => [j.slug, j]))
 
 **Rules**
 - Each post has ONE `primaryCategory`, optional `secondaryCategory` (must differ), ONE `journey`.
-- Never invent a category or journey inline in a post — always add to `taxonomy.ts` first.
+- Never invent a category or journey inline in a post , always add to `taxonomy.ts` first.
 - Category page URL: `/blog/category/{{slug}}/`. Journey page URL: `/blog/journeys/{{slug}}/`.
 - Category & journey landing pages are paginated with the same rules as §10.
-- Do NOT emit a page for every tag — tags create noindex thin pages that dilute crawl budget. Prefer categories + journeys.
+- Do NOT emit a page for every tag , tags create noindex thin pages that dilute crawl budget. Prefer categories + journeys.
 
 ---
 
 ## 12. Content collection schema (blog frontmatter)
 
-**Purpose** — enforce content quality at build time. Bad SEO, missing authors, or invalid taxonomies fail the build.
+**Purpose** , enforce content quality at build time. Bad SEO, missing authors, or invalid taxonomies fail the build.
 
-**Where** — `src/content.config.ts`.
+**Where** , `src/content.config.ts`.
 
 ### 12.1 Full Zod schema
 
@@ -614,9 +614,9 @@ export const collections = { posts };
 
 ## 13. SEO length limits + build-time enforcement
 
-**Purpose** — reject content that will truncate in SERPs BEFORE it ships.
+**Purpose** , reject content that will truncate in SERPs BEFORE it ships.
 
-**Where** — `src/lib/seo-limits.mjs` (dual-usable from TS and plain Node scripts).
+**Where** , `src/lib/seo-limits.mjs` (dual-usable from TS and plain Node scripts).
 
 ```js
 export const SITE_NAME = '{{BRAND}}';
@@ -636,7 +636,7 @@ export function renderedTitle(seoTitle) {
 2. `scripts/check-seo-lengths.mjs` → soft warnings for `idealMin/idealMax`.
 3. Optional editor lint via same module.
 
-**Ideal targets (Google desktop pixel widths)** — title ~40–60 chars, description ~120–160 chars, H1 ≤ 70 chars.
+**Ideal targets (Google desktop pixel widths)** , title ~40–60 chars, description ~120–160 chars, H1 ≤ 70 chars.
 
 ---
 
@@ -644,14 +644,14 @@ export function renderedTitle(seoTitle) {
 
 - **Article slug = filename.** No frontmatter override, no derivation from title. Enforces one-slug-per-file and avoids drift.
 - Filename rules: lowercase, kebab-case, ASCII, `.mdx`.
-- Renames create a redirect via `oldSlugs: ['previous-filename']` in the new file's frontmatter — never delete + rename in git without leaving the trail.
+- Renames create a redirect via `oldSlugs: ['previous-filename']` in the new file's frontmatter , never delete + rename in git without leaving the trail.
 - Reserved-slug guard (§2) MUST run before build.
 
 ---
 
 ## 15. Author metadata
 
-**Purpose** — display consistent byline info across all posts; add authors in one file.
+**Purpose** , display consistent byline info across all posts; add authors in one file.
 
 ```ts
 // src/content/authors.ts
@@ -674,7 +674,7 @@ export function resolveAuthor(name: string) {
 ```
 
 **Rules**
-- `author` in post frontmatter is the *display name* — never derive from git commit.
+- `author` in post frontmatter is the *display name* , never derive from git commit.
 - Unknown author → fall back to a `{{Brand}} Team` byline, not to a 404.
 - JSON-LD `author.name` = the raw display name.
 
@@ -695,7 +695,7 @@ Frontmatter `readingTimeMin` overrides the computed value (useful for content-he
 
 ## 17. Table of Contents (TOC)
 
-**Purpose** — improve UX + increase dwell time on long-form guides.
+**Purpose** , improve UX + increase dwell time on long-form guides.
 
 **How (Astro/MDX)**
 ```ts
@@ -764,9 +764,9 @@ src/content/posts/{slug}.mdx
 ### 19.1 MDX conventions
 
 - Import assets from `../../assets/blog/{{slug}}/`. Never `/public` for content images (loses fingerprinting).
-- Reusable MDX components live under `src/components/blog/*` — imported at the top of the post:
+- Reusable MDX components live under `src/components/blog/*` , imported at the top of the post:
   - `KeyTakeaways`, `Callout`, `KeyPoint`, `PullQuote`, `Steps`/`Step`, `InsightGrid`/`InsightItem`, `Stat`/`StatCallout`, `Scenario`, `Compare`/`CompareItem`, `InlineCta`, `ClosingTestimonial`.
-- Prefer semantic HTML in body — `<h2>`, `<h3>`, `<ul>`, `<ol>`, `<blockquote>`, `<mark>` — styled globally via `.prose-article` (see §21).
+- Prefer semantic HTML in body , `<h2>`, `<h3>`, `<ul>`, `<ol>`, `<blockquote>`, `<mark>` , styled globally via `.prose-article` (see §21).
 - One `<h1>` per page (rendered by the template, NOT in MDX body).
 
 ### 19.2 Example frontmatter (copy this template)
@@ -939,7 +939,7 @@ Marketing/shared (`src/components/shared/`):
 
 | Component | Purpose |
 |---|---|
-| `Hero` | Header band with `eyebrow`, `headline`, `accentTail` — renders the page `<h1>` |
+| `Hero` | Header band with `eyebrow`, `headline`, `accentTail` , renders the page `<h1>` |
 | `SectionHeader` | Consistent eyebrow + heading + accentTail rhythm inside sections |
 | `Card`, `CardGrid` | Uniform card surface (boxed variant available) |
 | `CTABanner` | Full-bleed conversion strip with accent-tail heading + button |
@@ -1043,7 +1043,7 @@ Blog (`src/components/blog/`):
 | Style guide / dev pages | ❌ | self | ❌ |
 | Legacy WordPress duplicate | ❌ (`noindex`) or redirect | to canonical target | ❌ |
 | Ads landing page (`pageType: 'ads'`) | ❌ (`noindex, nofollow`) | self | ❌ |
-| 404 | ❌ (`noindex`) | — | ❌ |
+| 404 | ❌ (`noindex`) | , | ❌ |
 | Staging deploy (any page) | ❌ (env override) | self | ❌ |
 
 ---
@@ -1052,10 +1052,10 @@ Blog (`src/components/blog/`):
 
 - `lang` attribute on `<html>` matches content locale.
 - Every image has `alt`; decorative → `alt=""` + `aria-hidden="true"`.
-- Every interactive control is a `<button>` or `<a>` — never a bare `<div>`.
+- Every interactive control is a `<button>` or `<a>` , never a bare `<div>`.
 - Skip-to-content link at top of `<body>`.
-- Fonts preloaded (`<link rel="preload" as="font" crossorigin>`) — only the WOFF2 variants you actually use.
-- Third-party resource hints (`preconnect`) are colocated with the component that uses them (YouTube, Calendly, Maps) — never a blanket list.
+- Fonts preloaded (`<link rel="preload" as="font" crossorigin>`) , only the WOFF2 variants you actually use.
+- Third-party resource hints (`preconnect`) are colocated with the component that uses them (YouTube, Calendly, Maps) , never a blanket list.
 - Images use responsive `widths` + `sizes` attributes.
 - Hero image uses `loading="eager"` and `fetchpriority="high"`; every other image `loading="lazy"`.
 - Prefers-reduced-motion is honoured for entrance animations.
@@ -1121,11 +1121,11 @@ Blog (`src/components/blog/`):
 - ❌ Article slug that duplicates a top-level route (must be caught by reserved-slug guard).
 - ❌ Mixing trailing-slash styles across the site.
 - ❌ Uppercase or underscore characters in slugs.
-- ❌ Publishing without a `metaDescription` — Google will invent one, badly.
+- ❌ Publishing without a `metaDescription` , Google will invent one, badly.
 
 ---
 
-## 29. Quick reference — copy-paste snippets
+## 29. Quick reference , copy-paste snippets
 
 ### 29.1 Minimal marketing page
 
@@ -1214,11 +1214,11 @@ const blogPostingLd = {
 
 | Term | Meaning |
 |---|---|
-| SSG | Static Site Generation — HTML pre-rendered at build |
+| SSG | Static Site Generation , HTML pre-rendered at build |
 | MDX | Markdown + JSX components |
 | Canonical | `<link rel="canonical">` telling Google the preferred URL for a piece of content |
-| OG | Open Graph — Facebook's meta protocol; also used by LinkedIn, Slack, iMessage |
-| JSON-LD | JSON for Linking Data — Google's preferred structured-data format |
+| OG | Open Graph , Facebook's meta protocol; also used by LinkedIn, Slack, iMessage |
+| JSON-LD | JSON for Linking Data , Google's preferred structured-data format |
 | Journey | An intent-based grouping ("who are they, what are they trying to do") |
 | Content type | Layout switch that shapes header, TOC, sidebar, and body chrome |
 | Journey CTA | The CTA shown at the end of an article, chosen by the post's `journey` |
@@ -1226,4 +1226,4 @@ const blogPostingLd = {
 
 ---
 
-*End of blueprint. Version 1.0 — framework-agnostic where possible; Astro v5 patterns flagged where relevant.*
+*End of blueprint. Version 1.0 , framework-agnostic where possible; Astro v5 patterns flagged where relevant.*

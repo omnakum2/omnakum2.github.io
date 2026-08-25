@@ -11,17 +11,19 @@ interface Props {
 }
 const { seo } = Astro.props;
 const resolved = buildSeo(seo);
+const imageAlt = `${SITE.name} — ${SITE.tagline}`;
 
-const pageScoped = [
-  ...(resolved.jsonLd?.faq?.length ? [buildFaqLd(resolved.jsonLd.faq)] : []),
-  // TODO: implement buildBreadcrumbLd() when blog is added
-];
+const pageScoped = resolved.jsonLd?.faq?.length
+  ? [buildFaqLd(resolved.jsonLd.faq)]
+  : [];
 ---
 
+{/* All meta comes from astro-seo's native props (no hand-written meta array). */}
 <SEO
   title={resolved.fullTitle}
   description={resolved.description}
   canonical={resolved.canonical}
+  noindex={resolved.noindex}
   openGraph={{
     basic: {
       title: resolved.ogTitle,
@@ -31,21 +33,19 @@ const pageScoped = [
     },
     optional: {
       description: resolved.ogDescription,
-    }
+      siteName: SITE.name,
+      locale: 'en_US',
+    },
+    image: {
+      alt: imageAlt,
+    },
   }}
   twitter={{
     card: 'summary_large_image',
     title: resolved.ogTitle,
     description: resolved.ogDescription,
     image: resolved.ogImage,
-  }}
-  extend={{
-    meta: [
-      { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
-      { property: "og:site_name", content: SITE.name },
-      { property: "og:locale", content: "en_US" },
-      ...(resolved.keywords ? [{ name: "keywords", content: resolved.keywords }] : [])
-    ]
+    imageAlt: imageAlt,
   }}
 />
 

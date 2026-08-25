@@ -1,0 +1,17 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LegalDoc from '@/components/LegalDoc.astro';
+import { privacyPolicy as doc } from '@/data/legal';
+import type { SeoConfig } from '@/types/seo';
+
+const seo: SeoConfig = {
+  title: 'Privacy Policy',
+  description:
+    'How Om Nakum handles the personal data you share through the contact form, including cookies, analytics, and your privacy rights.',
+  canonical: '/privacy-policy/',
+};
+---
+
+<BaseLayout seo={seo}>
+  <LegalDoc doc={doc} />
+</BaseLayout>

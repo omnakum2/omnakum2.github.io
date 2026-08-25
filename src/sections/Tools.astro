@@ -1,0 +1,22 @@
+---
+import TechStackMarquee from "../components/TechStackMarquee.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import { skills } from "../data/portfolio";
+import type { TechLogo } from "../data/portfolio";
+
+// `skills.tools` is optional in the data; the whole band only renders once it exists.
+const tools: TechLogo[] = (skills as { tools?: TechLogo[] }).tools ?? [];
+---
+
+{
+  tools.length > 0 && (
+    <section id="tools" class="section-band tone-a">
+      <div class="mx-auto max-w-7xl px-6 sm:px-8">
+        <SectionHeader title="Tools &" accent="Platforms" subtitle="The tools I use day to day to design, build, and ship." />
+        <div data-reveal>
+          <TechStackMarquee logos={tools} direction="right" />
+        </div>
+      </div>
+    </section>
+  )
+}

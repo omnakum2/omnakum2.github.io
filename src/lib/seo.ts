@@ -19,7 +19,7 @@ export function buildSeo(config: SeoConfig) {
     ogTitle: config.ogTitle ?? config.title,
     ogDescription: config.ogDescription ?? config.description,
     ogImage: new URL(config.ogImage ?? DEFAULT_OG_IMAGE, SITE.url).toString(),
-    keywords: config.keywords,
+    noindex: config.noindex ?? false,
     jsonLd: config.jsonLd,
   };
 }

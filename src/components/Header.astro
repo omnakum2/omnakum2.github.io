@@ -2,102 +2,86 @@
 import { Icon } from "astro-icon/components";
 import { SITE } from "../consts";
 
-const links = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Capabilities" },
-  { href: "#services", label: "Services" },
-  { href: "#projects", label: "Works" },
-  { href: "#faq", label: "FAQ" },
+// `id` is the in-page anchor (used by scroll-spy querySelector); the link href
+// is prefixed with "/" so it also works from other routes (privacy / terms).
+const navItems = [
+  { id: "#home", label: "Home" },
+  { id: "#about", label: "About" },
+  { id: "#skills", label: "Skills" },
+  { id: "#services", label: "Services" },
+  { id: "#projects", label: "Projects" },
+  { id: "#faq", label: "FAQ" },
+  { id: "#contact", label: "Contact" },
 ];
 ---
 
-<header class="sticky top-0 z-40">
-  <div
-    class="absolute inset-0 -z-10 border-b border-charcoal-ink/12 bg-cream-white/85 backdrop-blur-xl"
-  >
-  </div>
+<!-- Reading-progress hairline — driven by motion.ts via #scroll-progress -->
+<div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
 
-  <div
-    class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4"
-  >
-    <a href="/" class="group flex items-center gap-3 text-charcoal-ink">
-      <span
-        class="relative inline-flex size-9 items-center justify-center bg-charcoal-ink text-pale-sage type-caption-12 tag-num"
+<header
+  class="fixed top-0 left-0 right-0 z-50 bg-ground/80 backdrop-blur-md border-b border-ink/10"
+>
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a
+        href="/"
+        class="font-heading font-bold text-xl text-accent hover:text-accent-bright transition-colors"
       >
-        {SITE.name.charAt(0)}
-      </span>
-      <div class="flex flex-col leading-tight">
-        <span class="type-link-16 text-charcoal-ink">{SITE.name}</span>
-        <span class="type-caption-12 uppercase tracking-[0.2em] text-forest-teal"
-          >Studio · MMXXVI</span
-        >
-      </div>
-    </a>
+        {SITE.name}
+      </a>
 
-    <nav class="hidden md:block">
-      <ul class="flex items-center gap-1">
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-baseline gap-1" aria-label="Primary">
         {
-          links.map((l, i) => (
-            <li class="flex items-center gap-1">
-              {i > 0 && <span class="text-charcoal-ink/25">·</span>}
-              <a
-                href={l.href}
-                class="type-caption-12 uppercase tracking-[0.18em] px-3 py-2 text-charcoal-ink/70 transition hover:text-charcoal-ink"
-              >
-                {l.label}
-              </a>
-            </li>
+          navItems.map((item) => (
+            <a
+              href={`/${item.id}`}
+              data-nav={item.id}
+              class="px-3 py-2 rounded-md text-sm font-medium transition-colors text-ink hover:text-accent hover:bg-accent/5"
+            >
+              {item.label}
+            </a>
           ))
         }
-      </ul>
-    </nav>
+      </nav>
 
-    <a
-      href="#contact"
-      class="hidden md:inline-flex items-center gap-2 border border-charcoal-ink bg-charcoal-ink px-5 py-2.5 text-pale-sage transition hover:bg-forest-teal hover:border-forest-teal"
-    >
-      <span class="type-caption-12 uppercase tracking-[0.18em]">Let's Talk</span
+      <!-- Mobile toggle -->
+      <button
+        id="mobile-menu-toggle"
+        type="button"
+        class="md:hidden inline-flex items-center justify-center p-2 -mr-2 rounded-md text-ink hover:text-accent hover:bg-accent/5 transition-colors press"
+        aria-label="Toggle navigation menu"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
       >
-      <Icon name="tabler:arrow-up-right" class="size-3.5" />
-    </a>
-
-    <button
-      id="mobile-menu-toggle"
-      class="md:hidden p-2 text-charcoal-ink"
-      aria-label="Toggle menu"
-    >
-      <Icon name="tabler:menu-2" class="size-6" />
-    </button>
+        <Icon name="tabler:menu-2" class="size-6" data-menu-open />
+        <Icon name="tabler:x" class="size-6 hidden" data-menu-close />
+      </button>
+    </div>
   </div>
 
+  <!-- Mobile menu -->
   <nav
     id="mobile-menu"
-    class="hidden md:hidden border-t border-charcoal-ink/12 bg-cream-white/95 backdrop-blur-xl"
+    class="hidden md:hidden border-t border-ink/10 bg-surface/95 backdrop-blur-md"
+    aria-label="Mobile"
   >
-    <ul class="flex flex-col gap-1 px-6 py-4">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-1">
       {
-        links.map((l) => (
-          <li>
-            <a
-              href={l.href}
-              class="type-link-16 block px-3 py-3 text-charcoal-ink transition hover:bg-pale-sage"
-            >
-              {l.label}
-            </a>
-          </li>
+        navItems.map((item) => (
+          <a
+            href={`/${item.id}`}
+            class="block px-3 py-3 rounded-md text-base font-medium text-ink hover:text-accent hover:bg-accent/5 transition-colors"
+          >
+            {item.label}
+          </a>
         ))
       }
-    </ul>
+    </div>
   </nav>
 </header>
 
 <script>
-  const toggle = document.getElementById("mobile-menu-toggle");
-  const menu = document.getElementById("mobile-menu");
-  toggle?.addEventListener("click", () => menu?.classList.toggle("hidden"));
-  menu
-    ?.querySelectorAll("a")
-    .forEach((a) =>
-      a.addEventListener("click", () => menu?.classList.add("hidden")),
-    );
+  import "../scripts/header.ts";
 </script>

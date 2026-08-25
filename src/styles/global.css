@@ -1,195 +1,100 @@
 @import 'tailwindcss';
 
+/* ============================================================
+ * PORTFOLIO DESIGN SYSTEM — dark "warm charcoal + emerald"
+ * Migrated from react-folio. All colors are warm charcoal darks
+ * with a single emerald accent. Text is soft off-white (not pure
+ * white) to stay comfortable on dark screens.
+ * Change a token here → every section & component updates.
+ * ========================================================== */
+
 @theme {
-  /* === Sage Editorial Palette ===
-     Verbose names — each token describes the actual color,
-     so `text-sage-green` or `bg-charcoal-ink` is self-documenting.
-     Change a value here → every section & component updates.
-   */
+  /* ── Surfaces (warm charcoal, "Balanced" contrast) ── */
+  --color-ground:       #1b1917;  /* page background            */
+  --color-ground-deep:  #141210;  /* deepest wells / footer     */
+  --color-ground-tint:  #201d1a;  /* warm stop for the body gradient */
+  --color-surface:      #262220;  /* cards, elevated surfaces   */
+  --color-surface-2:    #332f2b;  /* hover / secondary surface  */
 
-  /* ── Darks ── */
-  --color-charcoal-ink:   #2f3e46;   /* primary dark text on light surfaces      */
-  --color-near-black:     #142024;   /* deepest foreground, used on mid surfaces  */
-  --color-deep-charcoal:  #0a1416;   /* deepest possible background              */
+  /* ── Text ── */
+  --color-ink:          #e7e2d9;  /* primary text (soft white)  */
+  --color-ink-dim:      #c4beb4;  /* body / muted-strong        */
+  --color-muted:        #a49d94;  /* captions, meta (WCAG-tuned) */
 
-  /* ── Lights ── */
-  --color-cream-white:    #f1f4ee;   /* light text on dark surfaces              */
-  --color-soft-cream:     #eef1ec;   /* page / body background                  */
-  --color-warm-cream:     #f1f4ee;   /* cream section background                */
-  --color-pure-white:     #ffffff;   /* cards, elevated surfaces                */
+  /* ── Accent (emerald) ── */
+  --color-accent:        #10b981; /* primary accent             */
+  --color-accent-bright: #34d399; /* hover / highlight          */
+  --color-accent-ink:    #1b1917; /* text ON an emerald fill    */
+  --color-danger:        #f87171; /* form / validation errors   */
 
-  /* ── Sage family ── */
-  --color-pale-sage:      #cad2c5;   /* muted text on dark, light accent fills  */
-  --color-sage-green:     #84a98c;   /* primary accent — links, tags, highlights */
-  --color-forest-teal:    #52796f;   /* secondary accent — quotes, stats, focus */
-
-  /* ── Teals ── */
-  --color-dark-teal:      #354f52;   /* dark surface background                 */
-  --color-slate-teal:     #3f5d61;   /* hover variant for dark cards            */
-
-  /* === Typography === */
-  --font-crimson-pro: 'Sora', system-ui, sans-serif;
-  --font-plus-jakarta-sans: 'Manrope', system-ui, sans-serif;
-
-  --text-12: 12px; --text-13: 13px; --text-14: 14px; --text-15: 15px;
-  --text-16: 16px; --text-17: 17px; --text-18: 18px; --text-19: 19px;
-  --text-20: 20px; --text-21: 21px; --text-24: 24px; --text-32: 32px;
-  --text-36: 36px; --text-48: 56px; --text-56: 72px; --text-80: 104px;
-
-  --leading-h1: 0.95; --leading-h2: 1.05; --leading-h2-56: 1.02;
-  --leading-h2-56-400: 1.00; --leading-large-title: 1.04;
-  --leading-h2-48: 1.04; --leading-h2-48-400: 1.04; --leading-h2-36: 1.08;
-  --tracking-h2-36: -0.8px; --leading-link: normal; --tracking-link: -1px;
-  --leading-heading: 1.20; --leading-heading-24: normal; --leading-h3: normal;
-  --leading-heading-24-300: normal; --leading-link-21: normal;
-  --leading-link-20: normal; --leading-link-20-500: normal;
-  --leading-body: 1.60; --leading-large-body: 1.55; --tracking-large-body: -0.32px;
-  --leading-body-18: 1.55; --leading-body-17: 1.7; --tracking-body-17: -0.288px;
-  --leading-body-17-400: 1.66; --leading-link-16: normal; --leading-body-16: normal;
-  --leading-body-16-400: 1.60; --tracking-body-16-400: -0.2px;
-  --leading-link-16-400: normal; --leading-body-15: 1.55; --tracking-body-15: -0.24px;
-  --leading-small-body: normal; --tracking-small-body: -0.2px;
-  --leading-body-14: normal; --leading-body-14-400: normal;
-  --leading-caption: normal; --leading-button: normal;
-  --leading-caption-12: normal; --leading-caption-12-500: normal;
+  /* === Typography (from react-folio) === */
+  --font-heading: 'Poppins', system-ui, -apple-system, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:    'Fira Code', ui-monospace, monospace;
 }
 
 /* === Base === */
-html { scroll-behavior: smooth; background: var(--color-soft-cream); }
-
-body {
-  background: var(--color-soft-cream);
-  color: var(--color-charcoal-ink);
-  font-family: var(--font-plus-jakarta-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  letter-spacing: -0.005em;
+html {
+  scroll-behavior: smooth;
+  background: var(--color-ground);
 }
 
-::selection { background: var(--color-sage-green); color: var(--color-cream-white); }
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(1100px 700px at 78% -10%, color-mix(in srgb, var(--color-accent) 8%, transparent), transparent 60%),
+    linear-gradient(135deg, var(--color-ground) 0%, var(--color-ground-tint) 100%);
+  background-attachment: fixed;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection { background: var(--color-accent); color: var(--color-accent-ink); }
 
 a { transition: color 0.25s ease, opacity 0.25s ease; }
 
 :focus-visible {
-  outline: 2px solid var(--color-forest-teal);
+  outline: 2px solid var(--color-accent);
   outline-offset: 3px;
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: var(--color-soft-cream); }
+::-webkit-scrollbar-track { background: var(--color-ground); }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--color-forest-teal), var(--color-charcoal-ink));
+  background: var(--color-accent);
   border-radius: 10px;
-  border: 2px solid var(--color-soft-cream);
+  border: 2px solid var(--color-ground);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-accent-bright); }
+
+/* ============================================================
+ * ENTRANCE ANIMATION — fade-in, used above the fold (e.g. hero)
+ * ========================================================== */
+@keyframes fade-in {
+  0%   { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fade-in 0.6s ease-out both; }
+
+/* ============================================================
+ * MOTION FOUNDATION — tokens + editorial interactions.
+ * Consumed by scripts/motion.ts. Every effect degrades under
+ * prefers-reduced-motion (block near the bottom of this file).
+ * ========================================================== */
+:root {
+  --dur-fast: 180ms;
+  --dur-mid: 320ms;
+  --ease-settle: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Ink-tinted elevation (never pure black) */
+  --shadow-ink-lift: 0 18px 40px -16px color-mix(in srgb, #000 70%, transparent);
 }
 
-/* === Surface system — scoped palette variables per section ===
-   Drop in any of .surface-light / .surface-cream / .surface-mid /
-   .surface-deep / .surface-dark on a section wrapper. Every Tailwind
-   utility that reads --color-* below automatically recolors. */
-.surface-cream {
-  background-color: var(--color-warm-cream);
-  color: var(--color-charcoal-ink);
-}
-.surface-light {
-  background-color: var(--color-pale-sage);
-  color: var(--color-charcoal-ink);
-}
-.surface-mid {
-  background-color: var(--color-sage-green);
-  color: var(--color-near-black);
-}
-.surface-dark {
-  background-color: var(--color-dark-teal);
-  color: var(--color-cream-white);
-}
-.surface-deep {
-  background-color: var(--color-charcoal-ink);
-  color: var(--color-cream-white);
-}
-
-/* Soft section seams */
-.surface-cream + .surface-light,
-.surface-light + .surface-cream,
-.surface-cream + .surface-mid,
-.surface-mid + .surface-cream,
-.surface-light + .surface-mid,
-.surface-mid + .surface-light,
-.surface-mid + .surface-dark,
-.surface-dark + .surface-mid,
-.surface-light + .surface-dark,
-.surface-dark + .surface-light,
-.surface-cream + .surface-dark,
-.surface-dark + .surface-cream,
-.surface-dark + .surface-deep,
-.surface-deep + .surface-dark { border-top: 1px solid color-mix(in srgb, var(--color-charcoal-ink) 6%, transparent); }
-
-/* Editorial line-grid backdrop, subtle */
-.bg-line-grid {
-  --grid-line: color-mix(in srgb, var(--color-charcoal-ink) 6%, transparent);
-  --grid-size: 96px;
-  --grid-thickness: 1px;
-  background-image:
-    linear-gradient(to right, var(--grid-line) var(--grid-thickness), transparent var(--grid-thickness)),
-    linear-gradient(to bottom, var(--grid-line) var(--grid-thickness), transparent var(--grid-thickness));
-  background-size: var(--grid-size) var(--grid-size);
-  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 80%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 80%);
-}
-.surface-dark .bg-line-grid,
-.surface-deep .bg-line-grid { --grid-line: color-mix(in srgb, var(--color-pale-sage) 6%, transparent); }
-.surface-mid .bg-line-grid  { --grid-line: color-mix(in srgb, var(--color-near-black) 10%, transparent); }
-
-/* === Decorative texture utilities === */
-.texture-grid {
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--color-pale-sage) 8%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--color-pale-sage) 8%, transparent) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-.texture-dots {
-  background-image: radial-gradient(color-mix(in srgb, var(--color-charcoal-ink) 10%, transparent) 1px, transparent 1px);
-  background-size: 16px 16px;
-}
-
-.texture-dots-light {
-  background-image: radial-gradient(color-mix(in srgb, var(--color-pale-sage) 10%, transparent) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-.texture-lines-light {
-  background-image: linear-gradient(color-mix(in srgb, var(--color-cream-white) 10%, transparent) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-/* === Editorial type helpers === */
-.eyebrow-rule {
-  display: inline-flex; align-items: center; gap: 0.75rem;
-  font-family: var(--font-plus-jakarta-sans);
-  font-size: 12px; font-weight: 600;
-  letter-spacing: 0.22em; text-transform: uppercase;
-}
-.eyebrow-rule::before {
-  content: ""; width: 36px; height: 1px; background: currentColor; opacity: 0.5;
-}
-
-.display-serif {
-  font-family: var(--font-crimson-pro);
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  line-height: 0.92;
-}
-
-/* Marquee badge for project numbering */
-.tag-num {
-  font-family: var(--font-plus-jakarta-sans);
-  font-feature-settings: "tnum";
-  letter-spacing: 0.05em;
-}
-
-/* === Scroll reveal === */
+/* === Scroll reveal (motion.ts adds .is-visible) === */
 [data-reveal] {
   opacity: 0;
   transform: translateY(28px);
@@ -198,8 +103,6 @@ a { transition: color 0.25s ease, opacity 0.25s ease; }
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }
-[data-reveal="fade"]  { transform: none; }
-[data-reveal="scale"] { transform: scale(0.96); }
 [data-reveal].is-visible { opacity: 1; transform: none; }
 [data-reveal-stagger] > [data-reveal]:nth-child(1) { --reveal-delay: 0ms; }
 [data-reveal-stagger] > [data-reveal]:nth-child(2) { --reveal-delay: 90ms; }
@@ -209,6 +112,126 @@ a { transition: color 0.25s ease, opacity 0.25s ease; }
 [data-reveal-stagger] > [data-reveal]:nth-child(6) { --reveal-delay: 450ms; }
 [data-reveal-stagger] > [data-reveal]:nth-child(n+7) { --reveal-delay: 540ms; }
 
+/* Press feedback */
+.press { transition: transform var(--dur-fast) var(--ease-smooth); }
+.press:active { transform: translateY(1px); }
+
+/* Hover/focus reveal — hidden at rest, shows on hover or keyboard focus.
+   Always visible on touch. Used by the About horizontal timeline. */
+.reveal-hover {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity var(--dur-mid) var(--ease-settle),
+    transform var(--dur-mid) var(--ease-settle);
+}
+.group:hover .reveal-hover,
+.group:focus-within .reveal-hover {
+  opacity: 1;
+  transform: none;
+}
+@media (hover: none) {
+  .reveal-hover { opacity: 1; transform: none; }
+}
+
+/* Rotating headline word — CSS-only cycle for the hero typing effect.
+   `.role-rotate` stacks lines in one cell (sized to widest, no layout
+   shift); each fades in/out on a staggered loop via inline delay. */
+.role-rotate { display: inline-grid; vertical-align: baseline; }
+.role-rotate-item {
+  grid-area: 1 / 1;
+  justify-self: center;
+  opacity: 0;
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .role-rotate-item { animation: role-cycle 9s linear infinite both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .role-rotate-item { animation: none; opacity: 0; }
+  .role-rotate-item.is-first { opacity: 1; }
+}
+@keyframes role-cycle {
+  0%   { opacity: 0; transform: translateY(0.28em); }
+  4%   { opacity: 1; transform: translateY(0); }
+  28%  { opacity: 1; transform: translateY(0); }
+  33%  { opacity: 0; transform: translateY(-0.16em); }
+  100% { opacity: 0; }
+}
+
+/* Shared magnetic tilt + cursor light for [data-tilt] cards. scripts/tilt.ts
+   sets --mx/--my and the transform; the element clips its own light.
+   `data-tilt="6"` overrides the max tilt degrees (default 4). */
+[data-tilt] {
+  position: relative;
+  transition: transform var(--dur-fast) var(--ease-smooth);
+  transform-style: preserve-3d;
+}
+[data-tilt]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity var(--dur-mid) var(--ease-settle);
+  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%),
+      color-mix(in srgb, var(--color-accent) 15%, transparent), transparent 60%);
+  pointer-events: none;
+}
+[data-tilt]:hover::after { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  [data-tilt] { transition: none; }
+}
+
+/* ============================================================
+ * CHROME — reading progress + back-to-top
+ * ========================================================== */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 60;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-bright));
+  will-change: transform;
+  pointer-events: none;
+}
+
+.back-to-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 45;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--color-accent-ink);
+  background: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: 9999px;
+  box-shadow: var(--shadow-ink-lift);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    opacity var(--dur-mid) var(--ease-settle),
+    transform var(--dur-mid) var(--ease-settle),
+    background-color var(--dur-fast) var(--ease-smooth),
+    color var(--dur-fast) var(--ease-smooth),
+    visibility var(--dur-mid);
+}
+.back-to-top.is-shown { opacity: 1; visibility: visible; transform: none; }
+@media (hover: hover) {
+  .back-to-top:hover { background: var(--color-accent-bright); }
+}
+
+/* ============================================================
+ * REDUCED MOTION
+ * ========================================================== */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
@@ -219,44 +242,78 @@ a { transition: color 0.25s ease, opacity 0.25s ease; }
   }
 }
 
-/* === Typography components === */
+/* ============================================================
+ * SECTION RHYTHM — alternating dark-tone bands + soft seams
+ * Each <section> gets `section-band` + a tone. Consecutive bands
+ * are separated by a hairline seam so the page reads as bands.
+ * ========================================================== */
+.section-band { position: relative; padding-block: 60px; scroll-margin-top: 5.5rem; }
+@media (min-width: 640px) { .section-band { padding-block: 100px; } }
+.tone-a { background: var(--color-ground); }
+.tone-b { background: var(--color-ground-deep); }
+.section-band + .section-band {
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 6%, transparent);
+}
+
+/* Native form controls render their dropdown in the dark theme */
+select { color-scheme: dark; }
+option { background: var(--color-ground-deep); color: var(--color-ink); }
+
+/* Shared card surface — subtle top-to-bottom gradient for cohesive depth.
+   Use `.card` in place of `bg-surface border border-ink/10 rounded-xl`.
+   In @layer components so Tailwind utilities (e.g. hover:border-ink/15) still win. */
 @layer components {
-  .type-link-20 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-20); font-weight: 600; line-height: var(--leading-link-20); }
-  .type-body { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-20); font-weight: 400; line-height: var(--leading-body); }
-  .type-large-body { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-19); font-weight: 400; line-height: var(--leading-large-body); letter-spacing: var(--tracking-large-body); }
-  .type-body-17 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-17); font-weight: 400; line-height: var(--leading-body-17); letter-spacing: var(--tracking-body-17); }
-  .type-link-16 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-16); font-weight: 600; line-height: var(--leading-link-16); }
-  .type-body-15 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-15); font-weight: 400; line-height: var(--leading-body-15); letter-spacing: var(--tracking-body-15); }
-  .type-small-body { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-14); font-weight: 400; line-height: var(--leading-small-body); letter-spacing: var(--tracking-small-body); }
-  .type-caption { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-13); font-weight: 500; line-height: var(--leading-caption); }
-  .type-button { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-13); font-weight: 600; line-height: var(--leading-button); }
-  .type-caption-12 { font-family: var(--font-plus-jakarta-sans); font-size: var(--text-12); font-weight: 600; line-height: var(--leading-caption-12); }
+  .card {
+    background: linear-gradient(160deg, var(--color-surface), var(--color-ground-deep));
+    border: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent);
+    border-radius: 0.75rem;
+  }
 }
 
-/* === Hero Redesign Utilities === */
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.floating-pill {
+/* ============================================================
+ * BUTTONS — canonical emerald ink-wipe (use across the site)
+ * <a class="btn btn-primary"> / <a class="btn btn-outline">
+ * Add `btn-full` for full-width buttons inside cards.
+ * ========================================================== */
+.btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
-  background: color-mix(in srgb, var(--color-charcoal-ink) 80%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-pale-sage) 20%, transparent);
-  backdrop-filter: blur(8px);
-  color: var(--color-cream-white);
-  font-family: var(--font-plus-jakarta-sans);
-  font-size: var(--text-13);
-  font-weight: 500;
-  animation: float 6s ease-in-out infinite;
-  white-space: nowrap;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--dur-fast) var(--ease-smooth),
+              color var(--dur-mid) var(--ease-settle);
 }
-
-.floating-pill-delay-1 { animation-delay: -2s; }
-.floating-pill-delay-2 { animation-delay: -4s; }
-.floating-pill-delay-3 { animation-delay: -5.5s; }
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--wipe, var(--color-accent));
+  transform: translateX(-101%);
+  transition: transform var(--dur-mid) var(--ease-settle);
+}
+.btn:hover::before,
+.btn:focus-visible::before { transform: translateX(0); }
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--color-accent); color: var(--color-accent-ink); --wipe: var(--color-accent-bright); }
+.btn-outline { border-color: var(--color-accent); color: var(--color-accent); --wipe: var(--color-accent); }
+.btn-outline:hover,
+.btn-outline:focus-visible { color: var(--color-accent-ink); }
+.btn-full { width: 100%; }
+.btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
+.btn[aria-disabled="true"]::before { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .btn::before { transition: none; }
+}

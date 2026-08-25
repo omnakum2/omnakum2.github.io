@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+import type { SeoConfig } from '../types/seo';
+
+const seo: SeoConfig = {
+  title: 'Page Not Found',
+  description: 'The page you are looking for does not exist or has moved.',
+  canonical: '/404/',
+  noindex: true,
+};
+---
+
+<BaseLayout seo={seo}>
+  <section
+    class="relative flex min-h-[80vh] items-center justify-center px-6 text-center"
+  >
+    <div class="animate-fade-in">
+      <p
+        class="font-heading font-bold leading-none text-accent/30 text-[clamp(96px,22vw,180px)]"
+      >
+        404
+      </p>
+      <h1
+        class="font-heading text-4xl md:text-6xl font-bold text-ink mt-2 mb-6"
+      >
+        Oops! <span class="text-accent">Page Not Found</span>
+      </h1>
+      <p class="text-lg text-muted max-w-md mx-auto mb-8">
+        The page you're looking for doesn't exist or may have moved.
+      </p>
+      <a class="btn btn-primary" href="/">
+        <Icon name="tabler:home" class="size-5" />
+        Return Home
+      </a>
+    </div>
+  </section>
+</BaseLayout>
