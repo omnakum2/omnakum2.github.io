@@ -1,106 +1,72 @@
 ---
 import { Icon } from "astro-icon/components";
-import { services } from "../data/services";
+import SectionHeader from "../components/SectionHeader.astro";
+import { services } from "../data/portfolio";
 ---
 
-<section
-  id="services"
-  class="surface-dark relative overflow-hidden py-28 sm:py-36"
->
-  <div class="bg-line-grid pointer-events-none absolute inset-0 opacity-60">
-  </div>
+<section id="services" class="section-band tone-b">
+  <div class="mx-auto max-w-7xl px-6 sm:px-8">
+    <SectionHeader title="My" accent="Services" subtitle="Comprehensive solutions tailored to your digital needs" />
 
-  <div class="relative mx-auto max-w-7xl px-6">
-    <!-- Two-column editorial intro -->
-    <div
-      class="grid items-start gap-10 border-b border-[rgba(202,210,197,0.15)] pb-14 lg:grid-cols-12"
-    >
-      <div class="lg:col-span-5" data-reveal-stagger>
-        <p data-reveal class="eyebrow-rule text-[#84a98c]">
-          Chapter 03 · Services
-        </p>
-        <h2
-          data-reveal
-          class="display-serif mt-5 text-[clamp(40px,5.5vw,80px)] text-[#f1f4ee]"
-        >
-          Four ways
-          <span class="italic font-light" style="color:#cad2c5;">we work.</span>
-        </h2>
-      </div>
-      <div class="lg:col-span-7 lg:pt-4 space-y-5" data-reveal-stagger>
-        <p data-reveal class="type-large-body text-[#cad2c5]/80">
-          Engagements are scoped tight, priced honestly, and shipped to
-          production — no theatre, no slide decks for the sake of it.
-        </p>
-        <ul data-reveal class="flex flex-wrap gap-x-6 gap-y-2">
-          <li
-            class="type-caption-12 uppercase tracking-[0.2em] text-[#cad2c5]/70"
-          >
-            — Fixed scope
-          </li>
-          <li
-            class="type-caption-12 uppercase tracking-[0.2em] text-[#cad2c5]/70"
-          >
-            — 2–6 week sprints
-          </li>
-          <li
-            class="type-caption-12 uppercase tracking-[0.2em] text-[#cad2c5]/70"
-          >
-            — Production handoff
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Asymmetric service stack — alternating wide/narrow rows -->
-    <ol class="mt-12 list-none m-0 p-0" data-reveal-stagger>
+    <!-- Services grid: 3-in-a-row on desktop, stacked on mobile -->
+    <div class="grid gap-6 md:grid-cols-3 items-start max-w-6xl mx-auto" data-reveal-stagger>
       {
-        services.map((s, i) => {
-          const isOdd = i % 2 === 1;
-          return (
-            <li
-              data-reveal
-              class="group relative border-b border-[rgba(202,210,197,0.12)] py-10 transition hover:bg-[rgba(202,210,197,0.04)]"
-            >
-              <div
-                class={`grid items-center gap-8 lg:grid-cols-12 ${isOdd ? "lg:[&>*:first-child]:order-2" : ""}`}
-              >
-                <div class="lg:col-span-1">
-                  <span class="type-caption-12 tag-num text-[#84a98c]">
-                    0{i + 1}
-                  </span>
-                </div>
-                <div class="lg:col-span-5">
-                  <div class="flex items-center gap-4">
-                    <span class="inline-flex size-12 items-center justify-center border border-[#84a98c]/40 text-[#84a98c] transition group-hover:bg-[#84a98c] group-hover:text-[#2f3e46]">
-                      <Icon name={s.icon} class="size-5" />
-                    </span>
-                    <h3 class="display-serif text-[clamp(26px,3vw,44px)] text-[#f1f4ee]">
-                      {s.title}
-                    </h3>
-                  </div>
-                  <p class="type-body-17 mt-4 max-w-md text-[#cad2c5]/75">
-                    {s.description}
+        services.map((service) => (
+          <article
+            data-reveal
+            class="group card p-6 transition-all hover:border-ink/15"
+          >
+            {/* Icon effect: tile fills accent, icon flips to accent-ink, slight scale + rotate */}
+            <div class="size-14 rounded-xl bg-accent/10 grid place-items-center transition-all duration-300 group-hover:bg-accent group-hover:scale-105 group-hover:-rotate-3">
+              <Icon
+                name={service.icon}
+                class="size-7 text-accent transition-colors group-hover:text-accent-ink"
+              />
+            </div>
+
+            <h3 class="font-heading text-xl font-semibold text-ink mt-4">
+              {service.title}
+            </h3>
+
+            <p class="text-ink-dim leading-relaxed mt-2">
+              {service.description}
+            </p>
+
+            {/* Reveal-on-hover "What's Included" bullets (grid-rows collapse; visible on touch) */}
+            <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr] motion-reduce:transition-none [@media(hover:none)]:grid-rows-[1fr]">
+              <div class="overflow-hidden">
+                <div class="pt-4 mt-4 border-t border-ink/10">
+                  <p class="font-mono text-xs uppercase tracking-wider text-muted mb-3">
+                    What's included
                   </p>
-                </div>
-                <ul class="lg:col-span-5 grid grid-cols-2 gap-x-6 gap-y-2 list-none m-0 p-0">
-                  {s.tags.map((t) => (
-                    <li class="type-body-15 flex items-baseline gap-2 text-[#cad2c5]/85">
-                      <span class="text-[#84a98c]">↳</span> {t}
-                    </li>
-                  ))}
-                </ul>
-                <div class="lg:col-span-1 flex justify-end">
-                  <Icon
-                    name="tabler:arrow-up-right"
-                    class="size-6 text-[#cad2c5]/40 transition group-hover:text-[#84a98c] group-hover:translate-x-1 group-hover:-translate-y-1"
-                  />
+                  <ul class="grid gap-2">
+                    {service.features.map((feature) => (
+                      <li class="flex items-center gap-2 text-sm text-ink-dim">
+                        <Icon
+                          name="tabler:check"
+                          class="size-4 text-accent shrink-0"
+                        />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-            </li>
-          );
-        })
+            </div>
+          </article>
+        ))
       }
-    </ol>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-14" data-reveal>
+      <p class="text-muted mb-5">
+        Need something custom? Let's discuss your requirements.
+      </p>
+      <a class="btn btn-outline" href="#contact">
+        Schedule a Consultation
+        <Icon name="tabler:arrow-right" class="size-5" />
+      </a>
+    </div>
   </div>
 </section>

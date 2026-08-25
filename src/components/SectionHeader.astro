@@ -1,0 +1,25 @@
+---
+// Shared centered section header: title (+ optional accent word) and subtitle.
+// Standardizes spacing and type so every section header matches.
+interface Props {
+  title: string;
+  /** Word(s) appended after the title, rendered in the accent color. */
+  accent?: string;
+  subtitle?: string;
+  class?: string;
+}
+const { title, accent, subtitle, class: extra } = Astro.props;
+---
+
+<div class:list={["text-center mb-14", extra]} data-reveal-stagger>
+  <h2 data-reveal class="font-heading text-4xl md:text-5xl font-bold text-ink">
+    {title}{accent && <> <span class="text-accent">{accent}</span></>}
+  </h2>
+  {
+    subtitle && (
+      <p data-reveal class="text-lg text-muted max-w-3xl mx-auto mt-4">
+        {subtitle}
+      </p>
+    )
+  }
+</div>

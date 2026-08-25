@@ -1,0 +1,80 @@
+---
+// Shared renderer for a legal document (Privacy Policy / Terms of Service).
+// Both pages pass their doc here so the markup lives in exactly one place.
+// Content lives in src/data/legal.ts; inline {{contact}} tokens become links
+// via <LegalText>.
+import LegalText from './LegalText.astro';
+import type { LegalDoc } from '../data/legal';
+
+interface Props {
+  doc: LegalDoc;
+}
+const { doc } = Astro.props;
+---
+
+<section class="section-band tone-a">
+  <div class="mx-auto max-w-3xl px-6 sm:px-8 pt-12 sm:pt-0">
+    {/* ─── Header ────────────────────────────────────────────────────── */}
+    <h1 class="font-heading text-accent mb-12 text-4xl leading-[1.08] font-bold md:text-5xl">
+      {doc.title}
+    </h1>
+
+    {/* ─── Content ───────────────────────────────────────────────────── */}
+    <div class="space-y-12">
+      {
+        doc.intro && doc.intro.length > 0 && (
+          <div class="space-y-4">
+            {doc.intro.map((para) => (
+              <p class="text-ink-dim text-[15px] leading-relaxed">
+                <LegalText text={para} />
+              </p>
+            ))}
+          </div>
+        )
+      }
+
+      {
+        doc.sections.map((section, index) => (
+          <div class="space-y-4">
+            {section.heading && (
+              <h2 class="font-heading text-accent text-xl font-semibold tracking-[-0.01em] sm:text-2xl">
+                <span class="text-accent-bright tabular-nums">{index + 1}.</span> {section.heading}
+              </h2>
+            )}
+
+            {section.body?.map((para) => (
+              <p class="text-ink-dim text-[15px] leading-relaxed">
+                <LegalText text={para} />
+              </p>
+            ))}
+
+            {section.items && (
+              <ul class="space-y-4">
+                {section.items.map((item) => (
+                  <li class="border-accent/40 border-l-2 pl-4">
+                    <p class="text-ink-dim text-[15px] leading-relaxed">
+                      {item.lead && (
+                        <span class="font-heading text-accent-bright font-semibold">
+                          {item.lead},{' '}
+                        </span>
+                      )}
+                      <LegalText text={item.text} />
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {section.outro?.map((para) => (
+              <p class="text-ink-dim text-[15px] leading-relaxed">
+                <LegalText text={para} />
+              </p>
+            ))}
+
+            {section.note && <p class="text-muted text-sm">{section.note}</p>}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

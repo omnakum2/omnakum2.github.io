@@ -1,173 +1,242 @@
 ---
 import { Icon } from "astro-icon/components";
+import SectionHeader from "../components/SectionHeader.astro";
+import { contact } from "../data/portfolio";
 import { SITE } from "../consts";
 
-const WHATSAPP_URL = "https://wa.me/0000000000";
-const CALENDAR_URL = "https://cal.com/demo";
+const { call } = contact;
+const hasBooking =
+  typeof call.bookingUrl === "string" && call.bookingUrl.trim() !== "";
 
-const methods = [
-  {
-    label: "Email",
-    detail: SITE.email,
-    icon: "simple-icons:gmail",
-    href: `mailto:${SITE.email}`,
-    note: "Reply within 24h",
-  },
-  {
-    label: "LinkedIn",
-    detail: "Connect with me",
-    icon: "simple-icons:linkedin",
-    href: SITE.social.linkedin,
-    note: "Professional chat",
-  },
-  {
-    label: "WhatsApp",
-    detail: "Quick message",
-    icon: "simple-icons:whatsapp",
-    href: WHATSAPP_URL,
-    note: "Fastest reply",
-  },
-  {
-    label: "Schedule call",
-    detail: "Book 30 minutes",
-    icon: "simple-icons:googlecalendar",
-    href: CALENDAR_URL,
-    note: "Free intro chat",
-  },
-];
-
-const socials = [
-  { label: "GitHub", icon: "simple-icons:github", href: SITE.social.github },
-  {
-    label: "LinkedIn",
-    icon: "simple-icons:linkedin",
-    href: SITE.social.linkedin,
-  }
-];
+const fieldClass =
+  "w-full rounded-md bg-ground-deep border border-ink/30 px-4 py-3 text-ink placeholder:text-muted focus:border-accent focus:outline-none transition-colors";
 ---
 
-<section
-  id="contact"
-  class="surface-deep relative overflow-hidden py-32 sm:py-44"
->
-  <span
-    aria-hidden="true"
-    class="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 select-none whitespace-nowrap font-[var(--font-crimson-pro)] font-black uppercase tracking-tighter"
-    style="font-size: clamp(160px, 24vw, 360px); line-height: 0.8; color: rgba(202,210,197,0.04); letter-spacing: -0.06em;"
-    >hello.</span
-  >
+<section id="contact" class="section-band tone-b">
+  <div class="mx-auto max-w-7xl px-6 sm:px-8">
+    <!-- Header -->
+    <SectionHeader
+      title="Let's"
+      accent="Work Together"
+      subtitle="Ready to start? Tell me about your project and let's talk."
+    />
 
-  <div class="relative mx-auto max-w-7xl px-6">
-    <!-- Cinematic CTA block -->
-    <div
-      data-reveal-stagger
-      class="border-y border-[rgba(202,210,197,0.15)] py-16"
-    >
-      <p data-reveal class="eyebrow-rule text-[#84a98c]">
-        Chapter 06 · Let's build
-      </p>
-      <h2
-        data-reveal
-        class="display-serif mt-6 text-[clamp(56px,11vw,180px)] text-[#f1f4ee]"
-      >
-        Have a project
-        <span class="block italic font-light" style="color:#cad2c5;"
-          >in mind?</span
-        >
-      </h2>
-      <div
-        data-reveal
-        class="mt-10 flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end"
-      >
-        <p class="type-large-body max-w-xl text-[#cad2c5]/80">
-          Pick whichever channel works for you — email, LinkedIn, WhatsApp, or
-          grab a quiet 30 minutes on my calendar.
+    <div class="grid lg:grid-cols-2 gap-8 items-start max-w-6xl mx-auto">
+      <!-- LEFT: What we'll cover -->
+      <div data-reveal class="card p-8">
+        <h3 class="font-heading text-2xl font-semibold text-ink mb-2">
+          What we'll cover on the call
+        </h3>
+        <p class="text-muted mb-6">
+          A quick, no-pressure chat about your idea and the best way to build
+          it.
         </p>
-        <a
-          href={`mailto:${SITE.email}`}
-          class="group inline-flex items-center gap-4 bg-[#cad2c5] px-8 py-5 text-[#2f3e46] transition hover:bg-[#84a98c]"
-        >
-          <span class="display-serif text-[clamp(20px,2vw,28px)]"
-            >Start the conversation</span
+
+        <ul class="space-y-4">
+          {
+            contact.discussPoints.map((point) => (
+              <li class="flex items-start gap-3 text-ink-dim">
+                <Icon
+                  name="tabler:circle-check"
+                  class="size-5 text-accent mt-0.5 shrink-0"
+                />
+                <span>{point}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <!-- Availability note -->
+        <div class="mt-8 pt-6 border-t border-ink/10">
+          <div class="flex items-center gap-2 text-ink mb-2">
+            <Icon name="tabler:clock" class="size-5 text-accent shrink-0" />
+            <span class="font-medium">Available for remote work</span>
+          </div>
+          <p class="text-sm text-muted">{contact.availability}</p>
+        </div>
+
+        <!-- Social row -->
+        <div class="mt-8 flex items-center gap-3">
+          <a
+            href={`mailto:${SITE.email}`}
+            aria-label="Email"
+            class="w-10 h-10 rounded-lg bg-surface-2 text-ink hover:bg-accent hover:text-accent-ink press flex items-center justify-center transition-colors"
           >
-          <Icon
-            name="tabler:arrow-up-right"
-            class="size-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
-          />
-        </a>
+            <Icon name="tabler:mail" class="size-5" />
+          </a>
+          <a
+            href={SITE.social.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            class="w-10 h-10 rounded-lg bg-surface-2 text-ink hover:bg-accent hover:text-accent-ink press flex items-center justify-center transition-colors"
+          >
+            <Icon name="tabler:brand-github" class="size-5" />
+          </a>
+          <a
+            href={SITE.social.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            class="w-10 h-10 rounded-lg bg-surface-2 text-ink hover:bg-accent hover:text-accent-ink press flex items-center justify-center transition-colors"
+          >
+            <Icon name="tabler:brand-linkedin" class="size-5" />
+          </a>
+        </div>
       </div>
-    </div>
 
-    <!-- Contact methods — index row, no rounded cards -->
-    <ul
-      class="mt-12 grid gap-px border border-[rgba(202,210,197,0.15)] bg-[rgba(202,210,197,0.15)] sm:grid-cols-2 lg:grid-cols-4 list-none m-0 p-0"
-      data-reveal-stagger
-    >
-      {
-        methods.map((m, i) => (
-          <li data-reveal>
-            <a
-              href={m.href}
-              target={m.href.startsWith("mailto") ? "_self" : "_blank"}
-              rel="noopener noreferrer"
-              class="group flex h-full flex-col justify-between bg-[#2f3e46] p-7 transition hover:bg-[#3f5d61]"
-            >
-              <div class="flex items-start justify-between">
-                <span class="type-caption-12 tag-num text-[#84a98c]">
-                  0{i + 1}
-                </span>
-                <Icon
-                  name={m.icon}
-                  class="size-5 text-[#cad2c5]/70 transition group-hover:text-[#84a98c]"
-                />
-              </div>
-              <div class="mt-12">
-                <p class="type-caption-12 uppercase tracking-[0.18em] text-[#cad2c5]/55">
-                  {m.label}
-                </p>
-                <p class="display-serif mt-2 text-[clamp(20px,1.8vw,26px)] text-[#f1f4ee]">
-                  {m.detail}
-                </p>
-                <p class="type-caption mt-3 text-[#cad2c5]/55">{m.note}</p>
-              </div>
-              <div class="mt-6 flex items-center justify-between border-t border-[rgba(202,210,197,0.10)] pt-4">
-                <span class="type-caption-12 uppercase tracking-[0.18em] text-[#84a98c]">
-                  Open →
-                </span>
-                <Icon
-                  name="tabler:arrow-up-right"
-                  class="size-4 text-[#84a98c] transition group-hover:translate-x-1 group-hover:-translate-y-1"
-                />
-              </div>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+      <!-- RIGHT: Details form -->
+      <div data-reveal class="card p-8">
+        <p
+          id="step-indicator"
+          class="font-mono text-xs uppercase tracking-[0.14em] text-accent-bright mb-3"
+        >
+          Step 1 of 2
+        </p>
+        <p id="step-title" class="text-ink-dim mb-6">
+          Submit your details to book a free quick intro call.
+        </p>
 
-    <!-- Socials -->
-    <div
-      class="mt-16 flex flex-col items-center gap-6 sm:flex-row sm:justify-between"
-      data-reveal
-    >
-      <p class="type-caption-12 uppercase tracking-[0.22em] text-[#cad2c5]/55">
-        Or follow along
-      </p>
-      <div class="flex items-center gap-2">
-        {
-          socials.map((s) => (
-            <a
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={s.label}
-              class="inline-flex size-11 items-center justify-center border border-[rgba(202,210,197,0.15)] text-[#cad2c5]/75 transition hover:border-[#84a98c] hover:bg-[#84a98c] hover:text-[#2f3e46]"
+        <form id="contact-form" novalidate class="grid gap-4">
+          <div>
+            <label for="cf-name" class="block text-sm text-ink-dim mb-1.5"
+              >Name</label
             >
-              <Icon name={s.icon} class="size-4" />
-            </a>
-          ))
-        }
+            <input
+              id="cf-name"
+              type="text"
+              name="name"
+              required
+              placeholder="Your name"
+              aria-describedby="cf-name-error"
+              class={fieldClass}
+            />
+            <p id="cf-name-error" class="mt-1 text-sm text-danger hidden" data-error-for="name">
+              Please enter your name.
+            </p>
+          </div>
+
+          <div>
+            <label for="cf-email" class="block text-sm text-ink-dim mb-1.5"
+              >Email</label
+            >
+            <input
+              id="cf-email"
+              type="email"
+              name="email"
+              required
+              placeholder="you@example.com"
+              aria-describedby="cf-email-error"
+              class={fieldClass}
+            />
+            <p id="cf-email-error" class="mt-1 text-sm text-danger hidden" data-error-for="email">
+              Please enter a valid email address.
+            </p>
+          </div>
+
+          <div>
+            <label for="cf-subject" class="block text-sm text-ink-dim mb-1.5"
+              >Subject</label
+            >
+            <select
+              id="cf-subject"
+              name="subject"
+              required
+              aria-describedby="cf-subject-error"
+              class={fieldClass}
+            >
+              <option value="" disabled selected>Select a subject</option>
+              {
+                contact.subjects.map((subject) => (
+                  <option value={subject}>{subject}</option>
+                ))
+              }
+            </select>
+            <p id="cf-subject-error" class="mt-1 text-sm text-danger hidden" data-error-for="subject">
+              Please choose a subject.
+            </p>
+          </div>
+
+          <div>
+            <label for="cf-message" class="block text-sm text-ink-dim mb-1.5"
+              >Message</label
+            >
+            <textarea
+              id="cf-message"
+              name="message"
+              rows="5"
+              required
+              placeholder="Tell me a bit about your project, goals, and timeline."
+              aria-describedby="cf-message-error"
+              class={fieldClass}></textarea>
+            <p id="cf-message-error" class="mt-1 text-sm text-danger hidden" data-error-for="message">
+              Please enter a message.
+            </p>
+          </div>
+
+          <button type="submit" id="submit-btn" class="btn btn-primary btn-full">
+            Continue to Book a Call
+            <Icon name="tabler:arrow-right" class="size-5" />
+          </button>
+        </form>
+
+        <!-- SUCCESS (revealed on submit); the top step header updates to Step 2 of 2 -->
+        <div id="success" class="hidden text-center">
+          <div
+            class="cf-check mx-auto flex size-16 items-center justify-center rounded-full bg-accent"
+          >
+            <Icon name="tabler:check" class="size-8 text-accent-ink" />
+          </div>
+          <p class="font-heading text-lg text-ink mt-4">
+            Submitted successfully.
+          </p>
+          <p class="text-muted mt-1">You can now book a call.</p>
+
+          {
+            hasBooking && (
+              <a
+                class="btn btn-primary btn-full mt-6"
+                href={call.bookingUrl}
+                target="_blank"
+                rel="noopener"
+              >
+                Book on {call.platform}
+                <Icon name="tabler:calendar" class="size-5" />
+              </a>
+            )}
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  /* Success checkmark pop-in. */
+  #success:not(.hidden) .cf-check {
+    animation: cf-pop 0.45s var(--ease-settle, cubic-bezier(0.16, 1, 0.3, 1))
+      both;
+  }
+  @keyframes cf-pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    60% {
+      opacity: 1;
+      transform: scale(1.12);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #success:not(.hidden) .cf-check {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  import '../scripts/contact-form.ts';
+</script>

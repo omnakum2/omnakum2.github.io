@@ -27,11 +27,11 @@ const schemas = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <Seo seo={seo} />
@@ -46,25 +46,8 @@ const schemas = [
     <Footer />
 
     <script>
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const targets = document.querySelectorAll<HTMLElement>('[data-reveal]');
-
-      if (reduceMotion || !('IntersectionObserver' in window)) {
-        targets.forEach((el) => el.classList.add('is-visible'));
-      } else {
-        const io = new IntersectionObserver(
-          (entries) => {
-            for (const entry of entries) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                io.unobserve(entry.target);
-              }
-            }
-          },
-          { rootMargin: '0px 0px -10% 0px', threshold: 0.08 }
-        );
-        targets.forEach((el) => io.observe(el));
-      }
+      import '../scripts/motion.ts';
+      import '../scripts/tilt.ts';
     </script>
   </body>
 </html>

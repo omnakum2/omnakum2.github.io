@@ -1,162 +1,160 @@
 ---
 import { Icon } from "astro-icon/components";
+import SectionHeader from "../components/SectionHeader.astro";
+import { about } from "../data/portfolio";
 
-const ABOUT_MASCOT_SRC = "/mascots/about_mascot.webp";
+// Journey Timeline, reverse-chronological: current role FIRST, then education
+// newest → oldest (Master's → Bachelor's). about.education is stored
+// [Master, Bachelor]; sort postgraduate before undergraduate to be safe.
+const cap = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
+const eduRank = (t: string): number =>
+  t === "undergraduate" ? 0 : t === "postgraduate" ? 1 : 2;
 
-const quickFacts = [
-  { value: "04", label: "Internships shipped" },
-  { value: "20+", label: "Projects launched" },
-  { value: "06", label: "Hackathons won" },
+interface TimelineItem {
+  icon: string;
+  primary: string; // level / position — minimal glance label (white)
+  year: string; // year or range — accent
+  cardTitle: string; // institution / company
+  cardBody: string; // expanded degree full form / role description
+  isWork: boolean;
+}
+
+const exp = about.experience[0];
+
+const timeline: TimelineItem[] = [
+  {
+    icon: "tabler:briefcase",
+    primary: exp.position,
+    year: `${exp.joiningYear} – Present`,
+    cardTitle: exp.company,
+    cardBody: exp.description,
+    isWork: true,
+  },
+  ...[...about.education]
+    .sort((a, b) => eduRank(b.type) - eduRank(a.type))
+    .map((edu) => ({
+      icon: "tabler:school",
+      primary: edu.level,
+      year: `${edu.year}`,
+      cardTitle: edu.fullForm,
+      cardBody: edu.institution,
+      isWork: false,
+    })),
 ];
 
-const interests = [
-  "Startups",
-  "Hackathons",
-  "Internships",
-  "Travel",
-  "Open Source",
-];
+// Connector geometry: the 2px line tucks under the first/last node centers,
+// so inset each side by half a column.
+const n = timeline.length;
+const inset = 100 / (n * 2);
+const gridStyle = `grid-template-columns:repeat(${n},minmax(0,1fr))`;
+const lineStyle = `left:${inset}%;right:${inset}%`;
 ---
 
-<section
-  id="about"
-  class="surface-cream relative overflow-hidden py-28 sm:py-36"
->
-  <div class="relative mx-auto max-w-7xl px-6">
-    <!-- Editorial header rail -->
-    <div
-      class="grid items-end gap-8 border-b border-[#2f3e46]/15 pb-10 lg:grid-cols-12"
-    >
-      <div class="lg:col-span-3" data-reveal>
-        <p class="eyebrow-rule text-[#52796f]">Chapter 01</p>
-        <p
-          class="type-caption-12 mt-2 uppercase tracking-[0.22em] text-[#2f3e46]/55"
-        >
-          About
-        </p>
-      </div>
-      <h2
+<section id="about" class="section-band tone-b">
+  <div class="mx-auto max-w-7xl px-6 sm:px-8">
+    <!-- Section header -->
+    <SectionHeader title="About" accent="Me" subtitle="Get to know more about my journey, passion, and expertise" />
+
+    <!-- Centered inner column: story card + timeline share this width -->
+    <div class="mx-auto max-w-5xl">
+      <!-- My Story — full-width card, justified copy. Magnetic tilt +
+           cursor-light on hover, matching the hero/bento cards. -->
+      <div
+        id="story-card"
         data-reveal
-        class="display-serif lg:col-span-9 text-[clamp(40px,6vw,88px)] text-[#2f3e46]"
+        data-tilt="3"
+        class="relative overflow-hidden card p-8"
       >
-        A designer-coder who never picked
-        <span class="italic font-light" style="color:#52796f;">a side.</span>
-      </h2>
-    </div>
-
-    <!-- Magazine layout: image left tall, story right, pull-quote band -->
-    <div class="mt-16 grid gap-12 lg:grid-cols-12">
-      <!-- Image column -->
-      <div class="lg:col-span-5 lg:row-span-2" data-reveal="scale">
-        <figure class="sticky top-28">
-          <div class="relative aspect-[4/5] overflow-hidden bg-[#84a98c]">
-            <div
-              class="pointer-events-none absolute inset-0"
-              style="background-image: radial-gradient(rgba(47,62,70,0.10) 1px, transparent 1px); background-size: 16px 16px;"
-            >
-            </div>
-            <div class="absolute inset-0 flex items-end justify-center">
-              <img
-                src={ABOUT_MASCOT_SRC}
-                alt="Mascot"
-                width="400"
-                height="500"
-                loading="lazy"
-                decoding="async"
-                class="h-[90%] w-auto select-none"
-              />
-            </div>
-            <span
-              class="absolute left-4 top-4 type-caption-12 tag-num bg-[#2f3e46] px-2.5 py-1 text-[#cad2c5]"
-              >PORTRAIT</span
-            >
-          </div>
-          <figcaption
-            class="mt-3 flex items-baseline justify-between text-[#2f3e46]/55"
-          >
-            <span class="type-caption-12 uppercase tracking-[0.2em]"
-              >Fig. 02 — In the wild</span
-            >
-            <span class="type-caption-12 tag-num">02 / 07</span>
-          </figcaption>
-        </figure>
+        <div class="relative z-10">
+          <h3 class="font-heading text-2xl font-semibold text-ink mb-4">
+            My Story
+          </h3>
+          <p class="text-ink-dim leading-relaxed text-justify">
+            {about.bio}
+          </p>
+        </div>
       </div>
 
-      <!-- Story column -->
-      <div class="lg:col-span-7 space-y-10" data-reveal-stagger>
-        <p
-          data-reveal
-          class="type-large-body text-[#2f3e46]/85 first-letter:float-left first-letter:mr-3 first-letter:font-[var(--font-crimson-pro)] first-letter:text-[88px] first-letter:font-bold first-letter:leading-[0.85] first-letter:text-[#52796f]"
-        >
-          College kept me curious — half of it spent in classrooms, the other
-          half scattered across startups, hackathon halls, and late-night Figma
-          files. Somewhere along the way, building products stopped feeling like
-          coursework and started feeling like a craft.
-        </p>
+      <!-- Journey Timeline -->
+      <h3 class="font-heading text-2xl font-semibold text-ink mt-14 mb-10">
+        Journey Timeline
+      </h3>
 
-        <!-- Pull quote -->
-        <blockquote data-reveal class="border-l-4 border-[#52796f] pl-6 py-2">
-          <p class="display-serif text-[clamp(24px,3vw,40px)] text-[#2f3e46]">
-            "I move between code and design without picking a side —
-            <span class="italic font-light" style="color:#52796f;"
-              >user feel and ship quality, both."</span
-            >
-          </p>
-        </blockquote>
+      <!-- Horizontal, hover-to-reveal. Wrapped in a scroll container so narrow
+           viewports scroll the row instead of overflowing the page. -->
+      <div
+        data-reveal
+        class="hidden md:block -mx-6 overflow-x-auto px-6 pb-2 sm:mx-0 sm:px-0"
+      >
+        <div class="relative min-w-[560px] md:min-w-0">
+          <!-- 2px connector line running through the node centers (behind) -->
+          <span
+            class="pointer-events-none absolute top-7 z-0 h-0.5 bg-ink/15"
+            style={lineStyle}
+            aria-hidden="true"></span>
 
-        <p data-reveal class="type-body-17 text-[#2f3e46]/75">
-          I care about what users feel when they open a screen, and equally
-          about how the same screen ships, scales, and stays maintainable months
-          later. Outside work I'm reading short books, traveling on a whim, and
-          usually surrounded by a small circle of people who push me to think
-          sharper.
-        </p>
-
-        <!-- Quick facts — editorial number block, no card -->
-        <dl
-          data-reveal
-          class="grid grid-cols-3 divide-x divide-[#2f3e46]/15 border-y border-[#2f3e46]/15 py-8"
-        >
-          {
-            quickFacts.map((f) => (
-              <div class="px-4 first:pl-0 last:pr-0">
-                <dt class="display-serif text-[clamp(36px,5vw,64px)] text-[#52796f]">
-                  {f.value}
-                </dt>
-                <dd class="type-caption-12 mt-2 uppercase tracking-[0.2em] text-[#2f3e46]/65">
-                  {f.label}
-                </dd>
-              </div>
-            ))
-          }
-        </dl>
-
-        <!-- Interest tags + CTA inline -->
-        <div
-          data-reveal
-          class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
-        >
-          <ul class="flex flex-wrap gap-x-5 gap-y-2">
+          <ol
+            class="relative m-0 grid list-none snap-x snap-mandatory gap-4 p-0"
+            style={gridStyle}
+          >
             {
-              interests.map((i) => (
-                <li class="type-caption-12 uppercase tracking-[0.2em] text-[#2f3e46]/70">
-                  — {i}
+              timeline.map((item) => (
+                <li
+                  class="group snap-center focus:outline-none"
+                  tabindex="0"
+                >
+                  {/* Node — accent fill appears only on the hovered/focused one */}
+                  <div class="relative z-10 flex justify-center">
+                    <span class="size-14 rounded-full grid place-items-center transition-colors border border-ink/10 bg-surface-2 text-accent group-hover:bg-accent group-hover:text-accent-ink group-hover:border-accent group-focus-within:bg-accent group-focus-within:text-accent-ink group-focus-within:border-accent">
+                      <Icon name={item.icon} class="h-6 w-6" />
+                    </span>
+                  </div>
+
+                  {/* Always-visible caption — minimal: level (white) + year (accent) */}
+                  <div class="mt-4 text-center">
+                    <p class="font-heading text-ink font-semibold">
+                      {item.primary} • <span class="text-sm text-accent">{item.year}</span>
+                    </p>
+                  </div>
+
+                  {/* Detail card — reserved slot (no layout shift), revealed
+                      on hover / keyboard focus; auto-shown on touch.
+                      Holds institution + expanded degree / role description. */}
+                  <div class="mt-4 min-h-[120px]">
+                    <div class="reveal-hover card p-5">
+                      <p class="font-heading text-ink text-sm font-semibold">
+                        {item.cardTitle}
+                      </p>
+                      <p class="text-muted text-sm mt-1 leading-relaxed">
+                        {item.cardBody}
+                      </p>
+                    </div>
+                  </div>
                 </li>
               ))
             }
-          </ul>
-          <a
-            href="#contact"
-            class="group inline-flex items-center gap-3 self-start border-b-2 border-[#2f3e46] pb-1 text-[#2f3e46] transition hover:border-[#52796f] hover:text-[#52796f] sm:self-end"
-          >
-            <span class="type-link-16">Let's talk</span>
-            <Icon
-              name="tabler:arrow-up-right"
-              class="size-4 transition-transform group-hover:translate-x-1"
-            />
-          </a>
+          </ol>
         </div>
       </div>
+
+      <!-- Mobile-only vertical stack — clean cards, no horizontal scroll. -->
+      <ol class="md:hidden grid gap-4 list-none m-0 p-0" data-reveal-stagger>
+        {timeline.map((item) => (
+          <li data-reveal class="card p-6">
+            <div class="flex items-center gap-4">
+              <span class="size-12 shrink-0 rounded-full grid place-items-center border border-ink/10 bg-surface-2 text-accent">
+                <Icon name={item.icon} class="h-6 w-6" />
+              </span>
+              <div>
+                <p class="font-heading text-base font-semibold text-ink">{item.primary}</p>
+                <p class="text-sm text-accent">{item.year}</p>
+              </div>
+            </div>
+            <p class="text-sm font-semibold text-ink mt-3">{item.cardTitle}</p>
+            <p class="text-sm text-muted mt-1 leading-relaxed">{item.cardBody}</p>
+          </li>
+        ))}
+      </ol>
     </div>
   </div>
 </section>

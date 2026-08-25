@@ -1,37 +1,40 @@
 ---
-import { Icon } from 'astro-icon/components';
-import type { TechLogo } from '../data/techStack';
+import { Icon } from "astro-icon/components";
+import type { TechLogo } from "../data/portfolio";
 
 interface Props {
   logos: TechLogo[];
   /** Animation duration. Lower = faster. */
   durationSeconds?: number;
   /** Scroll direction. */
-  direction?: 'left' | 'right';
+  direction?: "left" | "right";
 }
 
-const { logos, durationSeconds = 45, direction = 'left' } = Astro.props;
+const { logos, durationSeconds = 45, direction = "left" } = Astro.props;
 
 // Duplicate logos so the looped scroll has seamless content on both ends.
 const belt = [...logos, ...logos];
 ---
 
 <div
-  class:list={['marquee group', direction === 'right' && 'is-reverse']}
+  class:list={["marquee group", direction === "right" && "is-reverse"]}
   style={`--duration:${durationSeconds}s;`}
-  aria-label="Tech stack"
+  aria-label="Additional technologies"
 >
   <ul class="marquee-track">
-    {belt.map((logo, i) => (
-      <li
-        class="belt-item"
-        style={`--brand:${logo.color};`}
-        aria-hidden={i >= logos.length}
-      >
-        <Icon name={logo.icon} class="belt-icon" />
-        <span class="belt-label type-link-20">{logo.name}</span>
-      </li>
-    ))}
+    {
+      belt.map((logo, i) => (
+        <li
+          class="belt-item"
+          style={`--brand:${logo.color};`}
+          role="img"
+          aria-label={logo.name}
+          aria-hidden={i >= logos.length}
+        >
+          <Icon name={logo.icon} class="belt-icon" aria-hidden="true" />
+        </li>
+      ))
+    }
   </ul>
 </div>
 
@@ -58,9 +61,12 @@ const belt = [...logos, ...logos];
 
   .marquee-track {
     display: flex;
+    align-items: center;
     width: max-content;
-    gap: 1.25rem;
+    gap: 2.5rem;
     padding: 1.5rem 0;
+    margin: 0;
+    list-style: none;
     animation: marquee-scroll var(--duration) linear infinite;
     will-change: transform;
   }
@@ -70,68 +76,53 @@ const belt = [...logos, ...logos];
   }
 
   /* Pause the whole row when hovering anywhere in the strip,
-     so you can mouse to a specific tile without it sliding away. */
+     so you can mouse to a specific icon without it sliding away. */
   .marquee:hover .marquee-track {
     animation-play-state: paused;
   }
 
   @keyframes marquee-scroll {
-    from { transform: translate3d(0, 0, 0); }
-    to   { transform: translate3d(-50%, 0, 0); }
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
   }
 
-  /* Tile — editorial, on sage mid surface */
+  /* Icon only — no border, no background box, generous horizontal breathing room */
   .belt-item {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.85rem 1.4rem;
-    border: 1px solid rgba(20,32,36,0.18);
-    border-radius: 0;
-    background: rgba(241,244,238,0.35);
-    white-space: nowrap;
-    transition:
-      transform 0.35s ease,
-      background-color 0.35s ease,
-      border-color 0.35s ease;
-  }
-
-  .belt-item:hover {
-    transform: translateY(-3px);
-    background: #2f3e46;
-    border-color: #2f3e46;
+    justify-content: center;
+    padding: 0 2rem;
   }
 
   .belt-item :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
-    color: #142024;
+    width: clamp(3rem, 5vw, 4rem);
+    height: clamp(3rem, 5vw, 4rem);
+    color: var(--color-muted);
     filter: grayscale(1);
-    opacity: 0.85;
-    transition: filter 0.35s ease, opacity 0.35s ease, transform 0.35s ease, color 0.35s ease;
+    opacity: 0.55;
+    transition:
+      color 0.35s ease,
+      filter 0.35s ease,
+      opacity 0.35s ease,
+      transform 0.35s ease;
   }
 
   .belt-item:hover :global(svg) {
     color: var(--brand);
     filter: grayscale(0);
     opacity: 1;
-    transform: scale(1.12);
-  }
-
-  .belt-label {
-    color: #142024;
-    transition: color 0.35s ease;
-  }
-
-  .belt-item:hover .belt-label {
-    color: #f1f4ee;
+    transform: scale(1.1);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .marquee-track { animation: none; }
-    .belt-item,
-    .belt-item :global(svg),
-    .belt-label {
+    .marquee-track {
+      animation: none;
+    }
+    .belt-item :global(svg) {
       transition: none !important;
       transform: none !important;
     }

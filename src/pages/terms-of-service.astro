@@ -1,0 +1,17 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LegalDoc from '@/components/LegalDoc.astro';
+import { termsAndConditions as doc } from '@/data/legal';
+import type { SeoConfig } from '@/types/seo';
+
+const seo: SeoConfig = {
+  title: 'Terms of Service',
+  description:
+    'The terms of service for working with Om Nakum on web and full-stack development projects — covering scope, payment, revisions, ownership, and delivery.',
+  canonical: '/terms-of-service/',
+};
+---
+
+<BaseLayout seo={seo}>
+  <LegalDoc doc={doc} />
+</BaseLayout>

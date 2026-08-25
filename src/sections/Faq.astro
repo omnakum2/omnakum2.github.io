@@ -1,100 +1,46 @@
 ---
 import { Icon } from "astro-icon/components";
-import { faqs } from "../data/faqs";
-
-const FAQ_MASCOT_SRC = "/mascots/faq_mascot.webp";
+import SectionHeader from "../components/SectionHeader.astro";
+import { faqs } from "../data/portfolio";
 ---
 
-<section id="faq" class="surface-mid relative overflow-hidden py-28 sm:py-36">
-  <div class="relative mx-auto max-w-7xl px-6">
-    <!-- Editorial header — left-aligned with rule -->
-    <div
-      class="grid items-end gap-8 border-b border-[#142024]/20 pb-10 lg:grid-cols-12"
-    >
-      <div class="lg:col-span-8" data-reveal-stagger>
-        <p data-reveal class="eyebrow-rule text-[#142024]/70">
-          Chapter 05 · Frequently Asked
-        </p>
-        <h2
-          data-reveal
-          class="display-serif mt-5 text-[clamp(40px,6vw,88px)] text-[#142024]"
-        >
-          Questions, answered
-          <span class="italic font-light" style="color:#2f3e46;"
-            >in plain words.</span
-          >
-        </h2>
-      </div>
-      <div class="lg:col-span-4 flex items-end justify-end" data-reveal>
-        <img
-          src={FAQ_MASCOT_SRC}
-          alt="Mascot pointing at the questions"
-          width="180"
-          height="180"
-          loading="lazy"
-          decoding="async"
-          class="h-32 w-auto select-none lg:h-44"
-        />
-      </div>
-    </div>
+<section id="faq" class="section-band tone-a">
+  <div class="mx-auto max-w-3xl px-6 sm:px-8">
+    <SectionHeader title="Frequently Asked" accent="Questions" subtitle="Everything you might want to know before reaching out" />
 
-    <!-- 12-col grid — left index column + accordion -->
-    <div class="mt-12 grid gap-10 lg:grid-cols-12">
-      <aside
-        class="lg:col-span-3 lg:sticky lg:top-28 lg:self-start space-y-6"
-        data-reveal
-      >
-        <p
-          class="type-caption-12 uppercase tracking-[0.22em] text-[#142024]/60"
-        >
-          In this section
-        </p>
-        <ol class="space-y-2 list-none m-0 p-0">
-          {
-            faqs.map((faq, idx) => (
-              <li class="flex items-baseline gap-3">
-                <span class="type-caption-12 tag-num text-[#2f3e46]">
+    <!-- Accordion list -->
+    <ul class="list-none" data-reveal-stagger>
+      {
+        faqs.map((faq, idx) => (
+          <li data-reveal>
+            <details
+              open={idx === 0}
+              class="group/faq border-b border-ink/10 py-2 transition open:border-ink/25"
+            >
+              <summary class="flex cursor-pointer items-baseline gap-6 py-6 list-none [&::-webkit-details-marker]:hidden">
+                <span class="font-mono text-sm text-muted w-10 shrink-0">
                   {String(idx + 1).padStart(2, "0")}
                 </span>
-                <span class="type-body-15 text-[#142024]/70">
-                  {faq.question.split("?")[0]}?
+                <span class="font-heading text-lg md:text-xl font-semibold text-ink flex-1">
+                  {faq.question}
                 </span>
-              </li>
-            ))
-          }
-        </ol>
-      </aside>
-
-      <ul class="lg:col-span-9 list-none m-0 p-0" data-reveal-stagger>
-        {
-          faqs.map((faq, idx) => (
-            <li data-reveal>
-              <details class="group/faq border-b border-[#142024]/20 py-2 transition open:border-[#2f3e46]">
-                <summary class="flex cursor-pointer items-baseline gap-6 py-6 list-none [&::-webkit-details-marker]:hidden">
-                  <span class="type-caption-12 tag-num text-[#2f3e46] w-10 shrink-0">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                  <span class="display-serif flex-1 text-[clamp(22px,2.4vw,32px)] text-[#142024]">
-                    {faq.question}
-                  </span>
-                  <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-[#142024]/30 text-[#142024]/80 transition-all duration-300 group-open/faq:rotate-45 group-open/faq:border-[#2f3e46] group-open/faq:bg-[#2f3e46] group-open/faq:text-[#cad2c5]">
-                    <Icon name="tabler:plus" class="size-4" />
-                  </span>
-                </summary>
-                <div class="grid grid-rows-[0fr] group-open/faq:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
-                  <div class="overflow-hidden">
-                    <div class="pb-8 pl-[64px] pr-12">
-                      <p class="type-body-17 m-0 text-[#142024]/80 max-w-2xl">
-                        {faq.answer}
-                      </p>
-                    </div>
+                <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-ink/30 text-ink/80 transition-all duration-300 group-open/faq:rotate-45 group-open/faq:border-accent group-open/faq:bg-accent group-open/faq:text-accent-ink">
+                  <Icon name="tabler:plus" class="size-4" />
+                </span>
+              </summary>
+              <div class="grid grid-rows-[0fr] group-open/faq:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
+                <div class="overflow-hidden">
+                  <div class="pb-8 pl-[64px] pr-12">
+                    <p class="text-ink-dim leading-relaxed max-w-2xl m-0">
+                      {faq.answer}
+                    </p>
                   </div>
                 </div>
-              </details>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+              </div>
+            </details>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </section>

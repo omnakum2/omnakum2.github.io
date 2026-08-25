@@ -1,0 +1,155 @@
+---
+import { Icon } from "astro-icon/components";
+import { skills } from "../data/portfolio";
+import TechStackMarquee from "../components/TechStackMarquee.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+
+// The terminal tile is data-driven; these fall back to sensible defaults so
+// the tile still renders if the optional fields aren't set in the data.
+// To customise it, add `name`, `color`, and `focus` to `skills.primary`.
+const primary = skills.primary as {
+  icon: string;
+  description: string;
+  name: string;
+  color: string;
+  focus: string[];
+};
+---
+
+<section id="skills" class="section-band tone-a">
+  <div class="mx-auto max-w-7xl px-6 sm:px-8">
+    <SectionHeader
+      title="Skills &"
+      accent="Expertise"
+      subtitle="Technologies and tools I use to build web applications"
+    />
+
+    <!-- TERMINAL BENTO -->
+    <div
+      class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto"
+      data-reveal-stagger
+    >
+      <!-- PRIMARY — code-editor window -->
+      <div
+        data-reveal
+        data-tilt="5"
+        class="group relative col-span-2 md:col-span-2 md:row-span-2 rounded-xl border border-ink/10 overflow-hidden bg-ground-deep"
+      >
+        <!-- Title bar -->
+        <div
+          class="flex items-center gap-2 px-4 py-3 border-b border-ink/10"
+        >
+          <span class="size-3 rounded-full dot-r"></span>
+          <span class="size-3 rounded-full dot-y"></span>
+          <span class="size-3 rounded-full dot-g"></span>
+          <span class="font-mono text-xs text-muted ml-3">stack.ts</span>
+          <Icon name={primary.icon} class="size-5 ml-auto" style={`color:${primary.color}`} />
+        </div>
+
+        <!-- Body -->
+        <div class="font-mono text-sm p-5 leading-[1.9]">
+          <div>
+            <span class="kw">const</span> <span class="vr">primaryStack</span> =
+            <span class="st">"{primary.name}"</span>;
+          </div>
+          <div><span class="cm">// {primary.description}</span></div>
+          <div>
+            <span class="kw">const</span> <span class="vr">focus</span> = [{primary.focus.map((f, i) => (
+              <Fragment><span class="st">"{f}"</span>{i < primary.focus.length - 1 ? ", " : ""}</Fragment>
+            ))}];
+          </div>
+          <div>
+            <span class="vr">focus</span>.<span class="fn">forEach</span
+            >(primaryStack)<span class="cursor-blink" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECONDARY tiles -->
+      {
+        skills.secondary.map((s, i) => (
+          <div
+            data-reveal
+            data-tilt="5"
+            class:list={[
+              "card group relative p-5 flex items-center gap-4",
+              i === skills.secondary.length - 1 && "col-span-2",
+            ]}
+          >
+            <span
+              class="size-11 shrink-0 rounded-lg grid place-items-center"
+              style={`background:color-mix(in srgb, ${s.color} 15%, transparent)`}
+            >
+              <Icon name={s.icon} class="size-6" style={`color:${s.color}`} />
+            </span>
+            <span class="font-heading font-semibold text-ink">{s.name}</span>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Additional technologies marquee -->
+    <h3
+      class="font-heading text-xl font-semibold text-ink text-center mt-14 mb-8"
+    >
+      Additional Technologies
+    </h3>
+    <TechStackMarquee logos={skills.techStack} direction="left" />
+  </div>
+</section>
+
+<style>
+  /* Terminal window chrome */
+  .dot-r {
+    background: #ff5f56;
+  }
+  .dot-y {
+    background: #ffbd2e;
+  }
+  .dot-g {
+    background: #27c93f;
+  }
+
+  /* Syntax colors for the code-editor tile */
+  .kw {
+    color: #c792ea;
+  }
+  .vr {
+    color: var(--color-ink);
+  }
+  .st {
+    color: var(--color-accent-bright);
+  }
+  .cm {
+    color: var(--color-muted);
+  }
+  .fn {
+    color: #82aaff;
+  }
+
+  /* Blinking block cursor */
+  .cursor-blink {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.05em;
+    margin-left: 4px;
+    vertical-align: text-bottom;
+    background: var(--color-accent);
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cursor-blink {
+      animation: none;
+    }
+  }
+</style>
