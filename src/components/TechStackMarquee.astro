@@ -27,11 +27,11 @@ const belt = [...logos, ...logos];
         <li
           class="belt-item"
           style={`--brand:${logo.color};`}
-          role="img"
-          aria-label={logo.name}
-          aria-hidden={i >= logos.length}
+          aria-hidden={i >= logos.length ? "true" : undefined}
         >
-          <Icon name={logo.icon} class="belt-icon" aria-hidden="true" />
+          {/* Role/label live on the icon (the image), so the <li> stays a
+              real listitem and the <ul> keeps valid list semantics. */}
+          <Icon name={logo.icon} class="belt-icon" role="img" aria-label={logo.name} />
         </li>
       ))
     }

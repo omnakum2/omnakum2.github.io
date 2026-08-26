@@ -3,10 +3,8 @@ import { Icon } from "astro-icon/components";
 import SectionHeader from "../components/SectionHeader.astro";
 import { about } from "../data/portfolio";
 
-// Journey Timeline, reverse-chronological: current role FIRST, then education
-// newest → oldest (Master's → Bachelor's). about.education is stored
-// [Master, Bachelor]; sort postgraduate before undergraduate to be safe.
-const cap = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
+// Journey Timeline, chronological: education oldest → newest
+// (Bachelor's → Master's) first, then the current role LAST.
 const eduRank = (t: string): number =>
   t === "undergraduate" ? 0 : t === "postgraduate" ? 1 : 2;
 
@@ -16,30 +14,27 @@ interface TimelineItem {
   year: string; // year or range — accent
   cardTitle: string; // institution / company
   cardBody: string; // expanded degree full form / role description
-  isWork: boolean;
 }
 
 const exp = about.experience[0];
 
 const timeline: TimelineItem[] = [
+  ...[...about.education]
+    .sort((a, b) => eduRank(a.type) - eduRank(b.type))
+    .map((edu) => ({
+      icon: "tabler:school",
+      primary: edu.fullForm,
+      year: `${edu.year}`,
+      cardTitle: edu.level,
+      cardBody: edu.institution
+    })),
   {
     icon: "tabler:briefcase",
     primary: exp.position,
     year: `${exp.joiningYear} – Present`,
     cardTitle: exp.company,
-    cardBody: exp.description,
-    isWork: true,
+    cardBody: exp.description
   },
-  ...[...about.education]
-    .sort((a, b) => eduRank(b.type) - eduRank(a.type))
-    .map((edu) => ({
-      icon: "tabler:school",
-      primary: edu.level,
-      year: `${edu.year}`,
-      cardTitle: edu.fullForm,
-      cardBody: edu.institution,
-      isWork: false,
-    })),
 ];
 
 // Connector geometry: the 2px line tucks under the first/last node centers,
@@ -76,7 +71,7 @@ const lineStyle = `left:${inset}%;right:${inset}%`;
       </div>
 
       <!-- Journey Timeline -->
-      <h3 class="font-heading text-2xl font-semibold text-ink mt-14 mb-10">
+      <h3 class="font-heading text-2xl font-semibold text-ink text-center mt-14 mb-10">
         Journey Timeline
       </h3>
 
@@ -112,22 +107,24 @@ const lineStyle = `left:${inset}%;right:${inset}%`;
 
                   {/* Always-visible caption — minimal: level (white) + year (accent) */}
                   <div class="mt-4 text-center">
-                    <p class="font-heading text-ink font-semibold">
+                    <p class="font-body text-ink font-semibold">
                       {item.primary} • <span class="text-sm text-accent">{item.year}</span>
                     </p>
                   </div>
 
-                  {/* Detail card — reserved slot (no layout shift), revealed
-                      on hover / keyboard focus; auto-shown on touch.
-                      Holds institution + expanded degree / role description. */}
-                  <div class="mt-4 min-h-[120px]">
-                    <div class="reveal-hover card p-5">
-                      <p class="font-heading text-ink text-sm font-semibold">
-                        {item.cardTitle}
-                      </p>
-                      <p class="text-muted text-sm mt-1 leading-relaxed">
-                        {item.cardBody}
-                      </p>
+                  {/* Detail card — collapsed by default (just breathing room),
+                      expands downward on hover / keyboard focus; always open on
+                      touch. Mirrors the Services "What's included" reveal. */}
+                  <div class="mt-4 grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr] motion-reduce:transition-none [@media(hover:none)]:grid-rows-[1fr]">
+                    <div class="overflow-hidden">
+                      <div class="card p-5">
+                        <p class="font-heading text-accent text-sm font-semibold">
+                          {item.cardTitle}
+                        </p>
+                        <p class="text-muted text-sm mt-1 leading-relaxed">
+                          {item.cardBody}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </li>

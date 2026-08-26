@@ -27,10 +27,12 @@
   --color-accent-ink:    #1b1917; /* text ON an emerald fill    */
   --color-danger:        #f87171; /* form / validation errors   */
 
-  /* === Typography (from react-folio) === */
-  --font-heading: 'Poppins', system-ui, -apple-system, sans-serif;
-  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono:    'Fira Code', ui-monospace, monospace;
+  /* === Typography — self-hosted via Astro Fonts (see astro.config.ts). The
+     --font-* vars are injected by <Font>; the literal fallbacks apply only if
+     that CSS somehow hasn't loaded. === */
+  --font-heading: var(--font-poppins, 'Poppins', system-ui, sans-serif);
+  --font-body:    var(--font-inter, 'Inter', system-ui, sans-serif);
+  --font-mono:    var(--font-fira-code, 'Fira Code', ui-monospace, monospace);
 }
 
 /* === Base === */
@@ -115,24 +117,6 @@ a { transition: color 0.25s ease, opacity 0.25s ease; }
 /* Press feedback */
 .press { transition: transform var(--dur-fast) var(--ease-smooth); }
 .press:active { transform: translateY(1px); }
-
-/* Hover/focus reveal — hidden at rest, shows on hover or keyboard focus.
-   Always visible on touch. Used by the About horizontal timeline. */
-.reveal-hover {
-  opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity var(--dur-mid) var(--ease-settle),
-    transform var(--dur-mid) var(--ease-settle);
-}
-.group:hover .reveal-hover,
-.group:focus-within .reveal-hover {
-  opacity: 1;
-  transform: none;
-}
-@media (hover: none) {
-  .reveal-hover { opacity: 1; transform: none; }
-}
 
 /* Rotating headline word — CSS-only cycle for the hero typing effect.
    `.role-rotate` stacks lines in one cell (sized to widest, no layout

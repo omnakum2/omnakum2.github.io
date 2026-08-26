@@ -202,7 +202,7 @@ const panels = [
                   type="button"
                   data-prev
                   aria-label="Previous project"
-                  class="lg:hidden size-9 rounded-full border border-ink/15 bg-surface text-ink grid place-items-center hover:bg-accent hover:text-accent-ink transition-colors press"
+                  class="lg:hidden size-11 rounded-full border border-ink/15 bg-surface text-ink grid place-items-center hover:bg-accent hover:text-accent-ink transition-colors press"
                 >
                   <Icon name="tabler:chevron-left" class="w-5 h-5" />
                 </button>
@@ -212,13 +212,20 @@ const panels = [
                     type="button"
                     data-dot={di}
                     aria-label={`Go to project ${di + 1}`}
-                    class:list={[
-                      "transition-all press",
-                      di === 0
-                        ? "w-6 h-1.5 rounded-full bg-accent"
-                        : "w-1.5 h-1.5 rounded-full bg-ink/25",
-                    ]}
-                  />
+                    class="grid place-items-center h-11 w-6 press"
+                  >
+                    {/* Small visual dot; the button itself is the 24x44 tap
+                        target. projects-carousel.ts toggles this inner span. */}
+                    <span
+                      data-dot-visual
+                      class:list={[
+                        "block rounded-full transition-all",
+                        di === 0
+                          ? "w-6 h-1.5 bg-accent"
+                          : "w-1.5 h-1.5 bg-ink/25",
+                      ]}
+                    />
+                  </button>
                 ))}
 
                 <!-- Mobile next arrow: sits in the control row on <lg -->
@@ -226,7 +233,7 @@ const panels = [
                   type="button"
                   data-next
                   aria-label="Next project"
-                  class="lg:hidden size-9 rounded-full border border-ink/15 bg-surface text-ink grid place-items-center hover:bg-accent hover:text-accent-ink transition-colors press"
+                  class="lg:hidden size-11 rounded-full border border-ink/15 bg-surface text-ink grid place-items-center hover:bg-accent hover:text-accent-ink transition-colors press"
                 >
                   <Icon name="tabler:chevron-right" class="w-5 h-5" />
                 </button>

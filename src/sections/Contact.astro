@@ -2,7 +2,6 @@
 import { Icon } from "astro-icon/components";
 import SectionHeader from "../components/SectionHeader.astro";
 import { contact } from "../data/portfolio";
-import { SITE } from "../consts";
 
 const { call } = contact;
 const hasBooking =
@@ -22,8 +21,9 @@ const fieldClass =
     />
 
     <div class="grid lg:grid-cols-2 gap-8 items-start max-w-6xl mx-auto">
-      <!-- LEFT: What we'll cover -->
-      <div data-reveal class="card p-8">
+      <!-- LEFT: What we'll cover — centered against the taller form so the
+           height difference reads as balanced whitespace, not a bottom gap. -->
+      <div data-reveal class="card p-8 lg:self-center">
         <h3 class="font-heading text-2xl font-semibold text-ink mb-2">
           What we'll cover on the call
         </h3>
@@ -53,35 +53,6 @@ const fieldClass =
             <span class="font-medium">Available for remote work</span>
           </div>
           <p class="text-sm text-muted">{contact.availability}</p>
-        </div>
-
-        <!-- Social row -->
-        <div class="mt-8 flex items-center gap-3">
-          <a
-            href={`mailto:${SITE.email}`}
-            aria-label="Email"
-            class="w-10 h-10 rounded-lg bg-surface-2 text-ink hover:bg-accent hover:text-accent-ink press flex items-center justify-center transition-colors"
-          >
-            <Icon name="tabler:mail" class="size-5" />
-          </a>
-          <a
-            href={SITE.social.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            class="w-10 h-10 rounded-lg bg-surface-2 text-ink hover:bg-accent hover:text-accent-ink press flex items-center justify-center transition-colors"
-          >
-            <Icon name="tabler:brand-github" class="size-5" />
-          </a>
-          <a
-            href={SITE.social.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            class="w-10 h-10 rounded-lg bg-surface-2 text-ink hover:bg-accent hover:text-accent-ink press flex items-center justify-center transition-colors"
-          >
-            <Icon name="tabler:brand-linkedin" class="size-5" />
-          </a>
         </div>
       </div>
 
@@ -178,6 +149,9 @@ const fieldClass =
             Continue to Book a Call
             <Icon name="tabler:arrow-right" class="size-5" />
           </button>
+
+          <!-- Submit failure message (network / gateway error) -->
+          <p id="cf-form-error" role="alert" class="text-sm text-danger hidden text-center"></p>
         </form>
 
         <!-- SUCCESS (revealed on submit); the top step header updates to Step 2 of 2 -->

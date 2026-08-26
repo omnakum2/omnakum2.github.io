@@ -37,8 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
     section.querySelectorAll<HTMLElement>("[data-carousel]"),
   );
 
-  const ACTIVE_DOT = "w-6 h-1.5 rounded-full bg-accent";
-  const IDLE_DOT = "w-1.5 h-1.5 rounded-full bg-ink/25";
+  // Classes for the inner visual dot (the button itself is the tap target).
+  const ACTIVE_DOT = "block rounded-full transition-all w-6 h-1.5 bg-accent";
+  const IDLE_DOT = "block rounded-full transition-all w-1.5 h-1.5 bg-ink/25";
 
   carousels.forEach((carousel) => {
     const slides = Array.from(
@@ -65,8 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
         slide.classList.toggle("is-active", si === index),
       );
       dots.forEach((dot, di) => {
-        dot.className =
-          "transition-all press " + (di === index ? ACTIVE_DOT : IDLE_DOT);
+        const visual = dot.querySelector("[data-dot-visual]");
+        if (visual) visual.className = di === index ? ACTIVE_DOT : IDLE_DOT;
       });
     };
 
