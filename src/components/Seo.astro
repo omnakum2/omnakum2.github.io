@@ -11,7 +11,7 @@ interface Props {
 }
 const { seo } = Astro.props;
 const resolved = buildSeo(seo);
-const imageAlt = `${SITE.name} — ${SITE.tagline}`;
+const imageAlt = `${SITE.name} | ${SITE.tagline}`;
 
 const pageScoped = resolved.jsonLd?.faq?.length
   ? [buildFaqLd(resolved.jsonLd.faq)]

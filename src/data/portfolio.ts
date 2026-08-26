@@ -7,9 +7,6 @@
  * Icons are astro-icon ids:
  *   - brand/tech logos → `simple-icons:*`  (monochrome, tinted with `color`)
  *   - UI glyphs        → `tabler:*`
- *
- * NOTE: values marked `TODO` were carried over from the old React folio as
- * placeholders — confirm/replace with your real details.
  */
 
 import type { FaqItem } from "../types/seo";
@@ -180,6 +177,7 @@ export const skills = {
     },
     { name: "Postman", icon: "simple-icons:postman", color: "#FF6C37" },
     { name: "Trello", icon: "simple-icons:trello", color: "#0052CC" },
+    { name: "Vercel", icon: "simple-icons:vercel", color: "#fff" },
   ] as TechLogo[],
 };
 
@@ -267,7 +265,6 @@ export const projects: { academic: ProjectItem[]; company: ProjectItem[] } = {
       techStack: ["React.js", "Node.js", "WebSocket", "TypeScript"],
       category: "Games",
       image: "/project-bidclub.webp",
-      status: "Live",
       features: [
         "Real-time multiplayer game",
         "Four different game modes",
