@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
@@ -20,6 +20,37 @@ export default defineConfig({
 
   // Single source of truth for the domain — see src/consts.ts.
   site: SITE.url,
+
+  // Self-host Google Fonts at build time (no fonts.googleapis.com dependency,
+  // no render-blocking request). Astro inlines the @font-face CSS, generates
+  // size-matched fallbacks (low CLS), and emits preloads via <Font>. Weights
+  // are trimmed to those actually used across the site.
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: 'Poppins',
+      cssVariable: '--font-poppins',
+      weights: [600, 700],
+      display: 'swap',
+      fallbacks: ['system-ui', 'sans-serif'],
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Inter',
+      cssVariable: '--font-inter',
+      weights: [400, 500, 600, 700],
+      display: 'swap',
+      fallbacks: ['system-ui', 'sans-serif'],
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Fira Code',
+      cssVariable: '--font-fira-code',
+      weights: [400],
+      display: 'swap',
+      fallbacks: ['ui-monospace', 'monospace'],
+    },
+  ],
 
   integrations: [
     sitemap({ filter: (page) => !page.includes('/404') }),

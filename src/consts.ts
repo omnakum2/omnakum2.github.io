@@ -12,3 +12,10 @@ export const SITE = {
 
 export const DEFAULT_OG_IMAGE = '/og-image.webp';
 export const SITE_TITLE_SUFFIX = ` | ${SITE.name}`;
+
+
+// TODO(next-deploy): replace with your deployed gateway values.
+export const CONTACT_GATEWAY = {
+  url: 'http://localhost:3000',
+  publicKey: 'aea5c744ab2adf20a9717bc022d500a1928b1309085c8dfeedc4a51eb36eeaa2',
+} as const;

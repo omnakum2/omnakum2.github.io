@@ -5,6 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
     "contact-form",
   ) as HTMLFormElement | null;
   const success = document.getElementById("success");
+  const submitBtn = document.getElementById(
+    "submit-btn",
+  ) as HTMLButtonElement | null;
+  const formError = document.getElementById("cf-form-error");
   if (!form) return;
 
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -64,16 +68,30 @@ document.addEventListener("DOMContentLoaded", () => {
     return firstInvalid === null;
   };
 
+  const setLoading = (loading: boolean, label: string) => {
+    if (!submitBtn) return;
+    submitBtn.disabled = loading;
+    submitBtn.setAttribute("aria-disabled", String(loading));
+    submitBtn.textContent = label;
+  };
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    formError?.classList.add("hidden");
     if (!validate()) return;
 
-    const result = await submitContact({
-      name: getValue("name"),
-      email: getValue("email"),
-      subject: getValue("subject"),
-      message: getValue("message"),
-    });
+    setLoading(true, "Sending…");
+    let result: { ok: boolean; message: string };
+    try {
+      result = await submitContact({
+        name: getValue("name"),
+        email: getValue("email"),
+        subject: getValue("subject"),
+        message: getValue("message"),
+      });
+    } catch {
+      result = { ok: false, message: "Something went wrong. Please try again." };
+    }
 
     if (result.ok) {
       form.classList.add("hidden");
@@ -87,6 +105,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (title)
         title.textContent =
           "A free quick call, we'll cover the points on the left.";
+    } else {
+      // Re-enable the form and surface the error inline.
+      setLoading(false, "Continue to Book a Call");
+      if (formError) {
+        formError.textContent = result.message;
+        formError.classList.remove("hidden");
+      }
     }
   });
 });

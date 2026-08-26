@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { Font } from 'astro:assets';
 import Seo from '../components/Seo.astro';
 import SchemaOrg from '../components/SchemaOrg.astro';
 import Header from '../components/Header.astro';
@@ -28,12 +29,12 @@ const schemas = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+    {/* Self-hosted fonts (configured in astro.config.ts). Astro inlines the
+        @font-face CSS — no external request, no render-blocking. Preload the
+        above-the-fold families (heading + body); the mono face loads on use. */}
+    <Font cssVariable="--font-poppins" preload />
+    <Font cssVariable="--font-inter" preload />
+    <Font cssVariable="--font-fira-code" />
     <Seo seo={seo} />
     <SchemaOrg schemas={schemas} />
   </head>

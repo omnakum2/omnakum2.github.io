@@ -66,7 +66,7 @@ const lineStyle = `left:${inset}%;right:${inset}%`;
         class="relative overflow-hidden card p-8"
       >
         <div class="relative z-10">
-          <h3 class="font-heading text-2xl font-semibold text-ink mb-4">
+          <h3 class="font-heading text-2xl font-semibold text-accent mb-4">
             My Story
           </h3>
           <p class="text-ink-dim leading-relaxed text-justify">
@@ -76,7 +76,7 @@ const lineStyle = `left:${inset}%;right:${inset}%`;
       </div>
 
       <!-- Journey Timeline -->
-      <h3 class="font-heading text-2xl font-semibold text-ink mt-14 mb-10">
+      <h3 class="font-heading text-2xl font-semibold text-accent text-center mt-14 mb-10">
         Journey Timeline
       </h3>
 
@@ -117,17 +117,19 @@ const lineStyle = `left:${inset}%;right:${inset}%`;
                     </p>
                   </div>
 
-                  {/* Detail card — reserved slot (no layout shift), revealed
-                      on hover / keyboard focus; auto-shown on touch.
-                      Holds institution + expanded degree / role description. */}
-                  <div class="mt-4 min-h-[120px]">
-                    <div class="reveal-hover card p-5">
-                      <p class="font-heading text-ink text-sm font-semibold">
-                        {item.cardTitle}
-                      </p>
-                      <p class="text-muted text-sm mt-1 leading-relaxed">
-                        {item.cardBody}
-                      </p>
+                  {/* Detail card — collapsed by default (just breathing room),
+                      expands downward on hover / keyboard focus; always open on
+                      touch. Mirrors the Services "What's included" reveal. */}
+                  <div class="mt-4 grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr] motion-reduce:transition-none [@media(hover:none)]:grid-rows-[1fr]">
+                    <div class="overflow-hidden">
+                      <div class="card p-5">
+                        <p class="font-heading text-accent text-sm font-semibold">
+                          {item.cardTitle}
+                        </p>
+                        <p class="text-muted text-sm mt-1 leading-relaxed">
+                          {item.cardBody}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </li>
