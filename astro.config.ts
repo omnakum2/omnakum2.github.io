@@ -14,6 +14,13 @@ export default defineConfig({
 
   trailingSlash: 'always',
 
+  // Inline the compiled CSS into the HTML so it doesn't block first paint
+  // (improves FCP / Speed Index). The site stylesheet is ~36KB — small enough
+  // that removing the extra render-blocking request is a net win.
+  build: {
+    inlineStylesheets: 'always',
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },

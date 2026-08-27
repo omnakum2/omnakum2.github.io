@@ -46,7 +46,7 @@ export interface LegalDoc {
 export const privacyPolicy: LegalDoc = {
   title: 'Privacy Policy',
   intro: [
-    'This Privacy Policy explains how Om Nakum handles the information you share through this website.',
+    'This Privacy Policy explains how Om Nakum handles both the information you share through this website and any materials you share when we work together on a project.',
   ],
   sections: [
     {
@@ -54,6 +54,14 @@ export const privacyPolicy: LegalDoc = {
       items: [
         { text: 'Details you submit through the contact form: your name, email address, and message.' },
         { text: 'Basic, non-identifying technical data your browser sends, only if analytics is enabled.' },
+      ],
+    },
+    {
+      heading: 'Project information you share',
+      items: [
+        { text: 'To deliver a project, you may share materials, content, accounts or access credentials, and business or customer data.' },
+        { text: 'This is used only to carry out the agreed work, kept confidential, and never shared beyond what the project requires.' },
+        { text: 'On request, or once the work is complete, project data and any access are returned or securely deleted.' },
       ],
     },
     {

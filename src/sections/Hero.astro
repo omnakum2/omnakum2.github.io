@@ -121,7 +121,8 @@ const initials = SITE.name
   /* Rotating tail aligns left inline after the lead (hero-scoped). */
   .role-rotate-item { justify-self: start; }
 
-  /* Breathing accent halo — subtle, non-interactive. */
+  /* Accent halo — subtle, non-interactive, and static (no animation) so the
+     hero settles immediately during load, keeping Speed Index low. */
   .hero-halo {
     position: absolute;
     top: -30%;
@@ -130,20 +131,12 @@ const initials = SITE.name
     height: 70%;
     z-index: 0;
     pointer-events: none;
+    opacity: 0.6;
     background: radial-gradient(
       circle,
       color-mix(in srgb, var(--color-accent) 28%, transparent),
       transparent 70%
     );
     filter: blur(18px);
-    animation: hero-breathe 7s ease-in-out infinite;
-  }
-  @keyframes hero-breathe {
-    0%, 100% { opacity: 0.45; transform: scale(1); }
-    50%      { opacity: 0.8;  transform: scale(1.12); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-halo { animation: none; }
   }
 </style>

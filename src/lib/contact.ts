@@ -35,6 +35,7 @@ function buildLeadEmailHtml(p: ContactPayload): string {
           <p style="margin:0;font-size:17px;font-weight:700;color:#111827;">New portfolio enquiry</p>
         </td></tr>
         <tr><td style="padding-top:16px;">
+          <p style="margin:0 0 6px;font-size:14px;color:#6b7280;">Enquirer Details</p>
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${row("Name", name)}${row("Email", `<a href="mailto:${email}" style="color:#111827;">${email}</a>`)}${row("Subject", subject)}
           </table>
         </td></tr>
