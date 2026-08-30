@@ -9,7 +9,30 @@ document.addEventListener("DOMContentLoaded", () => {
     "submit-btn",
   ) as HTMLButtonElement | null;
   const formError = document.getElementById("cf-form-error");
+  const welcomeBack = document.getElementById("cf-welcome-back");
   if (!form) return;
+
+  // ── Returning-visitor memory ──────────────────────────────────────────
+  // Persist only a timestamp + a flag (no personal data). localStorage drives
+  // the "welcome back" note across visits; sessionStorage restores the success
+  // state on a same-session refresh. All access is guarded (private mode etc.).
+  const LS_KEY = "cf:lastSubmit";
+  const SS_KEY = "cf:submittedThisSession";
+  const WELCOME_WINDOW_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+  const safeGet = (store: Storage, k: string): string | null => {
+    try {
+      return store.getItem(k);
+    } catch {
+      return null;
+    }
+  };
+  const safeSet = (store: Storage, k: string, v: string): void => {
+    try {
+      store.setItem(k, v);
+    } catch {
+      /* storage unavailable — non-fatal */
+    }
+  };
 
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const fields = ["name", "email", "subject", "message"] as const;
@@ -75,6 +98,31 @@ document.addEventListener("DOMContentLoaded", () => {
     submitBtn.textContent = label;
   };
 
+  // Swap the form for the success / booking state and update the step header.
+  const showSuccess = () => {
+    form.classList.add("hidden");
+    success?.classList.remove("hidden");
+    welcomeBack?.classList.add("hidden"); // never show both at once
+    const indicator = document.getElementById("step-indicator");
+    const title = document.getElementById("step-title");
+    indicator?.classList.add("text-center");
+    title?.classList.add("text-center");
+    if (indicator) indicator.textContent = "Step 2 of 2";
+    if (title)
+      title.textContent = "A free quick call, we'll cover the points on the left.";
+  };
+
+  // On load: restore the success state within the same session; otherwise greet
+  // a returning visitor who submitted on a recent prior visit (form stays usable).
+  if (safeGet(sessionStorage, SS_KEY) === "1") {
+    showSuccess();
+  } else {
+    const last = Number(safeGet(localStorage, LS_KEY));
+    if (last && Date.now() - last < WELCOME_WINDOW_MS) {
+      welcomeBack?.classList.remove("hidden");
+    }
+  }
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     formError?.classList.add("hidden");
@@ -94,17 +142,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (result.ok) {
-      form.classList.add("hidden");
-      success?.classList.remove("hidden");
-      // Update the single step header in place (no duplicate Step 2 label).
-      const indicator = document.getElementById("step-indicator");
-      const title = document.getElementById("step-title");
-      indicator?.classList.add("text-center");
-      title?.classList.add("text-center");
-      if (indicator) indicator.textContent = "Step 2 of 2";
-      if (title)
-        title.textContent =
-          "A free quick call, we'll cover the points on the left.";
+      // Remember the submission (timestamp for return visits, flag for this
+      // session's refreshes), then reveal the success / booking state.
+      safeSet(localStorage, LS_KEY, String(Date.now()));
+      safeSet(sessionStorage, SS_KEY, "1");
+      showSuccess();
     } else {
       // Re-enable the form and surface the error inline.
       setLoading(false, "Continue to Book a Call");

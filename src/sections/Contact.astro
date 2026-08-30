@@ -58,6 +58,30 @@ const fieldClass =
 
       <!-- RIGHT: Details form -->
       <div data-reveal class="card p-8">
+        <!-- Returning-visitor note (revealed by contact-form.ts; form stays usable) -->
+        <div
+          id="cf-welcome-back"
+          class="hidden mb-6 rounded-md border border-accent/25 bg-accent/5 p-4"
+        >
+          <p class="text-sm text-ink-dim">
+            Thanks for reaching out earlier — feel free to send another message{
+              hasBooking && (
+                <Fragment>
+                  , or{" "}
+                  <a
+                    href={call.bookingUrl}
+                    target="_blank"
+                    rel="noopener"
+                    class="text-accent font-semibold hover:underline"
+                  >
+                    book a call directly
+                  </a>
+                </Fragment>
+              )
+            }.
+          </p>
+        </div>
+
         <p
           id="step-indicator"
           class="font-mono text-xs uppercase tracking-[0.14em] text-accent-bright mb-3"
