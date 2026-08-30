@@ -89,12 +89,14 @@ const primary = skills.primary as {
     </div>
 
     <!-- Additional technologies marquee -->
-    <h3
-      class="font-heading text-xl font-semibold text-ink text-center mt-14 mb-8"
-    >
-      Additional Technologies
-    </h3>
-    <TechStackMarquee logos={skills.techStack} direction="left" />
+    <div data-reveal>
+      <h3
+        class="font-heading text-xl font-semibold text-ink text-center mt-14 mb-8"
+      >
+        Additional Technologies
+      </h3>
+      <TechStackMarquee logos={skills.techStack} direction="left" />
+    </div>
   </div>
 </section>
 

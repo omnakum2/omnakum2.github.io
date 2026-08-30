@@ -35,6 +35,11 @@ const schemas = [
     <Font cssVariable="--font-poppins" preload />
     <Font cssVariable="--font-inter" preload />
     <Font cssVariable="--font-fira-code" />
+    {/* Progressive enhancement: scroll-reveal needs JS, so without it show all
+        [data-reveal] content instead of leaving it hidden at opacity 0. */}
+    <noscript>
+      <style is:inline>[data-reveal]{opacity:1!important;transform:none!important}</style>
+    </noscript>
     <Seo seo={seo} />
     <SchemaOrg schemas={schemas} />
   </head>

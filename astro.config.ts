@@ -5,6 +5,9 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 import { SITE } from './src/consts';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 // https://astro.build/config
 export default defineConfig({
@@ -61,6 +64,46 @@ export default defineConfig({
 
   integrations: [
     sitemap({ filter: (page) => !page.includes('/404') }),
-    icon()
+    icon(),
+    // Strip HTML comments from the built pages so developer notes never ship in
+    // production view-source. Source files keep their comments for maintainers.
+    {
+      name: 'strip-html-comments',
+      hooks: {
+        'astro:build:done': async ({ dir, logger }) => {
+          // Match a whole <script>/<style> block OR an HTML comment; keep the
+          // blocks verbatim (a JSON-LD string may contain "<!--") and drop only
+          // real comments. The alternation is left-to-right and non-overlapping,
+          // so a "<!--" inside a script/style is consumed by that block first.
+          const stripHtmlComments = (html: string): string =>
+            html.replace(
+              /<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>|<!--[\s\S]*?-->/gi,
+              (m) => (m.startsWith('<!--') ? '' : m),
+            );
+          let pages = 0;
+          const walk = async (d: string): Promise<void> => {
+            for (const entry of await readdir(d, { withFileTypes: true })) {
+              const full = join(d, entry.name);
+              if (entry.isDirectory()) await walk(full);
+              else if (entry.name.endsWith('.html')) {
+                // Never let one unreadable/locked file fail the whole build.
+                try {
+                  const html = await readFile(full, 'utf8');
+                  const cleaned = stripHtmlComments(html);
+                  if (cleaned !== html) {
+                    await writeFile(full, cleaned);
+                    pages++;
+                  }
+                } catch (err) {
+                  logger.warn(`Skipped ${entry.name}: ${(err as Error).message}`);
+                }
+              }
+            }
+          };
+          await walk(fileURLToPath(dir));
+          logger.info(`Stripped HTML comments from ${pages} page(s).`);
+        },
+      },
+    },
   ],
 });

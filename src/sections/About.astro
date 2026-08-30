@@ -135,9 +135,9 @@ const lineStyle = `left:${inset}%;right:${inset}%`;
       </div>
 
       <!-- Mobile-only vertical stack — clean cards, no horizontal scroll. -->
-      <ol class="md:hidden grid gap-4 list-none m-0 p-0" data-reveal-stagger>
+      <ol class="md:hidden grid gap-4 list-none m-0 p-0" data-reveal>
         {timeline.map((item) => (
-          <li data-reveal class="card p-6">
+          <li class="card p-6">
             <div class="flex items-center gap-4">
               <span class="size-12 shrink-0 rounded-full grid place-items-center border border-ink/10 bg-surface-2 text-accent">
                 <Icon name={item.icon} class="h-6 w-6" />
