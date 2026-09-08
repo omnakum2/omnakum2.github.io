@@ -17,7 +17,7 @@ export interface TechLogo {
   name: string;
   /** simple-icons id, e.g. 'simple-icons:react'. */
   icon: string;
-  /** Brand color revealed on hover (grayscale → color). */
+  /** Brand color for the icon. */
   color: string;
 }
 
@@ -79,22 +79,22 @@ export const hero = {
     tails: ["reliable products", "clean code", "simple solutions"],
   },
   tagline:
-    "I build web applications that turn complex ideas into simple, reliable user experiences.",
+    "I build web applications that turn complex ideas into simple and reliable user experiences.",
   availability: "Available for work",
   stats: [
     { value: "2+", label: "Years experience" },
-    { value: "5+", label: "Projects shipped" },
+    { value: "7+", label: "Projects shipped" },
     { value: "2", label: "Industries explored" },
   ],
   /** Right-side action card content. */
   card: {
-    eyebrow: "let's work together",
-    heading: "Have a project in mind?",
-    body: "Tell me what you're building, from a quick idea to a full product. I usually reply within a day.",
+    eyebrow: "Start a conversation",
+    heading: "What are you building?",
+    body: "Building something new or improving an existing product? Send me the details. I'll get back to you within a day.",
     points: [
-      "Based in India, open to remote",
-      "Clean architecture and performance",
-      "Idea to deployment, end to end",
+      "Based in India, available for remote work",
+      "Focused on maintainable, high-performance systems",
+      "From idea to production",
     ],
   },
 };
@@ -139,7 +139,7 @@ export const skills = {
     description: "Backend API Development",
     icon: "simple-icons:nestjs",
     color: "#E0234E",
-    focus: ["API Development", "System Design"]
+    focus: ["APIs", "System Design"]
   } as PrimarySkill,
   secondary: [
     { name: "React.js", icon: "simple-icons:react", color: "#61DAFB" },
@@ -190,10 +190,10 @@ export const services: ServiceItem[] = [
     description:
       "Modern, responsive websites tailored for usability and aesthetics.",
     features: [
-      "Responsive Design",
-      "Modern UI/UX",
-      "Performance Optimization",
-      "SEO Friendly",
+      "Website Design",
+      "Web Application Design",
+      "Modern Responsive UI/UX",
+      "SEO & Performance Optimization",
     ],
   },
   {
@@ -227,12 +227,12 @@ export const services: ServiceItem[] = [
 export const projects: { academic: ProjectItem[]; company: ProjectItem[] } = {
   academic: [
     {
-      name: "Food Court",
+      name: "Resto",
       description:
         "Node.js + React.js restaurant menu app with admin panel and QR code integration.",
       techStack: ["Node.js", "React.js", "MySQL"],
       category: "Restaurant",
-      image: "/project-foodcourt.webp",
+      image: "/project-resto.webp",
       features: [
         "Digital menu QR code",
         "Order management",
@@ -278,7 +278,7 @@ export const projects: { academic: ProjectItem[]; company: ProjectItem[] } = {
   company: [
     {
       name: "ERP Solutions for Brass Industry",
-      description: "React.js + Nest.js ERP with HR, PO, and quotation modules.",
+      description: "React.js + Nest.js ERP with PO, quotation, and HR modules, featuring ESSL biometric webhook integration.",
       techStack: ["React.js", "Nest.js", "MySQL", "TypeScript", "AWS"],
       category: "Enterprise",
       image: "/project-erp.webp",
@@ -287,21 +287,21 @@ export const projects: { academic: ProjectItem[]; company: ProjectItem[] } = {
         "Quotation System",
         "HR Management",
         "Purchase Orders",
-        "Reporting Dashboard",
+        "Real-time Attendance Tracking",
       ],
     },
     {
       name: "Managed IT & Cybersecurity Website",
-      description: "Astro + MDX website for a managed IT services business.",
+      description: "High-performance, search-optimized website for a managed IT services business.",
       techStack: ["Astro", "MDX", "TypeScript", "React"],
       category: "Business / IT Services",
       image: "/project-it-services.webp",
       status: "Live",
       features: [
         "Managed IT Services",
+        "Remote IT Support",
         "Cybersecurity Solutions",
         "Service & Pricing Pages",
-        "Remote IT Support",
       ],
     },
   ],
@@ -348,26 +348,26 @@ export const faqs: FaqItem[] = [
   {
     question: "What kind of work are you open to?",
     answer:
-      "I'm open to full-time engineering roles, freelance projects, and interesting collaborations. I especially enjoy greenfield products, API design, and performance optimization.",
+      "I'm open to full-time engineering roles and select freelance projects. I particularly enjoy building products from scratch, designing APIs, and solving performance problems.",
   },
   {
     question: "What's your preferred tech stack?",
     answer:
-      "I'm most productive with TypeScript, NestJS, React/Next.js, and Node.js. But I'm stack-agnostic and pick the right tool for the job.",
+      "I'm most productive with TypeScript, NestJS, and React.js. I'm also comfortable stepping outside that stack when the project calls for it.",
   },
   {
     question: "Do you work with remote teams?",
     answer:
-      "Absolutely. I'm comfortable with async communication, Notion/Linear docs, and overlap-window pairing across time zones.",
+      "Yes. I'm comfortable working across time zones and can set aside overlap hours for pairing, discussions, and team meetings.",
   },
   {
     question: "How quickly can you start a new project?",
     answer:
-      "For freelance/contract work, I'm typically available within 1–2 weeks. For full-time roles, standard notice period applies. Reach out and let's figure out the timeline together.",
+      "For freelance or contract work, I'm typically available within 1–2 weeks. For full-time roles, my standard notice period applies. Send me the scope and target date, and we can work out a realistic timeline.",
   },
   {
     question: "Can I see your code?",
     answer:
-      "Yes! Most of my personal and open-source projects are on my GitHub. For proprietary work, I can walk you through architecture decisions and outcomes in a call.",
+      "Yes. Most of my personal and open-source work is on GitHub. For proprietary projects, I can walk you through the architecture, trade-offs, and results without sharing confidential code.",
   },
 ];
