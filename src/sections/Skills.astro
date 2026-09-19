@@ -26,14 +26,14 @@ const primary = skills.primary as {
 
     <!-- TERMINAL BENTO -->
     <div
-      class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto"
       data-reveal-stagger
     >
       <!-- PRIMARY — code-editor window -->
       <div
         data-reveal
         data-tilt="5"
-        class="group relative col-span-2 md:col-span-2 md:row-span-2 rounded-xl border border-ink/10 overflow-hidden bg-ground-deep"
+        class="group relative col-span-1 sm:col-span-2 lg:col-span-2 lg:row-span-2 rounded-xl border border-ink/10 overflow-hidden bg-ground-deep"
       >
         <!-- Title bar -->
         <div
@@ -73,7 +73,7 @@ const primary = skills.primary as {
             data-tilt="5"
             class:list={[
               "card group relative p-5 flex items-center gap-4",
-              i === skills.secondary.length - 1 && "col-span-2",
+              i === skills.secondary.length - 1 && "sm:col-span-2 lg:col-span-2",
             ]}
           >
             <span

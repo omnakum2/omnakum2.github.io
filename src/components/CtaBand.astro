@@ -1,0 +1,118 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Action {
+  text: string;
+  href: string;
+  icon?: string;
+  target?: string;
+  rel?: string;
+  variant?: "primary" | "outline";
+}
+
+interface Props {
+  id?: string;
+  heading: string;
+  accentTail?: string;
+  eyebrow?: string;
+  icon?: string;
+  primaryBtn?: Action;
+  secondaryBtn?: Action;
+  tone?: "tone-a" | "tone-b";
+  class?: string;
+}
+
+const {
+  id,
+  heading,
+  accentTail,
+  eyebrow,
+  icon = "tabler:message-dots",
+  primaryBtn,
+  secondaryBtn,
+  tone = "tone-a",
+  class: className = "",
+} = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={[
+    "relative isolate overflow-hidden py-10 sm:py-12 scroll-mt-22 border-t border-ink/10",
+    tone,
+    className,
+  ]}
+>
+  <div class="mx-auto max-w-7xl px-6 sm:px-10">
+    <div
+      data-reveal
+      class="flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between"
+    >
+      {/* Left Column: Icon badge + Eyebrow + Heading */}
+      <div class="flex items-center gap-4 sm:gap-5">
+        {
+          icon && (
+            <span
+              class="flex size-12 sm:size-14 shrink-0 items-center justify-center rounded-2xl bg-ground-deep border-2 border-accent text-accent"
+              aria-hidden="true"
+            >
+              <Icon name={icon} class="size-5 sm:size-6 text-accent" />
+            </span>
+          )
+        }
+        <div>
+          {
+            eyebrow && (
+              <p class="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-accent mb-1">
+                {eyebrow}
+              </p>
+            )
+          }
+          <p class="font-heading text-lg sm:text-xl lg:text-2xl font-semibold text-ink leading-snug tracking-[-0.01em] m-0">
+            {heading}
+            {accentTail && <span class="text-accent"> {accentTail}</span>}
+          </p>
+        </div>
+      </div>
+
+      {/* Right Column: CTA Buttons (Stacked full-width on mobile, horizontal row on sm+) */}
+      <div
+        class="flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center lg:shrink-0"
+      >
+        {
+          primaryBtn && (
+            <a
+              class:list={[
+                "btn w-full sm:w-auto",
+                primaryBtn.variant === "outline" ? "btn-outline" : "btn-primary",
+              ]}
+              href={primaryBtn.href}
+              target={primaryBtn.target}
+              rel={primaryBtn.rel}
+            >
+              {primaryBtn.text}
+              {primaryBtn.icon && <Icon name={primaryBtn.icon} class="size-5" />}
+            </a>
+          )
+        }
+
+        {
+          secondaryBtn && (
+            <a
+              class:list={[
+                "btn w-full sm:w-auto",
+                secondaryBtn.variant === "primary" ? "btn-primary" : "btn-outline",
+              ]}
+              href={secondaryBtn.href}
+              target={secondaryBtn.target}
+              rel={secondaryBtn.rel}
+            >
+              {secondaryBtn.text}
+              {secondaryBtn.icon && <Icon name={secondaryBtn.icon} class="size-5" />}
+            </a>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>

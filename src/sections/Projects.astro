@@ -34,7 +34,7 @@ const panels = [
 ] as const;
 ---
 
-<section id="projects" class="section-band tone-b">
+<section id="projects" class="section-band tone-a">
   <div class="mx-auto max-w-7xl px-6 sm:px-8">
     <SectionHeader title="Things I've" accent="Built" subtitle="Here’s how those skills and tools come together in real projects." />
 
@@ -154,7 +154,7 @@ const panels = [
                           </div>
 
                           {panel.key === "academic" && (p.liveDemo || p.sourceCode) && (
-                            <div class="mt-5 flex gap-3">
+                            <div class="mt-5 flex flex-col sm:flex-row gap-3">
                               {p.liveDemo && (
                                 <a
                                   href={p.liveDemo}
@@ -244,27 +244,7 @@ const panels = [
         ))
       }
 
-      <!-- CTA -->
-      <div class="text-center mt-14">
-        <p class="text-muted mb-5">
-          Interested in seeing more or discussing a project?
-        </p>
-        <div class="flex flex-wrap items-center justify-center gap-3">
-          <a class="btn btn-primary" href="#contact">
-            Let's Work Together
-            <Icon name="tabler:arrow-right" class="w-5 h-5" />
-          </a>
-          <a
-            class="btn btn-outline"
-            href={`${SITE.social.github}?tab=repositories`}
-            target="_blank"
-            rel="noopener"
-          >
-            More on GitHub
-            <Icon name="tabler:external-link" class="w-5 h-5" />
-          </a>
-        </div>
-      </div>
+
     </div>
   </div>
 </section>

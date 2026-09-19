@@ -8,6 +8,7 @@ import Tools from '../sections/Tools.astro';
 import Projects from '../sections/Projects.astro';
 import Faq from '../sections/Faq.astro';
 import Contact from '../sections/Contact.astro';
+import CtaBand from '../components/CtaBand.astro';
 import { SITE } from '../consts';
 import type { SeoConfig } from '../types/seo';
 import { faqs } from '../data/portfolio';
@@ -27,8 +28,37 @@ const seo: SeoConfig = {
   <About />
   <Skills />
   <Services />
+  <CtaBand
+    tone="tone-a"
+    heading="Need something custom?"
+    accentTail=" Let's discuss your requirements."
+    icon="tabler:settings-2"
+    primaryBtn={{
+      text: "Schedule a Consultation",
+      href: "#contact",
+      icon: "tabler:arrow-right",
+    }}
+  />
   <Tools />
   <Projects />
+  <CtaBand
+    tone="tone-b"
+    heading="Interested in seeing more"
+    accentTail=" or discussing a project?"
+    icon="tabler:folder-code"
+    primaryBtn={{
+      text: "Let's Work Together",
+      href: "#contact",
+      icon: "tabler:arrow-right",
+    }}
+    secondaryBtn={{
+      text: "More on GitHub",
+      href: `${SITE.social.github}?tab=repositories`,
+      icon: "tabler:external-link",
+      target: "_blank",
+      rel: "noopener",
+    }}
+  />
   <Faq />
   <Contact />
 </BaseLayout>
