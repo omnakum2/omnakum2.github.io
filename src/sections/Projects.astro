@@ -42,7 +42,7 @@ const panels = [
     <div class="mx-auto max-w-4xl" data-reveal>
       <!-- Segmented tab control -->
       <div
-        class="grid grid-cols-2 gap-1 rounded-lg bg-ground-deep p-1 max-w-md mx-auto mb-10"
+        class="grid grid-cols-2 gap-2 rounded-lg bg-ground-deep p-1 max-w-md mx-auto mb-10"
         role="tablist"
         aria-label="Project categories"
       >
@@ -90,7 +90,7 @@ const panels = [
                   type="button"
                   data-prev
                   aria-label="Previous project"
-                  class="absolute top-1/2 -translate-y-1/2 left-2 lg:-left-4 z-20 size-9 rounded-full border border-ink/15 bg-surface text-ink hidden lg:grid place-items-center hover:bg-accent hover:text-accent-ink transition-colors press"
+                  class="absolute top-1/2 -translate-y-1/2 left-2 lg:-left-5 z-20 size-10 lg:size-11 rounded-full border border-ink/25 bg-surface text-ink hidden lg:grid place-items-center hover:bg-accent hover:text-accent-ink transition-colors press shadow-md"
                 >
                   <Icon name="tabler:chevron-left" class="w-5 h-5" />
                 </button>
@@ -190,14 +190,14 @@ const panels = [
                   type="button"
                   data-next
                   aria-label="Next project"
-                  class="absolute top-1/2 -translate-y-1/2 right-2 lg:-right-4 z-20 size-9 rounded-full border border-ink/15 bg-surface text-ink hidden lg:grid place-items-center hover:bg-accent hover:text-accent-ink transition-colors press"
+                  class="absolute top-1/2 -translate-y-1/2 right-2 lg:-right-5 z-20 size-10 lg:size-11 rounded-full border border-ink/25 bg-surface text-ink hidden lg:grid place-items-center hover:bg-accent hover:text-accent-ink transition-colors press shadow-md"
                 >
                   <Icon name="tabler:chevron-right" class="w-5 h-5" />
                 </button>
               </div>
 
               <!-- Dots: centered, below the card. Mobile arrows flank the dots. -->
-              <div class="mt-6 flex items-center justify-center gap-3" data-dots>
+              <div class="mt-3 flex items-center justify-center gap-3" data-dots>
                 <!-- Mobile prev arrow: sits in the control row on <lg -->
                 <button
                   type="button"

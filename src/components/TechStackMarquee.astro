@@ -32,6 +32,7 @@ const belt = [...logos, ...logos];
           {/* Role/label live on the icon (the image), so the <li> stays a
               real listitem and the <ul> keeps valid list semantics. */}
           <Icon name={logo.icon} class="belt-icon" role="img" aria-label={logo.name} />
+          <span class="belt-label">{logo.name}</span>
         </li>
       ))
     }
@@ -90,17 +91,27 @@ const belt = [...logos, ...logos];
     }
   }
 
-  /* Icon only — no border, no background box, generous horizontal breathing room */
+  /* Icon + label container */
   .belt-item {
     display: inline-flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0 2rem;
+    padding: 0 1.5rem;
+    gap: 0.35rem;
+  }
+
+  .belt-label {
+    font-size: 0.725rem;
+    font-family: var(--font-mono);
+    color: var(--color-muted);
+    white-space: nowrap;
+    text-align: center;
   }
 
   .belt-item :global(svg) {
-    width: clamp(3rem, 5vw, 4rem);
-    height: clamp(3rem, 5vw, 4rem);
+    width: clamp(2.5rem, 4vw, 3.25rem);
+    height: clamp(2.5rem, 4vw, 3.25rem);
     color: var(--brand);
     opacity: 0.85;
     transition: transform 0.35s ease;

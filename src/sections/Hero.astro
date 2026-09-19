@@ -75,35 +75,23 @@ const initials = SITE.name
 
         <!-- Content -->
         <div class="relative z-10">
-          <!-- Top row: avatar + name/tagline -->
-          <div class="flex items-center gap-3">
-            <span
-              class="grid size-11 place-items-center rounded-full border border-accent/40 font-heading font-bold text-accent shrink-0"
-              style="background:radial-gradient(circle at 30% 25%, var(--color-surface-2), var(--color-ground-deep))"
-            >{initials}</span>
-            <span class="flex flex-col">
-              <span class="font-heading font-semibold text-lg text-ink">{SITE.name}</span>
-              <span class="text-sm text-accent">{SITE.tagline}</span>
-            </span>
-          </div>
-
           <!-- Eyebrow -->
-          <span class="block mt-4 font-mono text-xs uppercase tracking-[0.14em] text-ink">{hero.card.eyebrow}</span>
+          <span class="block font-mono text-xs tracking-[0.14em] text-ink">{hero.card.eyebrow}</span>
 
           <!-- Heading -->
-          <h2 class="font-heading text-2xl font-semibold text-accent mt-2 mb-2">{hero.card.heading}</h2>
+          <h2 class="font-heading text-xl font-semibold text-accent mt-2 mb-2">{hero.card.heading}</h2>
 
           <!-- Body -->
           <p class="text-ink-dim leading-relaxed mb-5">{hero.card.body}</p>
 
           <!-- Contact CTA -->
-          <a class="btn btn-primary btn-full" href="#contact">
+          <a class="btn btn-outline btn-full" href="#contact">
             Contact Me
             <Icon name="tabler:mail" class="size-5" />
           </a>
 
           <!-- Checklist -->
-          <ul class="mt-6 border-t border-ink/10 pt-5 grid gap-3">
+          <ul class="mt-7 border-t border-ink/10 pt-6 grid gap-3">
             {hero.card.points.map((point) => (
               <li class="flex items-center gap-2.5 text-sm text-ink-dim">
                 <Icon name="tabler:circle-check" class="size-4 text-accent shrink-0" />

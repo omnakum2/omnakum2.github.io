@@ -69,6 +69,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const visual = dot.querySelector("[data-dot-visual]");
         if (visual) visual.className = di === index ? ACTIVE_DOT : IDLE_DOT;
       });
+      prevButtons.forEach((btn) => {
+        const isDisabled = index === 0;
+        btn.classList.toggle("opacity-70", isDisabled);
+        btn.classList.toggle("pointer-events-none", isDisabled);
+        btn.setAttribute("aria-disabled", String(isDisabled));
+      });
+      nextButtons.forEach((btn) => {
+        const isDisabled = index === total - 1;
+        btn.classList.toggle("opacity-70", isDisabled);
+        btn.classList.toggle("pointer-events-none", isDisabled);
+        btn.setAttribute("aria-disabled", String(isDisabled));
+      });
     };
 
     const goNext = () => {
